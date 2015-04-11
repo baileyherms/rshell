@@ -1,1 +1,1 @@
-#This is a makefile with a proper comment
+#This is a makefile for rshell
