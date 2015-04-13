@@ -36,16 +36,19 @@ int main(int argc, char *argv[])
 		{
 			if(*it == "&&")
 			{
-				cmd_arg.push_back("&");
+				cmd_arg.push_back("&&");
 			}
 			else if(*it == "||")
 			{
+				cmd_arg.push_back("||");
 			}
 			else if(*it == ";")
 			{
+				cmd_arg.push_back(";");
 			}
 			else if(*it == "#")
 			{
+				cmd_arg.push_back("#");
 				break;
 			}
 			else
@@ -53,8 +56,75 @@ int main(int argc, char *argv[])
 				cmd_arg.push_back(*it);
 			}
 		}
-		for(int i = 0; i < cmd_arg.size(); i++)
+		cmd_arg.push_back("#");
+		vector<string> exec;
+		vector<string> arg;
+		vector<string> con;
+		int traverse = 0;
+		while(cmd_arg[traverse] != "#")
 		{
+			exec.push_back(cmd_arg[traverse]);
+			traverse++;
+			if(!(cmd_arg[traverse] == "&&" || cmd_arg[traverse] == "||" || cmd_arg[traverse] == ";" || cmd_arg[traverse] == "#"))
+			{
+				arg.push_back(cmd_arg[traverse]);
+				//argument
+				traverse++;
+				if(cmd_arg[traverse] == "&&")
+				{
+					con.push_back(cmd_arg[traverse]);
+					//command
+					traverse++;
+				}
+				else if(cmd_arg[traverse] == "||")
+				{
+					con.push_back(cmd_arg[traverse]);
+					//command
+					traverse++;
+				}
+				else if(cmd_arg[traverse] == ";")
+				{
+					con.push_back(cmd_arg[traverse]);
+					//command
+					traverse++;
+				}
+				else if(cmd_arg[traverse] == "#")
+				{
+					break;
+				}
+				else
+				{
+					//error
+					break;
+				}
+			}
+			else if(cmd_arg[traverse] == "&&")
+			{
+				con.push_back(cmd_arg[traverse]);
+				//command
+				traverse++;
+			}
+			else if(cmd_arg[traverse] == "||")
+			{
+				con.push_back(cmd_arg[traverse]);
+				//command
+				traverse++;
+			}
+			else if(cmd_arg[traverse] == ";")
+			{
+				con.push_back(cmd_arg[traverse]);
+				//command
+				traverse++;
+			}
+			else if(cmd_arg[traverse] == "#")
+			{
+				break;
+			}
+			else
+			{
+				//error
+				break;
+			}
 			//do exect
 			//check if arg, connect, or eof
 			//connect or eof
