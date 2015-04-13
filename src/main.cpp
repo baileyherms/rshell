@@ -125,9 +125,6 @@ int main(int argc, char *argv[])
 				//error
 				break;
 			}
-			//do exect
-			//check if arg, connect, or eof
-			//connect or eof
 		}
 	}
 	return 0;
