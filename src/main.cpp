@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
 		{
 			if(*it == "&&")
 			{
+				cmd_arg.push_back("&");
 			}
 			else if(*it == "||")
 			{
@@ -54,8 +55,9 @@ int main(int argc, char *argv[])
 		}
 		for(int i = 0; i < cmd_arg.size(); i++)
 		{
-			cout << cmd_arg[i] << endl;
-			//Get 1st, 2nd, 3rd argument
+			//do exect
+			//check if arg, connect, or eof
+			//connect or eof
 		}
 	}
 	return 0;
