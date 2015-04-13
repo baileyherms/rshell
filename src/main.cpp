@@ -13,13 +13,14 @@ int main(int argc, char *argv[])
 {
 	while(1)
 	{
-		int max_input = 1000; //change later
+		//int max_input = 10000; //change later
 		string usr_input;
-
+		vector<string> cmd_arg;//user arguments after token separation
 		int hold = 0;
 		
 		cout << "$";
 		getline(cin, usr_input);
+		unsigned int input_size = usr_input.size() * 2;//just in case
 
 
 		while(hold < usr_input.size())
@@ -28,7 +29,6 @@ int main(int argc, char *argv[])
 			hold++;
 		}
 
-		vector<char> cmd_arg;//user arguments after token separation
 		char_separator<char> cmd_tok(" ", "; #");//add other tokens
 		tokenizer<char_separator<char>> mytok(usr_input, cmd_tok);
 		
@@ -36,34 +36,26 @@ int main(int argc, char *argv[])
 		{
 			if(*it == "&&")
 			{
-				cout << "&&";//REMOVE
-				cout << endl;
-				//do something
 			}
 			else if(*it == "||")
 			{
-				cout << "||";//REMOVE
-				cout << endl;
-				//do something
 			}
 			else if(*it == ";")
 			{
-				cout << ";";//REMOVE
-				cout << endl;
-				//do something
 			}
 			else if(*it == "#")
 			{
-				cout << "#";//REMOVE
-				cout << endl;
-				//ignore/exit?
+				break;
 			}
 			else
 			{
-				cout << "else";//REMOVE
-				cout << endl;
-				//add to cmd_arg vector
+				cmd_arg.push_back(*it);
 			}
+		}
+		for(int i = 0; i < cmd_arg.size(); i++)
+		{
+			cout << cmd_arg[i] << endl;
+			//Get 1st, 2nd, 3rd argument
 		}
 	}
 	return 0;
