@@ -7,7 +7,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
+#include <cstdio>
+//#include <stdio>
 
 using namespace std;
 using namespace boost;
@@ -25,7 +26,7 @@ void get_input(string usr_input)
 	}
 	char* argv[10000];
 	char* tok = strtok(arr, " \t");
-	char* argu[10000];// = {0};
+	//char* argu[10000];// = {0};
 	char* conn[10000];
 	vector<int> cmd_arg_amt;
 	int x = 0;
@@ -111,16 +112,34 @@ void get_input(string usr_input)
 		run[b] = '\0';
 		*/
 		
-		//int b = 0;
+		b = 0;
 		while(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
 		{
-			run[b] = argv[place];
-			b++;
-			place++;
+			if(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
+			{
+				run[b] = argv[place];
+				b++;
+				place++;
+			}
+			else
+			{
+				break;
+			}
+			//cout << argv[place] << endl;
 			//cout << run[b] << endl;
 		}
-
 		run[b] = NULL;
+		for(int i = 0; i < b; i++)
+		{
+			if(!strcmp(run[i], ";") || !strcmp(run[i], "&&") || !strcmp(run[i], "||") || !strcmp(run[i], "#") )
+			{
+				cout << i << endl;
+				cout << "strcmp " << endl;
+				run[i] = NULL;
+			}
+		
+		}
+		//cout << "b " << b << endl;
 		int pid = fork();
 		if(pid == -1)
 		{
@@ -129,6 +148,15 @@ void get_input(string usr_input)
 		}
 		else if(pid == 0)
 		{
+			//cout << run[0] << endl;
+		//	cout << run[1] << endl;
+		//	cout << run[2] << endl;
+			/*
+			for(int i = 0; i < b; i++)
+			{
+				cout << "Argv " << i << ":" << run[i] << endl;
+				return;
+			}*/
 			executive = execvp(run[0], run);
 			if(executive == -1)
 			{
