@@ -18,137 +18,151 @@ using namespace boost;
 
 void get_input(string usr_input)
 {
-		char arr[10000];//tokenize
-		//put input into array
-		for(int i = 0; i < usr_input.size(); i++)
+	char arr[10000];//tokenize
+	for(int i = 0; i < usr_input.size(); i++)
+	{
+		arr[i] = usr_input[i];
+	}
+	char* argv[10000];
+	char* tok = strtok(arr, " \t");
+	char* argu[10000];// = {0};
+	char* conn[10000];
+	vector<int> cmd_arg_amt;
+	int x = 0;
+	while(tok != NULL)
+	{
+		argv[x] = tok;
+		x++;
+		tok = strtok(NULL, " ");
+	}
+	argv[x] = '\0';
+	int con_amount = 0;
+	int hold_amt = 0;
+	int store = 0;
+	for(int i = 0; i < x; i++)
+	{
+		cout << "argv " << argv[i] << endl;
+		if(strcmp(argv[i], "&&") || strcmp(argv[i], "||") || strcmp(argv[i], ";"))
 		{
-			arr[i] = usr_input[i];
+			cmd_arg_amt.push_back(hold_amt);//push back the number of arguments for a certain command
+		//	cout << "cmd " << argv[i] << endl;
+			hold_amt = 0;
+			conn[con_amount] = argv[i];
+			con_amount++;
 		}
-
-		char* argv[10000];
-		char* tok = strtok(arr, " ");
-		char* argu[10000];
-		char* conn[10000];
-		int x = 0;
-		while(tok != NULL)
+		else if(argv[i] == "#")
 		{
-			argv[x] = tok;
-			x++;
-			tok = strtok(NULL, " ");
+			cmd_arg_amt.push_back(hold_amt);
+			hold_amt = 0;
+			conn[con_amount] = argv[i];
+			con_amount++;
+			break;
 		}
-		argv[x] = '\0';
-		int con_amount = 0;
-		for(int i = 0; i < x; i++)
+		else
 		{
-			if(argv[i] == "&&" || argv[i] == "||" || argv[i] == ";")
+			/*cout << "Here " << endl;
+			cout << i << endl;
+			argu[store] = argv[i];
+			store++;
+			hold_amt++;*/
+		}
+	
+	}
+	if(hold_amt > 0)
+	{
+		cmd_arg_amt.push_back(hold_amt);
+		hold_amt = 0;
+	}
+	int argu_amt = 0;
+	bool working = true; //check if command is working
+	bool in_command = false;
+	bool com_end = false;
+	int a = 0;
+	int place = 0;
+	int executive;
+	while(a <= cmd_arg_amt.size() && !com_end)
+	{
+		char* run[1000];
+		int b = 0;
+		bool broken = false;
+		while(!broken && argv[place] != NULL)
+		{
+			cout << "place " << place << endl;
+			cout << "argu " << argv[place] << endl;	
+			if(argv[place] == '\0')
 			{
-				conn[con_amount] = argv[i];
-				con_amount++;
-			}
-			else if(argv[i] == "#")
-			{
+				broken = true;
 				break;
+			}
+			else if(!strcmp(argv[place], "&&") && !strcmp(argv[place], "||") && !strcmp(argv[place], ";") && !strcmp(argv[place], "#"))
+			{
+				run[b] = argv[place];
+				b++;
 			}
 			else
 			{
-				argu[i] = argv[i];
+				broken = true;
+				break;
+			}
+			place++;
+		}
+		run[b] = '\0';
+		int pid = fork();
+		if(pid == -1)
+		{
+			perror("fork");
+			exit(1);
+		}
+		else if(pid == 0)
+		{
+			executive = execvp(argv[0], argv);
+			if(executive == -1)
+			{
+				perror("execvp");
+				exit(1);
 			}
 		}
-
-		int argu_amt = 0;
-		bool working = true; //check if command is working
-		bool in_command = false;
-		bool com_end = false;
-		for(int i = 0; i < x; i++)
+		else if(pid > 0)
 		{
-			
-			//cout << argu[i] << endl;
-			if(argu[i] == "&&" || argu[i] == "||" || argu[i] == ";")
+			if(-1 == wait(0))
 			{
-				in_command = false;
-				if(argu[i] == "&&")
-				{
-					if(!working)
-					{
-						com_end = true;
-						break;
-					}
-				}
-				else if(argu[i] == "||")
-				{
-					if(working)
-					{
-						com_end = true;
-						break;
-					}
-				}
-				else if(argu[i] == ";")
-				{
-
-				}
-
+				perror("wait");
 			}
-			else if(argu[i] == "#")
+		}
+		if(a >= con_amount)
+		{
+			//cout << "Here" << endl;
+			break;
+		}
+		else if(conn[a] == "&&")
+		{
+			if(executive == -1)
 			{
-				working = false;
 				com_end = true;
 				break;
 			}
-			else if(!com_end && !in_command)
+		}
+		else if(conn[a] == "||")
+		{
+			if(executive != -1)
 			{
-				in_command = true;
-				//cout << "Here" << endl;
-				char* run[10000];
-				int y = 0;
-				int w = 0;//separate commands
-				while(argu[w] != "&&" || argu[w] != "||" || argu[w] != "#" || argu[w] != ";" || argu[w] != NULL) 
-				{
-					if(w > x)
-					{
-						break;
-					}
-					run[y] = argu[y];
-					y++;
-					w++;
-				//	cout << "stuck" << endl;
-				}
-				int pid = fork();
-				//cout << "now" << endl;
-				if(pid == -1)
-				{
-					perror("fork");
-					exit(1);
-				}
-				else if(pid == 0)
-				{
-					//cout << run[0] << endl;
-					//cout << endl;
-					if(execvp(run[0], run) == -1)
-					{
-						perror("execvp");
-						exit(1);
-					}
-					/*
-					working = true;
-					char host[255];
-					string login = getlogin();
-					gethostname(host, 255);
-					cout << login << "@" << host << " ";
-					string usr_input;
-					cout << "$";
-					getline(cin, usr_input);
-					*/
-				}
-				else if(pid > 0)
-				{
-					if(-1 == wait(0))
-					{
-						perror("wait");
-						working = false;
-					}
-				}
+				com_end = true;
+				break;
 			}
 		}
+		else if(conn[a] == ";")
+		{
+		}
+		else if(conn[a] == "#")
+		{
+			working = false;
+			com_end = true;
+			break;
+		}
+
+		a++;
+	}
+		
 }
 
 void output()
@@ -159,6 +173,7 @@ void output()
 	cout << login << "@" << host << " ";
 	string usr_input;
 	cout << "$";
+	cout << " ";
 	getline(cin, usr_input);
 	get_input(usr_input);
 }
