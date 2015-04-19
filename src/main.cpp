@@ -59,14 +59,7 @@ void get_input(string usr_input)
 			con_amount++;
 			break;
 		}
-		else
-		{
-			/*cout << "Here " << endl;
-			cout << i << endl;
-			argu[store] = argv[i];
-			store++;
-			hold_amt++;*/
-		}
+		
 	
 	}
 	if(hold_amt > 0)
@@ -81,12 +74,30 @@ void get_input(string usr_input)
 	int a = 0;
 	int place = 0;
 	int executive;
-	while(a <= cmd_arg_amt.size() && !com_end)
+	char* con_arr[1000];//stores connectors
+	int con_place = 0;
+	while(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
+	{
+		if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
+		{
+			con_arr[con_place] = argv[place];
+			con_place++;
+			place++;
+			}
+		else
+		{
+			place++;
+		}
+	}
+	con_arr[con_place] = NULL;
+	place = 0;
+	while(a <= con_place && !com_end)
 	{
 		char* run[1000];
 		int b = 0;
 		bool broken = false;
 		b = 0;
+		//bool stop = false;
 		while(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
 		{
 			if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
@@ -102,7 +113,6 @@ void get_input(string usr_input)
 			}
 		}
 		int start = 0;
-		
 		for(int i = 0; i < b; i++)
 		{
 			if(!strcmp(run[i], ";") || !strcmp(run[i], "&&") || !strcmp(run[i], "||") || !strcmp(run[i], "#") )
@@ -136,40 +146,48 @@ void get_input(string usr_input)
 				perror("wait");
 			}
 		}
-		if(a >= con_amount)
+		if(con_arr[a] == NULL)
 		{
+			com_end = true;
 			break;
 		}
-		else if(conn[a] == "&&")
+		else if(!strcmp(con_arr[a], "||"))
 		{
-			if(executive == -1)
+			//cout << "||" << endl;
+			if(executive != 1 && executive != -1)
 			{
 				com_end = true;
 				break;
 			}
 		}
-		else if(conn[a] == "||")
+		else if(!strcmp(con_arr[a], "&&"))
 		{
-			if(executive != -1)
+			//cout << "&&" << endl;
+			if(executive == 1 || executive == -1)
 			{
 				com_end = true;
 				break;
 			}
 		}
-		else if(conn[a] == ";")
+		else if(!strcmp(con_arr[a], ";"))
 		{
+			//cout << ";" << endl;
 		}
-		else if(conn[a] == "#")
+		else if(!strcmp(con_arr[a], "#"))
 		{
+			//cout << "#" << endl;
 			working = false;
 			com_end = true;
 			break;
 		}
+		//cout << "con_arr " << con_arr[a] << endl;
+
 
 		a++;
 	}
 		
 }
+
 
 void output()
 {
@@ -189,7 +207,6 @@ int main(int argc, char *argv[])
 	while(1)
 	{
 		output();
-		//get_input();
 	}
 	return 0;
 }
