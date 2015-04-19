@@ -86,60 +86,34 @@ void get_input(string usr_input)
 		char* run[1000];
 		int b = 0;
 		bool broken = false;
-		/*
-		while(!broken && argv[place] != NULL)
-		{
-		//	cout << "place " << place << endl;
-		//	cout << "argu " << argv[place] << endl;	
-			if(argv[place] == '\0')
-			{
-				broken = true;
-				break;
-			}
-			else if(!strcmp(argv[place], "&&") && !strcmp(argv[place], "||") && !strcmp(argv[place], ";") && !strcmp(argv[place], "#"))
-			{
-				run[b] = argv[place];
-				cout << "Now " << endl;
-				b++;
-			}
-			else
-			{
-				broken = true;
-				break;
-			}
-			place++;
-		}
-		run[b] = '\0';
-		*/
-		
 		b = 0;
 		while(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
 		{
-			if(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
+			if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
+			{
+				place++;
+				break;
+			}
+			else
 			{
 				run[b] = argv[place];
 				b++;
 				place++;
 			}
-			else
-			{
-				break;
-			}
-			//cout << argv[place] << endl;
-			//cout << run[b] << endl;
 		}
-		run[b] = NULL;
+		int start = 0;
+		
 		for(int i = 0; i < b; i++)
 		{
 			if(!strcmp(run[i], ";") || !strcmp(run[i], "&&") || !strcmp(run[i], "||") || !strcmp(run[i], "#") )
 			{
-				cout << i << endl;
-				cout << "strcmp " << endl;
 				run[i] = NULL;
 			}
 		
 		}
-		//cout << "b " << b << endl;
+		
+		run[b] = NULL;	
+		
 		int pid = fork();
 		if(pid == -1)
 		{
@@ -148,15 +122,6 @@ void get_input(string usr_input)
 		}
 		else if(pid == 0)
 		{
-			//cout << run[0] << endl;
-		//	cout << run[1] << endl;
-		//	cout << run[2] << endl;
-			/*
-			for(int i = 0; i < b; i++)
-			{
-				cout << "Argv " << i << ":" << run[i] << endl;
-				return;
-			}*/
 			executive = execvp(run[0], run);
 			if(executive == -1)
 			{
@@ -173,7 +138,6 @@ void get_input(string usr_input)
 		}
 		if(a >= con_amount)
 		{
-			//cout << "Here" << endl;
 			break;
 		}
 		else if(conn[a] == "&&")
