@@ -57,6 +57,7 @@ void get_input(string usr_input)
 
 		int argu_amt = 0;
 		bool working = true; //check if command is working
+		bool in_command = false;
 		bool com_end = false;
 		for(int i = 0; i < x; i++)
 		{
@@ -64,6 +65,7 @@ void get_input(string usr_input)
 			//cout << argu[i] << endl;
 			if(argu[i] == "&&" || argu[i] == "||" || argu[i] == ";")
 			{
+				in_command = false;
 				if(argu[i] == "&&")
 				{
 					if(!working)
@@ -92,8 +94,9 @@ void get_input(string usr_input)
 				com_end = true;
 				break;
 			}
-			else if(!com_end)
+			else if(!com_end && !in_command)
 			{
+				in_command = true;
 				//cout << "Here" << endl;
 				char* run[10000];
 				int y = 0;
