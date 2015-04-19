@@ -20,26 +20,25 @@ using namespace boost;
 void get_input(string usr_input)
 {
 	char arr[10000];//tokenize
-	for(int i = 0; i < usr_input.size(); i++)
+	for(unsigned i = 0; i < usr_input.size(); i++)
 	{
 		arr[i] = usr_input[i];
 	}
 	char* argv[10000];
 	char* tok = strtok(arr, " \t");
 	//char* argu[10000];// = {0};
-	char* conn[10000];
 	vector<int> cmd_arg_amt;
+	//char* conn[10000];
 	int x = 0;
 	while(tok != NULL)
 	{
 		argv[x] = tok;
 		x++;
-		tok = strtok(NULL, " ");
+		tok = strtok(NULL, " \t");
 	}
 	argv[x] = '\0';
 	int con_amount = 0;
 	int hold_amt = 0;
-	int store = 0;
 	for(int i = 0; i < x; i++)
 	{
 	//	cout << "argv " << argv[i] << endl;
@@ -48,14 +47,14 @@ void get_input(string usr_input)
 			cmd_arg_amt.push_back(hold_amt);//push back the number of arguments for a certain command
 		//	cout << "cmd " << argv[i] << endl;
 			hold_amt = 0;
-			conn[con_amount] = argv[i];
+			//conn[con_amount] = argv[i];
 			con_amount++;
 		}
-		else if(argv[i] == "#")
+		else if(strcmp(argv[i], "#"))
 		{
 			cmd_arg_amt.push_back(hold_amt);
 			hold_amt = 0;
-			conn[con_amount] = argv[i];
+			//conn[con_amount] = argv[i];
 			con_amount++;
 			break;
 		}
@@ -67,23 +66,21 @@ void get_input(string usr_input)
 		cmd_arg_amt.push_back(hold_amt);
 		hold_amt = 0;
 	}
-	int argu_amt = 0;
-	bool working = true; //check if command is working
-	bool in_command = false;
 	bool com_end = false;
 	int a = 0;
 	int place = 0;
 	int executive;
+	//bool working = true;
 	char* con_arr[1000];//stores connectors
 	int con_place = 0;
-	while(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
+	while(argv[place] != NULL)
 	{
-		if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
+		if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#"))
 		{
 			con_arr[con_place] = argv[place];
 			con_place++;
 			place++;
-			}
+		}
 		else
 		{
 			place++;
@@ -91,19 +88,20 @@ void get_input(string usr_input)
 	}
 	con_arr[con_place] = NULL;
 	place = 0;
+	bool exec_works = true;
 	while(a <= con_place && !com_end)
 	{
 		char* run[1000];
 		int b = 0;
-		bool broken = false;
 		b = 0;
-		//bool stop = false;
-		while(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
+		bool stop = false;
+		while(!stop && argv[place] != NULL)
 		{
 			if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
 			{
 				place++;
 				break;
+				stop = true;
 			}
 			else
 			{
@@ -112,7 +110,6 @@ void get_input(string usr_input)
 				place++;
 			}
 		}
-		int start = 0;
 		for(int i = 0; i < b; i++)
 		{
 			if(!strcmp(run[i], ";") || !strcmp(run[i], "&&") || !strcmp(run[i], "||") || !strcmp(run[i], "#") )
@@ -122,9 +119,17 @@ void get_input(string usr_input)
 		
 		}
 		
-		run[b] = NULL;	
-		
+		run[b] = NULL;
+
 		int pid = fork();
+		for(int i = 0; i < b; i++)
+		{
+			if(!strcmp(run[i], "exit"))
+			{
+			//	cout << "Exiting" << endl;
+				exit(0);
+			}
+		}
 		if(pid == -1)
 		{
 			perror("fork");
@@ -133,10 +138,18 @@ void get_input(string usr_input)
 		else if(pid == 0)
 		{
 			executive = execvp(run[0], run);
+			exec_works = executive;
 			if(executive == -1)
 			{
+				//cout << "EXEC FAILED!!!!" << endl;
+				exec_works = false;
+				//cout << "exec in exec: " << exec_works << endl;
 				perror("execvp");
-				exit(1);
+				//exit(1);
+			}
+			else
+			{
+				exec_works = true;
 			}
 		}
 		else if(pid > 0)
@@ -146,6 +159,17 @@ void get_input(string usr_input)
 				perror("wait");
 			}
 		}
+		/*
+		if(executive == -1)
+		{
+			exec_works = false;
+		}
+		*/
+		//when exec is true, && and || work fine, but when exec is false and runs and or doesn't
+		//FIX
+		//&& never goes into false
+		//|| always goes into false
+		//FIX
 		if(con_arr[a] == NULL)
 		{
 			com_end = true;
@@ -154,17 +178,21 @@ void get_input(string usr_input)
 		else if(!strcmp(con_arr[a], "||"))
 		{
 			//cout << "||" << endl;
-			if(executive != 1 && executive != -1)
+			if(exec_works)
 			{
+				//cout << "exec for || " << exec_works << endl;
+				//cout << "|| false" << endl;
 				com_end = true;
 				break;
 			}
 		}
 		else if(!strcmp(con_arr[a], "&&"))
 		{
+			//cout << "exec for && " << exec_works << endl;
 			//cout << "&&" << endl;
-			if(executive == 1 || executive == -1)
+			if(!exec_works)
 			{
+				//cout << "&& false" << endl;
 				com_end = true;
 				break;
 			}
@@ -176,7 +204,7 @@ void get_input(string usr_input)
 		else if(!strcmp(con_arr[a], "#"))
 		{
 			//cout << "#" << endl;
-			working = false;
+			//working = false;
 			com_end = true;
 			break;
 		}
