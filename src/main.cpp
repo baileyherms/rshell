@@ -41,7 +41,7 @@ void get_input(string usr_input)
 	int store = 0;
 	for(int i = 0; i < x; i++)
 	{
-		cout << "argv " << argv[i] << endl;
+	//	cout << "argv " << argv[i] << endl;
 		if(strcmp(argv[i], "&&") || strcmp(argv[i], "||") || strcmp(argv[i], ";"))
 		{
 			cmd_arg_amt.push_back(hold_amt);//push back the number of arguments for a certain command
@@ -85,10 +85,11 @@ void get_input(string usr_input)
 		char* run[1000];
 		int b = 0;
 		bool broken = false;
+		/*
 		while(!broken && argv[place] != NULL)
 		{
-			cout << "place " << place << endl;
-			cout << "argu " << argv[place] << endl;	
+		//	cout << "place " << place << endl;
+		//	cout << "argu " << argv[place] << endl;	
 			if(argv[place] == '\0')
 			{
 				broken = true;
@@ -97,6 +98,7 @@ void get_input(string usr_input)
 			else if(!strcmp(argv[place], "&&") && !strcmp(argv[place], "||") && !strcmp(argv[place], ";") && !strcmp(argv[place], "#"))
 			{
 				run[b] = argv[place];
+				cout << "Now " << endl;
 				b++;
 			}
 			else
@@ -107,6 +109,18 @@ void get_input(string usr_input)
 			place++;
 		}
 		run[b] = '\0';
+		*/
+		
+		//int b = 0;
+		while(argv[place] != NULL && argv[place] != ";" && argv[place] != "||" && argv[place] != "&&" && argv[place] != "#")
+		{
+			run[b] = argv[place];
+			b++;
+			place++;
+			//cout << run[b] << endl;
+		}
+
+		run[b] = NULL;
 		int pid = fork();
 		if(pid == -1)
 		{
@@ -115,7 +129,7 @@ void get_input(string usr_input)
 		}
 		else if(pid == 0)
 		{
-			executive = execvp(argv[0], argv);
+			executive = execvp(run[0], run);
 			if(executive == -1)
 			{
 				perror("execvp");
