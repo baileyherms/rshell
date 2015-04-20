@@ -1,0 +1,823 @@
+Script started on Sun 19 Apr 2015 11:34:37 PM PDT
+~
+bherm001@hammer $ cd[K[Kls
+[0m[01;32ma.out[0m*      assn3.asm~  [01;32mex2.cpp[0m*                     lab2_ex1        [01;32mlab2_ex1.cpp[0m*  lab2_ex4.asm   lab6_ex1.asm~  [01;34mPublic[0m/     stuff.asm~
+assn1.asm   bomb.cpp    [01;32mFirefox_wallpaper.png[0m*       lab2_ex1~       lab2_ex2.asm   lab2_ex4.asm~  lab6_ex2.asm   [01;34mrshell[0m/     [01;34mTemplates[0m/
+assn2.asm   [01;34mDesktop[0m/    [01;32mgit-credential-osxkeychain[0m*  #lab2_ex1.asm#  lab2_ex2.asm~  lab2_ex5.asm   lab6_ex2.asm~  sshkey      TEST
+assn2.asm~  [01;34mDocuments[0m/  hold.asm                     lab2_ex1.asm    lab2_ex3.asm   lab2_ex5.asm~  [01;34mMusic[0m/         sshkey.pub  [01;34mucr-cs100[0m/
+assn3.asm   [01;34mDownloads[0m/  hold.asm~                    lab2_ex1.asm~   lab2_ex3.asm~  lab6_ex1.asm   [01;34mPictures[0m/      stuff.asm   [01;34mVideos[0m/
+[m~
+bherm001@hammer $ cd rshell
+~/rshell
+bherm001@hammer $ ls
+[0m[01;34mbin[0m/  LICENSE  Makefile  README.md  [01;34msrc[0m/  [01;34mtests[0m/
+[m~/rshell
+bherm001@hammer $ make clean
+rm -rf ./bin
+~/rshell
+bherm001@hammer $ make
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/main.cpp -o ./bin/rshell
+~/rshell
+bherm001@hammer $ bin/rshell
+bherm001@hammer.cs.ucr.edu $ exit
+~/rshell
+bherm001@hammer $ cs200[K[K[K100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m ls
+bin  LICENSE  Makefile	README.md  src	tests
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cle[K[K[Kmake clean
+rm -rf ./bin
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m make
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/main.cpp -o ./bin/rshell
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m bin/rshell
+bherm001@hammer.cs.ucr.edu $ ls;
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls ; ls
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls -  a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $ ls -a -l -a -l
+total 40
+drwx------  6 bherm001 csmajs  4096 Apr 19 23:29 .
+drwx------ 46 bherm001 csmajs 12288 Apr 19 23:26 ..
+drwx------  2 bherm001 csmajs  4096 Apr 19 23:29 bin
+drwx------  8 bherm001 csmajs  4096 Apr 19 23:24 .git
+-rw-------  1 bherm001 csmajs  1477 Apr 10 22:31 LICENSE
+-rw-------  1 bherm001 csmajs   223 Apr 19 23:26 Makefile
+-rw-------  1 bherm001 csmajs    24 Apr 10 23:32 README.md
+drwx------  2 bherm001 csmajs  4096 Apr 19 23:21 src
+drwx------  2 bherm001 csmajs  4096 Apr 19 23:28 tests
+bherm001@hammer.cs.ucr.edu $ ls && ls || ls ; ls
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ;s  ls || ls && ' ; ls
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls ; ls && ls || ls
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ echo Star Wars characterz s ; echo Leia && echo Han SOlo   olo ; echo Obi Wan && echo Yoda || echo Jar JAr Binks^[[D^[[D                   Jat r Binks # he doens  sn't count
+Star Wars characters
+Leia
+Han Solo
+Obi Wan
+Yoda
+bherm001@hammer.cs.ucr.edu $ echo hello ; ls && && && ls
+hello
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls &&&&     && && && ls -a
+bin  LICENSE  Makefile	README.md  src	tests
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $ echo - hi || || || || hi
+hi
+bherm001@hammer.cs.ucr.edu $ echo  sd hi || || || || || echo hi
+execvp: No such file or directory
+bherm001@hammer.cs.ucr.edu $ echo &&  asd && echo ye
+asd
+ye
+bherm001@hammer.cs.ucr.edu $ scho    ls - 				-a 		-l  s     		-a #    # tabs and comme     spaces
+total 40
+drwx------  6 bherm001 csmajs  4096 Apr 19 23:29 .
+drwx------ 46 bherm001 csmajs 12288 Apr 19 23:26 ..
+drwx------  2 bherm001 csmajs  4096 Apr 19 23:29 bin
+drwx------  8 bherm001 csmajs  4096 Apr 19 23:24 .git
+-rw-------  1 bherm001 csmajs  1477 Apr 10 22:31 LICENSE
+-rw-------  1 bherm001 csmajs   223 Apr 19 23:26 Makefile
+-rw-------  1 bherm001 csmajs    24 Apr 10 23:32 README.md
+drwx------  2 bherm001 csmajs  4096 Apr 19 23:21 src
+drwx------  2 bherm001 csmajs  4096 Apr 19 23:28 tests
+bherm001@hammer.cs.ucr.edu $ 						ls - a  a         -l			-a  
+execvp: No such file or directory
+bherm001@hammer.cs.ucr.edu $ 	ls -a
+execvp: No such file or directory
+bherm001@hammer.cs.ucr.edu $  ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $     ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $                                                                      echo over here ; hi
+over here
+execvp: No such file or directory
+bherm001@hammer.cs.ucr.edu $ echo    				                                               echo over herer  ; echo hi
+over here
+hi
+bherm001@hammer.cs.ucr.edu $ echo 			hi
+hi
+bherm001@hammer.cs.ucr.edu $ echo				hello		work && ehco   c   			echo hi
+hello work
+hi
+bherm001@hammer.cs.ucr.edu $ echo &&    no  a && e 				ls -a ;    		  ; ls -l     ;
+a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+total 20
+drwx------ 2 bherm001 csmajs 4096 Apr 19 23:29 bin
+-rw------- 1 bherm001 csmajs 1477 Apr 10 22:31 LICENSE
+-rw------- 1 bherm001 csmajs  223 Apr 19 23:26 Makefile
+-rw------- 1 bherm001 csmajs   24 Apr 10 23:32 README.md
+drwx------ 2 bherm001 csmajs 4096 Apr 19 23:21 src
+drwx------ 2 bherm001 csmajs 4096 Apr 19 23:28 tests
+bherm001@hammer.cs.ucr.edu $ ls ; mkdir stuff ; ls  
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	stuff  tests
+bherm001@hammer.cs.ucr.edu $ ls ; rmdir stuff ; ls
+bin  LICENSE  Makefile	README.md  src	stuff  tests
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls && mkdir mine ; ls ||     
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	mine  README.md  src  tests
+bherm001@hammer.cs.ucr.edu $ ls ; & rmdir mine && ls
+bin  LICENSE  Makefile	mine  README.md  src  tests
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls && mkdir wont_remove ||    && ls \\  || rmdir wi ont_remoe ve  
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests  wont_remove
+bherm001@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests  wont_remove
+bherm001@hammer.cs.ucr.edu $ echo move the unmoveable direc                         remove the unremovable directoruy  y && ls ; rmdir wont_remove && echo haha
+remove the unremovable directory
+bin  LICENSE  Makefile	README.md  src	tests  wont_remove
+haha
+bherm001@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ cd # won't worlk  l k
+execvp: No such file or directory
+bherm001@hammer.cs.ucr.edu $ cal ; users
+     April 2015     
+Su Mo Tu We Th Fr Sa
+          1  2  3  4
+ 5  6  7  8  9 10 11
+12 13 14 15 16 17 18
+[7m19[m 20 21 22 23 24 25
+26 27 28 29 30
+
+aadet001 aadet001 amah001 amah001 amah001 amah001 amah001 amah001 anguy112 aso001 aso001 bherm001 bherm001 bherm001 bherm001 cbarb005 cbarb005 cdixi001 cdixi001 cdixi001 cdixi001 dding002 dding002 donei003 donei003 dweis003 dweis003 dweis003 dweis003 dweis003 ecarr007 ecarr007 ecarr007 ecarr007 hkwan003 hkwan003 hkwan003 hzhu007 hzhu007 hzhu007 hzhu007 jguti039 jmeji011 jmeji011 jmeji011 jmeji011 jmeji011 jtan021 jtran071 jtran071 jtran071 jtran071 jwong066 jwong066 jwong066 jwong066 jwong066 korte004 kzhen002 kzhen002 kzhen002 lboyd002 masfo001 masfo001 mchen046 mchen046 mchen046 mchen046 mchen046 mchen046 nchun003 nchun003 nhoac001 phung001 phung001 prodr010 skhan024 sthak004 sthak004 ttruo018 ttruo018 ttruo018 vhall001 vhall001
+bherm001@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls -s
+total 20
+4 bin  4 LICENSE  4 Makefile  0 README.md  4 src  4 tests
+bherm001@hammer.cs.ucr.edu $ ls -asd
+4 .
+bherm001@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ exit
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~/rshell
+bherm001@hammer $ git status
+error: Malformed value for push.default: simple
+error: Must be one of nothing, matching, tracking or current.
+fatal: bad config file line 10 in /home/csmajs/bherm001/.gitconfig
+~/rshell
+bherm001@hammer $ cd rshell
+bash: cd: rshell: No such file or directory
+~/rshell
+bherm001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd rshell
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	[31mmodified:   Makefile[m
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	[31mbin/[m
+#	[31msrc/a.out[m
+#	[31mtests/[m
+no changes added to commit (use "git add" and/or "git commit -a")
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git add -a
+error: unknown switch `a'
+usage: git add [options] [--] <pathspec>...
+
+    -n, --dry-run         dry run
+    -v, --verbose         be verbose
+
+    -i, --interactive     interactive picking
+    -p, --patch           select hunks interactively
+    -e, --edit            edit current diff and apply
+    -f, --force           allow adding otherwise ignored files
+    -u, --update          update tracked files
+    -N, --intent-to-add   record only the fact that the path will be added later
+    -A, --all             add changes from all tracked and untracked files
+    --ignore-removal      ignore paths removed in the working tree (same as --no-all)
+    --refresh             don't add, only refresh the index
+    --ignore-errors       just skip files which cannot be added because of errors
+    --ignore-missing      check if - even missing - files are ignored in dry run
+
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git add -A
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git commit -m "H[KEverything put togethe[K[Kher"
+[master 881cf01] Everything put together
+ 4 files changed, 3 insertions(+), 2 deletions(-)
+ create mode 100755 bin/rshell
+ create mode 100755 src/a.out
+ create mode 100644 tests/exec.script
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git ps[Kush
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git pus [Kh origin
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m p[Kgit push origin master
+git: 'credential-osxkeychain' is not a git command. See 'git --help'.
+Username for 'https://github.com': baileyherms
+Password for 'https://baileyherms@github.com': 
+git: 'credential-osxkeychain' is not a git command. See 'git --help'.
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/baileyherms/rshell.git/'
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git push origin master
+git: 'credential-osxkeychain' is not a git command. See 'git --help'.
+Username for 'https://github.com': baileyherms
+Password for 'https://baileyherms@github.com': 
+git: 'credential-osxkeychain' is not a git command. See 'git --help'.
+To https://github.com/baileyherms/rshell.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/baileyherms/rshell.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m git [K[K[K[Kls
+bin  LICENSE  Makefile	README.md  src	tests
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (master) [0;36m$[0m cd src
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell/src[0;95m (master) [0;36m$[0m git execute master
+git: 'execute' is not a git command. See 'git --help'.
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell/src[0;95m (master) [0;36m$[0m git checkout master
+Already on 'master'
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell/src[0;95m (master) [0;36m$[0m git merge exec
+Already up-to-date.
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell/src[0;95m (master) [0;36m$[0m git status
+# On branch master
+nothing to commit, working directory clean
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell/src[0;95m (master) [0;36m$[0m git add main.cpp
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell/src[0;95m (master) [0;36m$[0m git status
+# On branch master
+nothing to commit, working directory clean
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell/src[0;95m (master) [0;36m$[0m git push --help
+7[?47h[?1h=GIT-PUSH(1)                       Git Manual                       GIT-PUSH(1)
+
+[1mNAME[m
+       git-push - Update remote refs along with associated objects
+
+[1mSYNOPSIS[m
+       [4mgit[m [4mpush[m [--all | --mirror | --tags] [--follow-tags] [-n | --dry-run] [--receive-pack=<git-receive-pack>]
+                  [--repo=<repository>] [-f | --force] [--prune] [-v | --verbose] [-u | --set-upstream]
+                  [--no-verify] [<repository> [<refspec>...]]
+
+[1mDESCRIPTION[m
+       Updates remote refs using local refs, while sending objects necessary to complete the given refs.
+
+       You can make interesting things happen to a repository every time you push into it, by setting up [4mhooks[m there. See
+       documentation for [1mgit-receive-pack[m(1).
+
+       When the command line does not specify where to push with the <repository> argument, branch.*.remote configuration for the
+       current branch is consulted to determine where to push. If the configuration is missing, it defaults to [4morigin[m.
+
+       When the command line does not specify what to push with <refspec>... arguments or --all, --mirror, --tags options, the command
+       finds the default <refspec> by consulting remote.*.push configuration, and if it is not found, honors push.default
+       configuration to decide what to push (See gitlink:git-config[1] for the meaning of push.default).
+
+:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KBB[K[1mOPTIONS[m
+:[K[K [KESCESC[KOO[KBB[K       <repository>
+:[K[K [KESCESC[KOO[KBB[K           The "remote" repository that is destination of a push operation. This parameter can be either a URL (see the section GIT
+:[K[K [KESCESC[KOO[KBB[K           URLS below) or the name of a remote (see the section REMOTES below).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       <refspec>...
+:[K[K [KESCESC[KOO[KBB[K           Specify what destination ref to update with what source object. The format of a <refspec> parameter is an optional plus +,
+:[K[K [KESCESC[KOO[KBB[K           followed by the source object <src>, followed by a colon :, followed by the destination ref <dst>.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KAA[K[HM                  [--no-verify] [<repository> [<refspec>...]]
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM                  [--repo=<repository>] [-f | --force] [--prune] [-v | --verbose] [-u | --set-upstream]
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM       [4mgit[m [4mpush[m [--all | --mirror | --tags] [--follow-tags] [-n | --dry-run] [--receive-pack=<git-receive-pack>]
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM[1mSYNOPSIS[m
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM       git-push - Update remote refs along with associated objects
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM[1mNAME[m
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HMGIT-PUSH(1)                       Git Manual                       GIT-PUSH(1)
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K[1mOPTIONS[m
+:[K[K       <repository>
+:[K[K           The "remote" repository that is destination of a push operation. This parameter can be either a URL (see the section GIT
+:[K[K           URLS below) or the name of a remote (see the section REMOTES below).
+:[K[K
+:[K[K [KESCESC[KOO[KAA[K[HM
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM       git-push - Update remote refs along with associated objects
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM[1mNAME[m
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HM
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[HMGIT-PUSH(1)                       Git Manual                       GIT-PUSH(1)
+[24;1H[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K [KESCESC[KOO[KBB[K[1mOPTIONS[m
+:[K[K [KESCESC[KOO[KBB[K       <repository>
+:[K[K [KESCESC[KOO[KBB[K           The "remote" repository that is destination of a push operation. This parameter can be either a URL (see the section GIT
+:[K[K [KESCESC[KOO[KBB[K           URLS below) or the name of a remote (see the section REMOTES below).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       <refspec>...
+:[K[K [KESCESC[KOO[KBB[K           Specify what destination ref to update with what source object. The format of a <refspec> parameter is an optional plus +,
+:[K[K [KESCESC[KOO[KBB[K           followed by the source object <src>, followed by a colon :, followed by the destination ref <dst>.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           The <src> is often the name of the branch you would want to push, but it can be any arbitrary "SHA-1 expression", such as
+:[K[K [KESCESC[KOO[KBB[K           master~4 or HEAD (see [1mgitrevisions[m(7)).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           The <dst> tells which ref on the remote side is updated with this push. Arbitrary expressions cannot be used here, an
+:[K[K [KESCESC[KOO[KBB[K           actual ref must be named. If :<dst> is omitted, the same ref as <src> will be updated.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           The object referenced by <src> is used to update the <dst> reference on the remote side. By default this is only allowed if
+:[K[K [KESCESC[KOO[KBB[K           <dst> is not a tag (annotated or lightweight), and then only if it can fast-forward <dst>. By having the optional leading
+:[K[K [KESCESC[KOO[KBB[K           +, you can tell Git to update the <dst> ref even if it is not allowed by default (e.g., it is not a fast-forward.) This
+:[K[K [KESCESC[KOO[KBB[K           does [1mnot[m attempt to merge <src> into <dst>. See EXAMPLES below for details.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           tag <tag> means the same as refs/tags/<tag>:refs/tags/<tag>.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           Pushing an empty <src> allows you to delete the <dst> ref from the remote repository.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           The special refspec : (or +: to allow non-fast-forward updates) directs Git to push "matching" branches: for every branch
+:[K[K [KESCESC[KOO[KBB[K           that exists on the local side, the remote side is updated if a branch of the same name already exists on the remote side.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --all
+:[K[K [KESCESC[KOO[KBB[K           Instead of naming each ref to push, specifies that all refs under refs/heads/ be pushed.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --prune
+:[K[K [KESCESC[KOO[KBB[K           Remove remote branches that don’t have a local counterpart. For example a remote branch tmp will be removed if a local
+:[K[K [KESCESC[KOO[KBB[K           branch with the same name doesn’t exist any more. This also respects refspecs, e.g.  git push --prune remote
+:[K[K [KESCESC[KOO[KBB[K           refs/heads/*:refs/tmp/* would make sure that remote refs/tmp/foo will be removed if refs/heads/foo doesn’t exist.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --mirror
+:[K[K [KESCESC[KOO[KBB[K           Instead of naming each ref to push, specifies that all refs under refs/ (which includes but is not limited to refs/heads/,
+:[K[K [KESCESC[KOO[KBB[K           refs/remotes/, and refs/tags/) be mirrored to the remote repository. Newly created local refs will be pushed to the remote
+:[K[K [KESCESC[KOO[KBB[K           end, locally updated refs will be force updated on the remote end, and deleted refs will be removed from the remote end.
+:[K[K [KESCESC[KOO[KBB[K           This is the default if the configuration option remote.<remote>.mirror is set.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       -n, --dry-run
+:[K[K [KESCESC[KOO[KBB[K           Do everything except actually send the updates.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --porcelain
+:[K[K [KESCESC[KOO[KBB[K           Produce machine-readable output. The output status line for each ref will be tab-separated and sent to stdout instead of
+:[K[K [KESCESC[KOO[KBB[K           stderr. The full symbolic names of the refs will be given.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --delete
+:[K[K [KESCESC[KOO[KBB[K           All listed refs are deleted from the remote repository. This is the same as prefixing all refs with a colon.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --tags
+:[K[K [KESCESC[KOO[KBB[K           All refs under refs/tags are pushed, in addition to refspecs explicitly listed on the command line.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --follow-tags
+:[K[K [KESCESC[KOO[KBB[K           Push all the refs that would be pushed without this option, and also push annotated tags in refs/tags that are missing from
+:[K[K [KESCESC[KOO[KBB[K           the remote but are pointing at committish that are reachable from the refs being pushed.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --receive-pack=<git-receive-pack>, --exec=<git-receive-pack>
+:[K[K [KESCESC[KOO[KBB[K           Path to the [4mgit-receive-pack[m program on the remote end. Sometimes useful when pushing to a remote repository over ssh, and
+:[K[K [KESCESC[KOO[KBB[K           you do not have the program in a directory on the default $PATH.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       -f, --force
+:[K[K [KESCESC[KOO[KBB[K           Usually, the command refuses to update a remote ref that is not an ancestor of the local ref used to overwrite it. This
+:[K[K [KESCESC[KOO[KBB[K           flag disables the check. This can cause the remote repository to lose commits; use it with care. Note that --force applies
+:[K[K [KESCESC[KOO[KBB[K           to all the refs that are pushed, hence using it with push.default set to matching or with multiple push destinations
+:[K[K [KESCESC[KOO[KBB[K           configured with remote.*.push may overwrite refs other than the current branch (including local refs that are strictly
+:[K[K [KESCESC[KOO[KBB[K           behind their remote counterpart). To force a push to only one branch, use a + in front of the refspec to push (e.g git push
+:[K[K [KESCESC[KOO[KBB[K           origin +master to force a push to the master branch). See the <refspec>...  section above for details.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --repo=<repository>
+:[K[K [KESCESC[KOO[KBB[K           This option is only relevant if no <repository> argument is passed in the invocation. In this case, [4mgit[m [4mpush[m derives the
+:[K[K [KESCESC[KOO[KBB[K           remote name from the current branch: If it tracks a remote branch, then that remote repository is pushed to. Otherwise, the
+:[K[K [KESCESC[KOO[KBB[K           name "origin" is used. For this latter case, this option can be used to override the name "origin". In other words, the
+:[K[K [KESCESC[KOO[KBB[K           difference between these two commands
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K               git push public         #1
+:[K[K [KESCESC[KOO[KBB[K               git push --repo=public  #2
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           is that #1 always pushes to "public" whereas #2 pushes to "public" only if the current branch does not track a remote
+:[K[K [KESCESC[KOO[KBB[K           branch. This is useful if you write an alias or script around [4mgit[m [4mpush[m.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       -u, --set-upstream
+:[K[K [KESCESC[KOO[KBB[K           For every branch that is up to date or successfully pushed, add upstream (tracking) reference, used by argument-less [1mgit-[m
+:[K[K [KESCESC[KOO[KBB[K           [1mpull[m(1) and other commands. For more information, see [4mbranch.<name>.merge[m in [1mgit-config[m(1).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --[no-]thin
+:[K[K [KESCESC[KOO[KBB[K           These options are passed to [1mgit-send-pack[m(1). A thin transfer significantly reduces the amount of sent data when the sender
+:[K[K [KESCESC[KOO[KBB[K           and receiver share many of the same objects in common. The default is --thin.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       -q, --quiet
+:[K[K [KESCESC[KOO[KBB[K           Suppress all output, including the listing of updated refs, unless an error occurs. Progress is not reported to the
+:[K[K [KESCESC[KOO[KBB[K           standard error stream.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       -v, --verbose
+:[K[K [KESCESC[KOO[KBB[K           Run verbosely.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --progress
+:[K[K [KESCESC[KOO[KBB[K           Progress status is reported on the standard error stream by default when it is attached to a terminal, unless -q is
+:[K[K [KESCESC[KOO[KBB[K           specified. This flag forces progress status even if the standard error stream is not directed to a terminal.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --recurse-submodules=check|on-demand
+:[K[K [KESCESC[KOO[KBB[K           Make sure all submodule commits used by the revisions to be pushed are available on a remote-tracking branch. If [4mcheck[m is
+:[K[K [KESCESC[KOO[KBB[K           used Git will verify that all submodule commits that changed in the revisions to be pushed are available on at least one
+:[K[K [KESCESC[KOO[KBB[K           remote of the submodule. If any commits are missing the push will be aborted and exit with non-zero status. If [4mon-demand[m is
+:[K[K [KESCESC[KOO[KBB[K           used all submodules that changed in the revisions to be pushed will be pushed. If on-demand was not able to push all
+:[K[K [KESCESC[KOO[KBB[K           necessary revisions it will also be aborted and exit with non-zero status.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       --[no-]verify
+:[K[K [KESCESC[KOO[KBB[K           Toggle the pre-push hook (see [1mgithooks[m(5)). The default is --verify, giving the hook a chance to prevent the push. With
+:[K[K [KESCESC[KOO[KBB[K           --no-verify, the hook is bypassed completely.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K[1mGIT[m [1mURLS[m
+:[K[K [KESCESC[KOO[KBB[K       In general, URLs contain information about the transport protocol, the address of the remote server, and the path to the
+:[K[K [KESCESC[KOO[KBB[K       repository. Depending on the transport protocol, some of this information may be absent.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       Git supports ssh, git, http, and https protocols (in addition, ftp, and ftps can be used for fetching and rsync can be used for
+:[K[K [KESCESC[KOO[KBB[K       fetching and pushing, but these are inefficient and deprecated; do not use them).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       The native transport (i.e. git:// URL) does no authentication and should be used with caution on unsecured networks.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       The following syntaxes may be used with them:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   ssh://[user@]host.xz[:port]/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   git://host.xz[:port]/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   http[s]://host.xz[:port]/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   ftp[s]://host.xz[:port]/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   rsync://host.xz/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       An alternative scp-like syntax may also be used with the ssh protocol:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   [user@]host.xz:path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       This syntax is only recognized if there are no slashes before the first colon. This helps differentiate a local path that
+:[K[K [KESCESC[KOO[KBB[K       contains a colon. For example the local path foo:bar could be specified as an absolute path or ./foo:bar to avoid being
+:[K[K [KESCESC[KOO[KBB[K       misinterpreted as an ssh url.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       The ssh and git protocols additionally support ~username expansion:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   ssh://[user@]host.xz[:port]/~[user]/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   git://host.xz[:port]/~[user]/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   [user@]host.xz:/~[user]/path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       For local repositories, also supported by Git natively, the following syntaxes may be used:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   /path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   file:///path/to/repo.git/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       These two syntaxes are mostly equivalent, except when cloning, when the former implies --local option. See [1mgit-clone[m(1) for
+:[K[K [KESCESC[KOO[KBB[K       details.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       When Git doesn’t know how to handle a certain transport protocol, it attempts to use the [4mremote-<transport>[m remote helper, if
+:[K[K [KESCESC[KOO[KBB[K       one exists. To explicitly request a remote helper, the following syntax may be used:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   <transport>::<address>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       where <address> may be a path, a server and path, or an arbitrary URL-like string recognized by the specific remote helper
+:[K[K [KESCESC[KOO[KBB[K       being invoked. See [1mgitremote-helpers[m(1) for details.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       If there are a large number of similarly-named remote repositories and you want to use a different format for them (such that
+:[K[K [KESCESC[KOO[KBB[K       the URLs you use will be rewritten into URLs that work), you can create a configuration section of the form:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   [url "<actual url base>"]
+:[K[K [KESCESC[KOO[KBB[K                           insteadOf = <other url base>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       For example, with this:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   [url "git://git.host.xz/"]
+:[K[K [KESCESC[KOO[KBB[K                           insteadOf = host.xz:/path/to/
+:[K[K [KESCESC[KOO[KBB[K                           insteadOf = work:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       a URL like "work:repo.git" or like "host.xz:/path/to/repo.git" will be rewritten in any context that takes a URL to be
+:[K[K [KESCESC[KOO[KBB[K       "git://git.host.xz/repo.git".
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       If you want to rewrite URLs for push only, you can create a configuration section of the form:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   [url "<actual url base>"]
+:[K[K [KESCESC[KOO[KBB[K                           pushInsteadOf = <other url base>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       For example, with this:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   [url "ssh://example.org/"]
+:[K[K [KESCESC[KOO[KBB[K                           pushInsteadOf = git://example.org/
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       a URL like "git://example.org/path/to/repo.git" will be rewritten to "ssh://example.org/path/to/repo.git" for pushes, but pulls
+:[K[K [KESCESC[KOO[KBB[K       will still use the original URL.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K[1mREMOTES[m
+:[K[K [KESCESC[KOO[KBB[K       The name of one of the following can be used instead of a URL as <repository> argument:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   a remote in the Git configuration file: $GIT_DIR/config,
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   a file in the $GIT_DIR/remotes directory, or
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       ·   a file in the $GIT_DIR/branches directory.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       All of these also allow you to omit the refspec from the command line because they each contain a refspec which git will use by
+:[K[K [KESCESC[KOO[KBB[K       default.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K   [1mNamed[m [1mremote[m [1min[m [1mconfiguration[m [1mfile[m
+:[K[K [KESCESC[KOO[KBB[K       You can choose to provide the name of a remote which you had previously configured using [1mgit-remote[m(1), [1mgit-config[m(1) or even
+:[K[K [KESCESC[KOO[KBB[K       by a manual edit to the $GIT_DIR/config file. The URL of this remote will be used to access the repository. The refspec of this
+:[K[K [KESCESC[KOO[KBB[K       remote will be used by default when you do not provide a refspec on the command line. The entry in the config file would appear
+:[K[K [KESCESC[KOO[KBB[K       like this:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   [remote "<name>"]
+:[K[K [KESCESC[KOO[KBB[K                           url = <url>
+:[K[K [KESCESC[KOO[KBB[K                           pushurl = <pushurl>
+:[K[K [KESCESC[KOO[KBB[K                           push = <refspec>
+:[K[K [KESCESC[KOO[KBB[K                           fetch = <refspec>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       The <pushurl> is used for pushes only. It is optional and defaults to <url>.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K   [1mNamed[m [1mfile[m [1min[m [1m$GIT_DIR/remotes[m
+:[K[K [KESCESC[KOO[KBB[K       You can choose to provide the name of a file in $GIT_DIR/remotes. The URL in this file will be used to access the repository.
+:[K[K [KESCESC[KOO[KBB[K       The refspec in this file will be used as default when you do not provide a refspec on the command line. This file should have
+:[K[K [KESCESC[KOO[KBB[K       the following format:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   URL: one of the above URL format
+:[K[K [KESCESC[KOO[KBB[K                   Push: <refspec>
+:[K[K [KESCESC[KOO[KBB[K                   Pull: <refspec>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       Push: lines are used by [4mgit[m [4mpush[m and Pull: lines are used by [4mgit[m [4mpull[m and [4mgit[m [4mfetch[m. Multiple Push: and Pull: lines may be
+:[K[K [KESCESC[KOO[KBB[K       specified for additional branch mappings.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K   [1mNamed[m [1mfile[m [1min[m [1m$GIT_DIR/branches[m
+:[K[K [KESCESC[KOO[KBB[K       You can choose to provide the name of a file in $GIT_DIR/branches. The URL in this file will be used to access the repository.
+:[K[K [KESCESC[KOO[KBB[K       This file should have the following format:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   <url>#<head>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       <url> is required; #<head> is optional.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       Depending on the operation, git will use one of the following refspecs, if you don’t provide one on the command line. <branch>
+:[K[K [KESCESC[KOO[KBB[K       is the name of this file in $GIT_DIR/branches and <head> defaults to master.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git fetch uses:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   refs/heads/<head>:refs/heads/<branch>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push uses:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                   HEAD:refs/heads/<head>
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K[1mOUTPUT[m
+:[K[K [KESCESC[KOO[KBB[K       The output of "git push" depends on the transport method used; this section describes the output when pushing over the Git
+:[K[K [KESCESC[KOO[KBB[K       protocol (either locally or via ssh).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       The status of the push is output in tabular form, with each line representing the status of a single ref. Each line is of the
+:[K[K [KESCESC[KOO[KBB[K       form:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K            <flag> <summary> <from> -> <to> (<reason>)
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       If --porcelain is used, then each line of the output is of the form:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K            <flag> \t <from>:<to> \t <summary> (<reason>)
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       The status of up-to-date refs is shown only if --porcelain or --verbose option is used.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       flag
+:[K[K [KESCESC[KOO[KBB[K           A single character indicating the status of the ref:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           (space)
+:[K[K [KESCESC[KOO[KBB[K               for a successfully pushed fast-forward;
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           +
+:[K[K [KESCESC[KOO[KBB[K               for a successful forced update;
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           -
+:[K[K [KESCESC[KOO[KBB[K               for a successfully deleted ref;
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           *
+:[K[K [KESCESC[KOO[KBB[K               for a successfully pushed new ref;
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           !
+:[K[K:[K[K               for a ref that was rejected or failed to push; and
+:[K[K
+:[K[K           =
+:[K[K [KESCESC[KOO[KBB[K               for a ref that was up to date and did not need pushing.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       summary
+:[K[K [KESCESC[KOO[KBB[K           For a successfully pushed ref, the summary shows the old and new values of the ref in a form suitable for using as an
+:[K[K [KESCESC[KOO[KBB[K           argument to git log (this is <old>..<new> in most cases, and <old>...<new> for forced non-fast-forward updates).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           For a failed update, more details are given:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           rejected
+:[K[K [KESCESC[KOO[KBB[K               Git did not try to send the ref at all, typically because it is not a fast-forward and you did not force the update.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           remote rejected
+:[K[K [KESCESC[KOO[KBB[K               The remote end refused the update. Usually caused by a hook on the remote side, or because the remote repository has
+:[K[K [KESCESC[KOO[KBB[K               one of the following safety options in effect: receive.denyCurrentBranch (for pushes to the checked out branch),
+:[K[K [KESCESC[KOO[KBB[K               receive.denyNonFastForwards (for forced non-fast-forward updates), receive.denyDeletes or receive.denyDeleteCurrent.
+:[K[K [KESCESC[KOO[KBB[K               See [1mgit-config[m(1).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           remote failure
+:[K[K [KESCESC[KOO[KBB[K               The remote end did not report the successful update of the ref, perhaps because of a temporary error on the remote
+:[K[K [KESCESC[KOO[KBB[K               side, a break in the network connection, or other transient error.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       from
+:[K[K [KESCESC[KOO[KBB[K           The name of the local ref being pushed, minus its refs/<type>/ prefix. In the case of deletion, the name of the local ref
+:[K[K [KESCESC[KOO[KBB[K           is omitted.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       to
+:[K[K [KESCESC[KOO[KBB[K           The name of the remote ref being updated, minus its refs/<type>/ prefix.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       reason
+:[K[K [KESCESC[KOO[KBB[K           A human-readable explanation. In the case of successfully pushed refs, no explanation is needed. For a failed ref, the
+:[K[K [KESCESC[KOO[KBB[K           reason for failure is described.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K[1mNOTE[m [1mABOUT[m [1mFAST-FORWARDS[m
+:[K[K [KESCESC[KOO[KBB[K       When an update changes a branch (or more in general, a ref) that used to point at commit A to point at another commit B, it is
+:[K[K [KESCESC[KOO[KBB[K       called a fast-forward update if and only if B is a descendant of A.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       In a fast-forward update from A to B, the set of commits that the original commit A built on top of is a subset of the commits
+:[K[K [KESCESC[KOO[KBB[K       the new commit B builds on top of. Hence, it does not lose any history.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       In contrast, a non-fast-forward update will lose history. For example, suppose you and somebody else started at the same commit
+:[K[K [KESCESC[KOO[KBB[K       X, and you built a history leading to commit B while the other person built a history leading to commit A. The history looks
+:[K[K [KESCESC[KOO[KBB[K       like this:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                 B
+:[K[K [KESCESC[KOO[KBB[K                /
+:[K[K [KESCESC[KOO[KBB[K            ---X---A
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       Further suppose that the other person already pushed changes leading to A back to the original repository from which you two
+:[K[K [KESCESC[KOO[KBB[K       obtained the original commit X.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       The push done by the other person updated the branch that used to point at commit X to point at commit A. It is a fast-forward.
+:[K[H[2J[H       reason
+           A human-readable explanation. In the case of successfully pushed refs, no explanation is needed. For a failed ref, the
+           reason for failure is described.
+
+[1mNOTE[m [1mABOUT[m [1mFAST-FORWARDS[m
+       When an update changes a branch (or more in general, a ref) that used to point at commit A to point at another commit B, it is
+       called a fast-forward update if and only if B is a descendant of A.
+
+       In a fast-forward update from A to B, the set of commits that the original commit A built on top of is a subset of the commits
+       the new commit B builds on top of. Hence, it does not lose any history.
+
+       In contrast, a non-fast-forward update will lose history. For example, suppose you and somebody else started at the same commit
+       X, and you built a history leading to commit B while the other person built a history leading to commit A. The history looks
+       like this:
+
+                 B
+                /
+            ---X---A
+
+       Further suppose that the other person already pushed changes leading to A back to the original repository from which you two
+       obtained the original commit X.
+
+       The push done by the other person updated the branch that used to point at commit X to point at commit A. It is a fast-forward.
+
+       But if you try to push, you will attempt to update the branch (that now points at A) with commit B. This does [4mnot[m fast-forward.
+       If you did so, the changes introduced by commit A will be lost, because everybody will now start building on top of B.
+
+       The command by default does not allow an update that is not a fast-forward to prevent such loss of history.
+
+       If you do not want to lose your work (history from X to B) nor the work by the other person (history from X to A), you would
+       need to first fetch the history from the repository, create a history that contains changes done by both parties, and push the
+       result back.
+
+       You can perform "git pull", resolve potential conflicts, and "git push" the result. A "git pull" will create a merge commit C
+       between commits A and B.
+
+                 B---C
+                /   /
+            ---X---A
+
+       Updating A with the resulting merge commit will fast-forward and your push will be accepted.
+
+       Alternatively, you can rebase your change between X and B on top of A, with "git pull --rebase", and push the result back. The
+       rebase will create a new commit D that builds the change between X and B on top of A.
+
+                 B   D
+                /   /
+            ---X---A
+
+       Again, updating A with this commit will fast-forward and your push will be accepted.
+
+       There is another common situation where you may encounter non-fast-forward rejection when you try to push, and it is possible
+       even when you are pushing into a repository nobody else pushes into. After you push commit A yourself (in the first picture in
+       this section), replace it with "git commit --amend" to produce commit B, and you try to push it out, because forgot that you
+       have pushed A out already. In such a case, and only if you are certain that nobody in the meantime fetched your earlier commit
+       A (and started building on top of it), you can run "git push --force" to overwrite it. In other words, "git push --force" is a
+       method reserved for a case where you do mean to lose history.
+
+[1mEXAMPLES[m
+       git push
+           Works like git push <remote>, where <remote> is the current branch’s remote (or origin, if no remote is configured for the
+           current branch).
+
+:[K[K [KESCESC[KOO[KBB[K       git push origin
+:[K[K [KESCESC[KOO[KBB[K           Without additional configuration, works like git push origin :.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           The default behavior of this command when no <refspec> is given can be configured by setting the push option of the remote,
+:[K[K [KESCESC[KOO[KBB[K           or the push.default configuration variable.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           For example, to default to pushing only the current branch to origin use git config remote.origin.push HEAD. Any valid
+:[K[K [KESCESC[KOO[KBB[K           <refspec> (like the ones in the examples below) can be configured as the default for git push origin.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push origin :
+:[K[K [KESCESC[KOO[KBB[K           Push "matching" branches to origin. See <refspec> in the OPTIONS section above for a description of "matching" branches.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push origin master
+:[K[K [KESCESC[KOO[KBB[K           Find a ref that matches master in the source repository (most likely, it would find refs/heads/master), and update the same
+:[K[K [KESCESC[KOO[KBB[K           ref (e.g.  refs/heads/master) in origin repository with it. If master did not exist remotely, it would be created.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push origin HEAD
+:[K[K [KESCESC[KOO[KBB[K           A handy way to push the current branch to the same name on the remote.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push mothership master:satellite/master dev:satellite/dev
+:[K[K [KESCESC[KOO[KBB[K           Use the source ref that matches master (e.g.  refs/heads/master) to update the ref that matches satellite/master (most
+:[K[K [KESCESC[KOO[KBB[K           probably refs/remotes/satellite/master) in the mothership repository; do the same for dev and satellite/dev.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           This is to emulate git fetch run on the mothership using git push that is run in the opposite direction in order to
+:[K[K [KESCESC[KOO[KBB[K           integrate the work done on satellite, and is often necessary when you can only make connection in one way (i.e. satellite
+:[K[K [KESCESC[KOO[KBB[K           can ssh into mothership but mothership cannot initiate connection to satellite because the latter is behind a firewall or
+:[K[K [KESCESC[KOO[KBB[K           does not run sshd).
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           After running this git push on the satellite machine, you would ssh into the mothership and run git merge there to complete
+:[K[K [KESCESC[KOO[KBB[K           the emulation of git pull that were run on mothership to pull changes made on satellite.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push origin HEAD:master
+:[K[K [KESCESC[KOO[KBB[K           Push the current branch to the remote ref matching master in the origin repository. This form is convenient to push the
+:[K[K [KESCESC[KOO[KBB[K           current branch without thinking about its local name.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push origin master:refs/heads/experimental
+:[K[K [KESCESC[KOO[KBB[K           Create the branch experimental in the origin repository by copying the current master branch. This form is only needed to
+:[K[K [KESCESC[KOO[KBB[K           create a new branch or tag in the remote repository when the local name and the remote name are different; otherwise, the
+:[K[K [KESCESC[KOO[KBB[K           ref name on its own will work.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push origin :experimental
+:[K[K [KESCESC[KOO[KBB[K           Find a ref that matches experimental in the origin repository (e.g.  refs/heads/experimental), and delete it.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K       git push origin +dev:master
+:[K[K [KESCESC[KOO[KBB[K           Update the origin repository’s master branch with the dev branch, allowing non-fast-forward updates.  [1mThis[m [1mcan[m [1mleave[m
+:[K[K [KESCESC[KOO[KBB[K           [1munreferenced[m [1mcommits[m [1mdangling[m [1min[m [1mthe[m [1morigin[m [1mrepository.[m  Consider the following situation, where a fast-forward is not
+:[K[K [KESCESC[KOO[KBB[K           possible:
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                           o---o---o---A---B  origin/master
+:[K[K [KESCESC[KOO[KBB[K                                    \
+:[K[K [KESCESC[KOO[KBB[K                                     X---Y---Z  dev
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           The above command would change the origin repository to
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K                                     A---B  (unnamed branch)
+:[K[K [KESCESC[KOO[KBB[K                                    /
+:[K[K [KESCESC[KOO[KBB[K                           o---o---o---X---Y---Z  master
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K           Commits A and B would no longer belong to a branch with a symbolic name, and so would be unreachable. As such, these
+:[K[K [KESCESC[KOO[KBB[K           commits would be removed by a git gc command on the origin repository.
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[K[1mGIT[m
+:[K[K [KESCESC[KOO[KBB[K       Part of the [1mgit[m(1) suite
+:[K[K [KESCESC[KOO[KBB[K
+:[K[K [KESCESC[KOO[KBB[KGit 1.8.4                         03/12/2014                       GIT-PUSH(1)
+:[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K[K[7m(END) [m[K[K [KESCESC[KOO[KBB[K
