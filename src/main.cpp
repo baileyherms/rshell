@@ -11,8 +11,22 @@
 using namespace std;
 using namespace boost;
 
+void exiting(char *in)
+{
+	if(!strcmp(in, "exit"))
+	{
+		exit(0);
+	}
+}
 void get_input(string usr_input)
 {
+	bool exit_now = false;
+	size_t pos = usr_input.find("exit");
+	//cout << "pos" << pos << endl;
+	if(pos > 0 && pos < 1000)
+	{
+		exit(0);
+	}
 	char arr[10000];//tokenize
 	char* argv[10000];
 	char* con_arr[10000];//stores connectors
@@ -36,6 +50,8 @@ void get_input(string usr_input)
 		tok = strtok(NULL, " \t");
 	}
 	argv[x] = '\0';
+	x = 0;
+	
 	
 	int con_amount = 0;
 	int hold_amt = 0;
@@ -53,6 +69,10 @@ void get_input(string usr_input)
 			hold_amt = 0;
 			con_amount++;
 			break;
+		}
+		else if(strcmp(argv[i], "exit"))
+		{
+			exit(0);
 		}
 	}
 	if(hold_amt > 0)
@@ -143,7 +163,7 @@ void get_input(string usr_input)
 				stop = true;
 			}
 			else
-			{	
+			{
 				run[b] = argv[place];
 				b++;
 				place++;
@@ -172,6 +192,8 @@ void get_input(string usr_input)
 		}
 		else if(pid == 0)
 		{
+			exit_now = true;
+			//exiting(run[0]);
 			executive = execvp(run[0], run);
 			exec_works = executive;
 			if(executive == -1)
@@ -186,15 +208,17 @@ void get_input(string usr_input)
 		}
 		else if(pid > 0)
 		{
+			//exiting(run[0]);
+
 			if(-1 == wait(0))
-			{
 				perror("wait");
-			}
-		}
+		}	
+		//exiting(run[0]);
 		if(con_arr[a] == NULL)
 		{
 			com_end = true;
 			break;
+		//	exit(0);
 		}
 		else if(!strcmp(con_arr[a], "||"))
 		{
@@ -202,6 +226,7 @@ void get_input(string usr_input)
 			{
 				com_end = true;
 				break;
+				//exit(0);
 			}
 		}
 		else if(!strcmp(con_arr[a], "&&"))
@@ -210,6 +235,7 @@ void get_input(string usr_input)
 			{
 				com_end = true;
 				break;
+			//	exit(0);
 			}
 		}
 		else if(!strcmp(con_arr[a], ";"))
@@ -219,9 +245,20 @@ void get_input(string usr_input)
 		{
 			com_end = true;
 			break;
+			//exit(0);
 		}
+		/*
+		if(exec_works == false && com_end == true)
+		{
+			exit(1);
+		}
+		*/
 		a++;
 	}	
+	if(exit_now)
+	{
+		exit(1);
+	}
 }
 
 void output()
@@ -231,6 +268,11 @@ void output()
 	gethostname(host, 255);
 	cout << login << "@" << host << " ";
 	string usr_input;
+	size_t poso = usr_input.find("exit");
+	if(poso > 0 && poso < 1000)
+	{
+		exit(0);
+	}
 	cout << "$";
 	cout << " ";
 	getline(cin, usr_input);
