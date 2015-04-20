@@ -1,4 +1,3 @@
-//main file for rshell
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -8,86 +7,25 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <cstdio>
-//#include <stdio>
 
 using namespace std;
 using namespace boost;
-
-//make functions
-
-char glb_arr[10000];
-
-/*
-char* spaces(char* arry)
-{
-	//Fixes spacing issues
-	int trav = 0;
-	int glb_trav = 0;
-	while(arry[trav] != NULL)
-	{
-		if(strcmp(arry[trav], "&&"))
-		{
-			glb_arr[glb_trav] = ' ';
-			glb_arr[glb_trav + 1] = '&';
-			glb_arr[glb_trav + 1] = '&';
-			glb_arr[glb_trav + 1] = ' ';
-			glb_trav++;
-		}
-		else if(strcmp(arry[trav], "||"))
-		{
-			glb_arr[glb_trav] = ' ';
-			glb_arr[glb_trav + 1] = '|';
-			glb_arr[glb_trav + 1] = '|';
-			glb_arr[glb_trav + 1] = ' ';
-			glb_trav++;
-		}
-		else if(strcmp(arry[trav], ";"))
-		{
-			glb_arr[glb_trav] = ' ';
-			glb_arr[glb_trav + 1] = ';';
-			glb_arr[glb_trav + 1] = ' ';
-			glb_trav++;	
-		}
-		else if(strcmp(arry[trav], "#"))
-		{
-			glb_arr[glb_trav] = NULL;
-		}
-		else
-		{
-			glb_arr[glb_trav] = arry[trav];
-		}
-
-
-		trav++;
-	}
-	glb_arr[glb_trav] = NULL;
-	return glb_arr;
-}
-
-int findChar(char[] sub, char[] array)
-{
-	return array.ToString().IndexOf(sub.ToString());
-}
-*/
 
 void get_input(string usr_input)
 {
 	char arr[10000];//tokenize
 	char* argv[10000];
 	char* con_arr[10000];//stores connectors
-	//char* hold_arr[10000];
 	for(unsigned i = 0; i < 10000; i++)
 	{	
 		arr[i] = 0;
 		argv[i] = 0;
 		con_arr[i] = 0;
-	//	hold_arr[i] = 0;
 	}
 	for(unsigned i = 0; i < usr_input.size(); i++)
 	{
 		arr[i] = usr_input[i];
 	}
-
 	char* tok = strtok(arr, " \t");
 	vector<int> cmd_arg_amt;
 	int x = 0;
@@ -98,48 +36,24 @@ void get_input(string usr_input)
 		tok = strtok(NULL, " \t");
 	}
 	argv[x] = '\0';
-
-	
-	//char* other_char = strtok(argv, " ");
-	/*
-	int m = 0;
-	while(other_char != NULL)
-	{
-		hold_arr[m] = other_char;
-		m++;
-		other_char = strtok(NULL, ";#&|");
-	}
-	*/
 	
 	int con_amount = 0;
 	int hold_amt = 0;
 	for(int i = 0; i < x; i++)
 	{
-	//	cout << "argv " << argv[i] << endl;
 		if(strcmp(argv[i], "&&") || strcmp(argv[i], "||") || strcmp(argv[i], ";"))
 		{
 			cmd_arg_amt.push_back(hold_amt);//push back the number of arguments for a certain command
-		//	cout << "cmd " << argv[i] << endl;
 			hold_amt = 0;
-			//conn[con_amount] = argv[i];
 			con_amount++;
 		}
-		/*
-		else if(strcmp(argv[i], "&") || strcmp(argv[i], "|") || strcmp(argv[i], "&&&") || strcmp(argv[i], "|||"))
-		{
-			perror("connector");
-		}
-		*/
 		else if(strcmp(argv[i], "#"))
 		{
 			cmd_arg_amt.push_back(hold_amt);
 			hold_amt = 0;
-			//conn[con_amount] = argv[i];
 			con_amount++;
 			break;
 		}
-		
-	
 	}
 	if(hold_amt > 0)
 	{
@@ -151,11 +65,9 @@ void get_input(string usr_input)
 	int place = 0;
 	int executive;
 	int con_place = 0;
-	//char *inp;
 	vector<int> places_con;//where connectors are
 	while(argv[place] != NULL)
 	{
-		//cout << "argv " << argv[place] << endl;
 		char *sc = strstr(argv[place], ";");//semicolon
 		char *as = strstr(argv[place], "&&");//ampersands
 		char *pi = strstr(argv[place], "||");//pipes
@@ -168,13 +80,10 @@ void get_input(string usr_input)
 		}
 		else if(sc != NULL)
 		{
-			//cout << sc << endl;
 			con_arr[con_place] = sc;
-			//cout << con_arr[con_place] << endl;
 			con_place++;
 			places_con.push_back(place);
 			place++;
-		
 		}
 		else if(as != NULL)
 		{
@@ -188,7 +97,7 @@ void get_input(string usr_input)
 			con_arr[con_place] = pi;
 			con_place++;
 			place++;
-			places_con.push_back(place);
+			places_con.push_back(place);	
 		}
 		else if(hs != NULL)
 		{
@@ -202,9 +111,7 @@ void get_input(string usr_input)
 			place++;
 		}
 	}
-
 	char* aargv = strtok(arr, "#;|& ");
-	//char* argv_2;
 	int l = 0;
 	while(aargv != NULL)
 	{
@@ -213,12 +120,7 @@ void get_input(string usr_input)
 		aargv = strtok(NULL, "#;|& ");
 	}
 	l = 0;
-
-
-	//cout << "con_place " << con_place << endl;
 	con_arr[con_place] = NULL;
-
-
 	place = 0;
 	bool exec_works = true;
 	while(a <= con_place && !com_end)
@@ -233,8 +135,7 @@ void get_input(string usr_input)
 		b = 0;
 		bool stop = false;
 		while(!stop && argv[place] != NULL)
-		{
-			
+		{	
 			if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
 			{
 				place++;
@@ -242,18 +143,10 @@ void get_input(string usr_input)
 				stop = true;
 			}
 			else
-			{
-				
+			{	
 				run[b] = argv[place];
 				b++;
 				place++;
-				/*
-				if(strcmp(arr2[place], ";") || strcmp(arr2[place], "||") || strcmp(arr2[place], "&&") ||strcmp(arr2[place], "#"))
-				{
-					break; 
-					stop = true;
-				}
-				*/
 			}
 		}
 		for(int i = 0; i < b; i++)
@@ -262,17 +155,13 @@ void get_input(string usr_input)
 			{
 				run[i] = NULL;
 			}
-		
 		}
-		
 		run[b] = NULL;
-
 		int pid = fork();
 		for(int i = 0; i < b; i++)
 		{
 			if(!strcmp(run[i], "exit"))
 			{
-			//	cout << "Exiting" << endl;
 				exit(0);
 			}
 		}
@@ -287,11 +176,8 @@ void get_input(string usr_input)
 			exec_works = executive;
 			if(executive == -1)
 			{
-				//cout << "EXEC FAILED!!!!" << endl;
 				exec_works = false;
-				//cout << "exec in exec: " << exec_works << endl;
 				perror("execvp");
-				//exit(1);
 			}
 			else
 			{
@@ -305,17 +191,6 @@ void get_input(string usr_input)
 				perror("wait");
 			}
 		}
-		/*
-		if(executive == -1)
-		{
-			exec_works = false;
-		}
-		*/
-		//when exec is true, && and || work fine, but when exec is false and runs and or doesn't
-		//FIX
-		//&& never goes into false
-		//|| always goes into false
-		//FIX
 		if(con_arr[a] == NULL)
 		{
 			com_end = true;
@@ -323,45 +198,31 @@ void get_input(string usr_input)
 		}
 		else if(!strcmp(con_arr[a], "||"))
 		{
-			//cout << "||" << endl;
 			if(exec_works)
 			{
-				//cout << "exec for || " << exec_works << endl;
-				//cout << "|| false" << endl;
 				com_end = true;
 				break;
 			}
 		}
 		else if(!strcmp(con_arr[a], "&&"))
 		{
-			//cout << "exec for && " << exec_works << endl;
-			//cout << "&&" << endl;
 			if(!exec_works)
 			{
-				//cout << "&& false" << endl;
 				com_end = true;
 				break;
 			}
 		}
 		else if(!strcmp(con_arr[a], ";"))
 		{
-			//cout << ";" << endl;
 		}
 		else if(!strcmp(con_arr[a], "#"))
 		{
-			//cout << "#" << endl;
-			//working = false;
 			com_end = true;
 			break;
 		}
-		//cout << "con_arr " << con_arr[a] << endl;
-
-
 		a++;
-	}
-		
+	}	
 }
-
 
 void output()
 {
