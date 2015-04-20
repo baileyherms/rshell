@@ -15,20 +15,81 @@ using namespace boost;
 
 //make functions
 
+char glb_arr[10000];
 
+/*
+char* spaces(char* arry)
+{
+	//Fixes spacing issues
+	int trav = 0;
+	int glb_trav = 0;
+	while(arry[trav] != NULL)
+	{
+		if(strcmp(arry[trav], "&&"))
+		{
+			glb_arr[glb_trav] = ' ';
+			glb_arr[glb_trav + 1] = '&';
+			glb_arr[glb_trav + 1] = '&';
+			glb_arr[glb_trav + 1] = ' ';
+			glb_trav++;
+		}
+		else if(strcmp(arry[trav], "||"))
+		{
+			glb_arr[glb_trav] = ' ';
+			glb_arr[glb_trav + 1] = '|';
+			glb_arr[glb_trav + 1] = '|';
+			glb_arr[glb_trav + 1] = ' ';
+			glb_trav++;
+		}
+		else if(strcmp(arry[trav], ";"))
+		{
+			glb_arr[glb_trav] = ' ';
+			glb_arr[glb_trav + 1] = ';';
+			glb_arr[glb_trav + 1] = ' ';
+			glb_trav++;	
+		}
+		else if(strcmp(arry[trav], "#"))
+		{
+			glb_arr[glb_trav] = NULL;
+		}
+		else
+		{
+			glb_arr[glb_trav] = arry[trav];
+		}
+
+
+		trav++;
+	}
+	glb_arr[glb_trav] = NULL;
+	return glb_arr;
+}
+
+int findChar(char[] sub, char[] array)
+{
+	return array.ToString().IndexOf(sub.ToString());
+}
+*/
 
 void get_input(string usr_input)
 {
 	char arr[10000];//tokenize
+	char* argv[10000];
+	char* con_arr[10000];//stores connectors
+	//char* hold_arr[10000];
+	for(unsigned i = 0; i < 10000; i++)
+	{	
+		arr[i] = 0;
+		argv[i] = 0;
+		con_arr[i] = 0;
+	//	hold_arr[i] = 0;
+	}
 	for(unsigned i = 0; i < usr_input.size(); i++)
 	{
 		arr[i] = usr_input[i];
 	}
-	char* argv[10000];
+
 	char* tok = strtok(arr, " \t");
-	//char* argu[10000];// = {0};
 	vector<int> cmd_arg_amt;
-	//char* conn[10000];
 	int x = 0;
 	while(tok != NULL)
 	{
@@ -37,6 +98,19 @@ void get_input(string usr_input)
 		tok = strtok(NULL, " \t");
 	}
 	argv[x] = '\0';
+
+	
+	//char* other_char = strtok(argv, " ");
+	/*
+	int m = 0;
+	while(other_char != NULL)
+	{
+		hold_arr[m] = other_char;
+		m++;
+		other_char = strtok(NULL, ";#&|");
+	}
+	*/
+	
 	int con_amount = 0;
 	int hold_amt = 0;
 	for(int i = 0; i < x; i++)
@@ -50,6 +124,12 @@ void get_input(string usr_input)
 			//conn[con_amount] = argv[i];
 			con_amount++;
 		}
+		/*
+		else if(strcmp(argv[i], "&") || strcmp(argv[i], "|") || strcmp(argv[i], "&&&") || strcmp(argv[i], "|||"))
+		{
+			perror("connector");
+		}
+		*/
 		else if(strcmp(argv[i], "#"))
 		{
 			cmd_arg_amt.push_back(hold_amt);
@@ -70,17 +150,52 @@ void get_input(string usr_input)
 	int a = 0;
 	int place = 0;
 	int executive;
-	//bool working = true;
-	char* con_arr[1000];//stores connectors
 	int con_place = 0;
+	//char *inp;
 	while(argv[place] != NULL)
 	{
+		//cout << "argv " << argv[place] << endl;
+		//char *sc = strstr(argv[place], ";");//semicolon
+		//char *as = strstr(argv[place], "&&");//ampersands
+		//char *pi = strstr(argv[place], "||");//pipes
 		if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#"))
 		{
 			con_arr[con_place] = argv[place];
+			//cout << "con_arr " << con_arr[con_place] << endl;
 			con_place++;
 			place++;
 		}
+		/*
+		else if(sc != NULL)
+		{
+			cout << "sc " << sc << endl;
+			cout << "find " << argv[place] << endl;
+			//Do ; stuff
+			con_arr[con_place] = sc;
+			//inp =
+			int len_arry = 0;
+			while(argv[len_arry] != ";")
+			{
+				len_arry++;
+				cout << "length of array: " << len_arry << endl;
+			}
+			strcpy(argv[place], argv[place], len_arry - 1);
+
+			con_place++;
+			place++;
+		
+		}
+		else if(as != NULL)
+		{
+			cout << "find " << argv[place] << endl;
+			//Do ; stuff
+		}
+		else if(pi != NULL)
+		{
+			cout << "find " << argv[place] << endl;
+			//Do ; stuff
+		}
+		*/
 		else
 		{
 			place++;
@@ -91,7 +206,12 @@ void get_input(string usr_input)
 	bool exec_works = true;
 	while(a <= con_place && !com_end)
 	{
-		char* run[1000];
+		exec_works = true;
+		char* run[10000];
+		for(unsigned i = 0; i < 10000; i++)
+		{
+			run[i] = 0;
+		}
 		int b = 0;
 		b = 0;
 		bool stop = false;
