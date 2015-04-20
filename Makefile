@@ -1,13 +1,10 @@
-COMPILE = g++ -std=c++11
-FLAGS = -Wall -Werror -pedantic
-PATH = src/rshell.cc -o bin/rshell
-
+COMPILE = g++
+FLAGS = -Wall -Werror -ansi -pedantic
 all:
-		rshell
+	rshell
 
 rshell:
-		mkdir bin
-		$(COMPILE) $(FLAGS) $(PATH)
-
+	mkdir -p ./bin
+	$(COMPILE) $(FLAGS) ./src/hw0.cpp -o ./bin/rshell
 clean:
-		rm -rf bin/
+	rm -rf ./bin
