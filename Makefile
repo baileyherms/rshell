@@ -1,11 +1,12 @@
 COMPILE = g++
 FLAGS = -Wall -Werror -ansi -pedantic
-all:
-	mkdir -p ./bin
-	$(COMPILE) $(FLAGS) ./src/main.cpp -o ./bin/rshell
+PATH = src/hw0.cpp
+PATHK = ./bin/rshell
 
-rshell:
-	mkdir -p ./bin
-	$(COMPILE) $(FLAGS) ./src/main.cpp -o ./bin/rshell
+all: rshell
+
+rshell:	
+		mkdir -p ./bin
+		$(COMPILE) $(FLAGS) $(PATH) -o $(PATHK)
 clean:
-	rm -rf ./bin
+		rm -rf ./bin
