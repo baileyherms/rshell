@@ -152,56 +152,73 @@ void get_input(string usr_input)
 	int executive;
 	int con_place = 0;
 	//char *inp;
+	vector<int> places_con;//where connectors are
 	while(argv[place] != NULL)
 	{
 		//cout << "argv " << argv[place] << endl;
-		//char *sc = strstr(argv[place], ";");//semicolon
-		//char *as = strstr(argv[place], "&&");//ampersands
-		//char *pi = strstr(argv[place], "||");//pipes
+		char *sc = strstr(argv[place], ";");//semicolon
+		char *as = strstr(argv[place], "&&");//ampersands
+		char *pi = strstr(argv[place], "||");//pipes
+		char *hs = strstr(argv[place], "#");//hash
 		if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#"))
 		{
 			con_arr[con_place] = argv[place];
-			//cout << "con_arr " << con_arr[con_place] << endl;
 			con_place++;
 			place++;
 		}
-		/*
 		else if(sc != NULL)
 		{
-			cout << "sc " << sc << endl;
-			cout << "find " << argv[place] << endl;
-			//Do ; stuff
+			//cout << sc << endl;
 			con_arr[con_place] = sc;
-			//inp =
-			int len_arry = 0;
-			while(argv[len_arry] != ";")
-			{
-				len_arry++;
-				cout << "length of array: " << len_arry << endl;
-			}
-			strcpy(argv[place], argv[place], len_arry - 1);
-
+			//cout << con_arr[con_place] << endl;
 			con_place++;
+			places_con.push_back(place);
 			place++;
 		
 		}
 		else if(as != NULL)
 		{
-			cout << "find " << argv[place] << endl;
-			//Do ; stuff
+			con_arr[con_place] = as;
+			con_place++;
+			place++;
+			places_con.push_back(place);
 		}
 		else if(pi != NULL)
 		{
-			cout << "find " << argv[place] << endl;
-			//Do ; stuff
+			con_arr[con_place] = pi;
+			con_place++;
+			place++;
+			places_con.push_back(place);
 		}
-		*/
+		else if(hs != NULL)
+		{
+			con_arr[con_place] = hs;
+			con_place++;
+			place++;
+			places_con.push_back(place);
+		}
 		else
 		{
 			place++;
 		}
 	}
+
+	char* aargv = strtok(arr, "#;|& ");
+	//char* argv_2;
+	int l = 0;
+	while(aargv != NULL)
+	{
+		argv[l] = aargv;
+		l++;
+		aargv = strtok(NULL, "#;|& ");
+	}
+	l = 0;
+
+
+	//cout << "con_place " << con_place << endl;
 	con_arr[con_place] = NULL;
+
+
 	place = 0;
 	bool exec_works = true;
 	while(a <= con_place && !com_end)
@@ -217,6 +234,7 @@ void get_input(string usr_input)
 		bool stop = false;
 		while(!stop && argv[place] != NULL)
 		{
+			
 			if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
 			{
 				place++;
@@ -225,9 +243,17 @@ void get_input(string usr_input)
 			}
 			else
 			{
+				
 				run[b] = argv[place];
 				b++;
 				place++;
+				/*
+				if(strcmp(arr2[place], ";") || strcmp(arr2[place], "||") || strcmp(arr2[place], "&&") ||strcmp(arr2[place], "#"))
+				{
+					break; 
+					stop = true;
+				}
+				*/
 			}
 		}
 		for(int i = 0; i < b; i++)
