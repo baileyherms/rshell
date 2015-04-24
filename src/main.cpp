@@ -16,6 +16,11 @@ using namespace std;
 
 #define MAXSIZE 10000
 
+void ls()//insert parameters
+{
+	//ls functionality
+}
+
 void get_input(string& usr_input)
 {
 	char arr[MAXSIZE];
