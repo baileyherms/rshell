@@ -1,263 +1,221 @@
 #include <iostream>
 #include <string>
 #include <string.h>
-#include <boost/tokenizer.hpp>
 #include <vector>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <cstdio>
+#include <stdio.h>
+#include <vector>
+#include <stdlib.h>
+#include <errno.h>
+#include <fcntl.h>
 
 using namespace std;
-using namespace boost;
 
-void exiting(char *in)
+#define MAXSIZE 10000
+
+void get_input(string& usr_input)
 {
-	if(!strcmp(in, "exit"))
+	char arr[MAXSIZE];
+	char* argv[MAXSIZE];
+	char* argvcmd[MAXSIZE];
+
+	for(unsigned i = 0; i < MAXSIZE; i++)
 	{
-		exit(0);
-	}
-}
-void get_input(string usr_input)
-{
-	bool exit_now = false;
-	size_t pos = usr_input.find("exit");
-	//cout << "pos" << pos << endl;
-	if(pos > 0 && pos < 1000)
-	{
-		exit(0);
-	}
-	char arr[10000];//tokenize
-	char* argv[10000];
-	char* con_arr[10000];//stores connectors
-	for(unsigned i = 0; i < 10000; i++)
-	{	
 		arr[i] = 0;
 		argv[i] = 0;
-		con_arr[i] = 0;
+		argvcmd[i] = 0;
 	}
+	
+	int index = 0;
+	int start = 0;
+	int j = 0;
+	int n = 0;
+	int c_cnt = 0;
+	int tmp;
+
 	for(unsigned i = 0; i < usr_input.size(); i++)
 	{
-		arr[i] = usr_input[i];
-	}
-	char* tok = strtok(arr, " \t");
-	vector<int> cmd_arg_amt;
-	int x = 0;
-	while(tok != NULL)
-	{
-		argv[x] = tok;
-		x++;
-		tok = strtok(NULL, " \t");
-	}
-	argv[x] = '\0';
-	x = 0;
-	
-	
-	int con_amount = 0;
-	int hold_amt = 0;
-	for(int i = 0; i < x; i++)
-	{
-		if(strcmp(argv[i], "&&") || strcmp(argv[i], "||") || strcmp(argv[i], ";"))
+		tmp = usr_input.at(i);
+		if(tmp == ' ' || tmp == ';' || tmp == '&' || tmp == '|' || tmp == '#')
 		{
-			cmd_arg_amt.push_back(hold_amt);//push back the number of arguments for a certain command
-			hold_amt = 0;
-			con_amount++;
-		}
-		else if(strcmp(argv[i], "#"))
-		{
-			cmd_arg_amt.push_back(hold_amt);
-			hold_amt = 0;
-			con_amount++;
-			break;
-		}
-		else if(strcmp(argv[i], "exit"))
-		{
-			exit(0);
-		}
-	}
-	if(hold_amt > 0)
-	{
-		cmd_arg_amt.push_back(hold_amt);
-		hold_amt = 0;
-	}
-	bool com_end = false;
-	int a = 0;
-	int place = 0;
-	int executive;
-	int con_place = 0;
-	vector<int> places_con;//where connectors are
-	while(argv[place] != NULL)
-	{
-		char *sc = strstr(argv[place], ";");//semicolon
-		char *as = strstr(argv[place], "&&");//ampersands
-		char *pi = strstr(argv[place], "||");//pipes
-		char *hs = strstr(argv[place], "#");//hash
-		if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#"))
-		{
-			con_arr[con_place] = argv[place];
-			con_place++;
-			place++;
-		}
-		else if(sc != NULL)
-		{
-			con_arr[con_place] = sc;
-			con_place++;
-			places_con.push_back(place);
-			place++;
-		}
-		else if(as != NULL)
-		{
-			con_arr[con_place] = as;
-			con_place++;
-			place++;
-			places_con.push_back(place);
-		}
-		else if(pi != NULL)
-		{
-			con_arr[con_place] = pi;
-			con_place++;
-			place++;
-			places_con.push_back(place);	
-		}
-		else if(hs != NULL)
-		{
-			con_arr[con_place] = hs;
-			con_place++;
-			place++;
-			places_con.push_back(place);
+			if(c_cnt > 0)
+			{
+				argv[j] = (char*)&arr[start];
+				j++;
+				c_cnt = 0;
+				arr[n] = '\0';
+				n++;		
+			}
+			start = n;
+			if(tmp != ' ')
+			{
+				if(tmp == '#')
+				{
+					start = n;
+					arr[n++] = ';';
+					argv[j] = (char*)&arr[start];
+					c_cnt = 0;
+					i = usr_input.size();
+					j++;
+				}
+				else if(tmp == ';')
+				{
+					arr[n++] = ';';
+					arr[n++] = '\0';
+					argv[j] = (char*)&arr[start];
+					start = n;
+					j++;
+					c_cnt = 0;
+				}
+				else if(tmp == '&')
+				{
+					if(usr_input.at(i+1) == '&')
+					{
+						arr[n++] = '&';
+						arr[n++] = '&';
+						arr[n++] = '\0';
+						argv[j] = (char*)&arr[start];
+						j++;
+						start = n;
+						c_cnt = 0;
+						i++;
+					}
+				}
+				else if(tmp == '|')
+				{
+					if(usr_input.at(i+1) == '|')
+					{
+						arr[n++] = '|';
+						arr[n++] = '|';
+						arr[n++] = '\0';
+						argv[j] = (char*)&arr[start];
+						j++;
+						start = n;
+						c_cnt = 0;
+						i++;
+					}
+				}
+			}
 		}
 		else
 		{
-			place++;
-		}
-	}
-	char* aargv = strtok(arr, "#;|& ");
-	int l = 0;
-	while(aargv != NULL)
-	{
-		argv[l] = aargv;
-		l++;
-		aargv = strtok(NULL, "#;|& ");
-	}
-	l = 0;
-	con_arr[con_place] = NULL;
-	place = 0;
-	bool exec_works = true;
-	while(a <= con_place && !com_end)
-	{
-		exec_works = true;
-		char* run[10000];
-		for(unsigned i = 0; i < 10000; i++)
-		{
-			run[i] = 0;
-		}
-		int b = 0;
-		b = 0;
-		bool stop = false;
-		while(!stop && argv[place] != NULL)
-		{	
-			if(!strcmp(argv[place] , ";") || !strcmp(argv[place] , "&&") || !strcmp(argv[place] , "||") || !strcmp(argv[place] , "#") )
+			arr[n] = usr_input.at(i);
+			c_cnt++;
+			n++;
+			if(i == usr_input.size() - 1)
 			{
-				place++;
-				break;
-				stop = true;
-			}
-			else
-			{
-				run[b] = argv[place];
-				b++;
-				place++;
+				argv[j] = (char*)&arr[start];
+				n++;
+				j++;
 			}
 		}
-		for(int i = 0; i < b; i++)
-		{
-			if(!strcmp(run[i], ";") || !strcmp(run[i], "&&") || !strcmp(run[i], "||") || !strcmp(run[i], "#") )
-			{
-				run[i] = NULL;
-			}
-		}
-		run[b] = NULL;
-		int pid = fork();
-		for(int i = 0; i < b; i++)
-		{
-			if(!strcmp(run[i], "exit"))
-			{
-				exit(0);
-			}
-		}
-		if(pid == -1)
-		{
-			perror("fork");
-			exit(1);
-		}
-		else if(pid == 0)
-		{
-			exit_now = true;
-			//exiting(run[0]);
-			executive = execvp(run[0], run);
-			exec_works = executive;
-			if(executive == -1)
-			{
-				exec_works = false;
-				perror("execvp");
-			}
-			else
-			{
-				exec_works = true;
-			}
-		}
-		else if(pid > 0)
-		{
-			//exiting(run[0]);
-
-			if(-1 == wait(0))
-				perror("wait");
-		}	
-		//exiting(run[0]);
-		if(con_arr[a] == NULL)
-		{
-			com_end = true;
-			break;
-		//	exit(0);
-		}
-		else if(!strcmp(con_arr[a], "||"))
-		{
-			if(exec_works)
-			{
-				com_end = true;
-				break;
-				//exit(0);
-			}
-		}
-		else if(!strcmp(con_arr[a], "&&"))
-		{
-			if(!exec_works)
-			{
-				com_end = true;
-				break;
-			//	exit(0);
-			}
-		}
-		else if(!strcmp(con_arr[a], ";"))
-		{
-		}
-		else if(!strcmp(con_arr[a], "#"))
-		{
-			com_end = true;
-			break;
-			//exit(0);
-		}
-		/*
-		if(exec_works == false && com_end == true)
-		{
-			exit(1);
-		}
-		*/
-		a++;
 	}	
-	if(exit_now)
+	if(strcmp(argv[j-1], ";") != 0)
 	{
-		exit(1);
+		n++;
+		start = n;
+		arr[n++] = ';';
+		argv[j] = (char*)&arr[start];
+		j++;
+	}
+	argv[j] = (char*)NULL;
+	int status;
+	for(int i = 0; i < j; i++)
+	{
+		if(strcmp(argv[i], "&&") == 0 || strcmp(argv[i], "||") == 0 || strcmp(argv[i], ";") == 0)
+		{
+			int pid;
+			pid = fork();
+			if(pid < 0)
+			{
+				perror("fork");
+			}
+			else if(pid == 0)
+			{
+				argvcmd[index] = NULL;
+				status = execvp(argvcmd[0], argvcmd);
+				if(status == -1)
+				{
+					perror("execvp");
+					int x;
+					int next = -1;
+					if(strcmp(argv[i], "&&") == 0)
+					{
+						for(x = i + 1; x < j; x++)
+						{
+							if(strcmp(argv[x], "||") == 0 || strcmp(argv[x], ";") == 0)
+							{
+								next = x;
+								break;
+							}
+						}
+						if(next > 0)
+						{
+							i = next;
+						}
+					}
+				}
+				index = 0;
+				exit(status);
+			}
+			else
+			{
+			}
+			waitpid(-1, &status, 0);
+			if(strcmp(argv[i], "&&") == 0 && (status > 0))
+			{
+				int x;
+				int next = -1;
+				x = i + 1;
+				while(x < j)
+				{
+					if(strcmp(argv[x], "&&") == 0 || strcmp(argv[x], "||") == 0 || strcmp(argv[x], ";") == 0)
+					{
+						next = x;
+						break;
+					}
+					x++;
+				}
+				if(next > 0)
+				{
+					i = next;
+					next = -1;
+				}
+			}
+			if(strcmp(argv[i], "||") == 0 && (status == 0))
+			{
+				int x;
+				int next = -1;
+				x = i + 1;
+				while(x < j)
+				{
+					if(strcmp(argv[x], "&&") == 0 || strcmp(argv[x], "||") == 0 || strcmp(argv[x], ";") == 0)
+					{
+						next = x;
+						break;
+					}
+					x++;
+				}
+				if(next > 0)
+				{
+					i = next;
+					next = -1;
+				}
+			}
+			index = 0;
+		}
+		else
+		{
+			if(index == 0 && (strcmp(argv[i], "exit")) == 0)
+			{
+				exit(1);
+			}
+			argvcmd[index] = argv[i];
+			index++;
+		}
 	}
 }
 
@@ -268,11 +226,6 @@ void output()
 	gethostname(host, 255);
 	cout << login << "@" << host << " ";
 	string usr_input;
-	size_t poso = usr_input.find("exit");
-	if(poso > 0 && poso < 1000)
-	{
-		exit(0);
-	}
 	cout << "$";
 	cout << " ";
 	getline(cin, usr_input);
