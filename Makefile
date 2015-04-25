@@ -1,14 +1,12 @@
-COMPILES = g++
+ICOMPILES = g++
 IFLAGS = -Wall -Werror -ansi -pedantic
-PATH = ./src/main.cpp
+PATHI = ./src/main.cpp
 PATHK = ./bin/rshell
 
-all:
-		mkdir -p ./bin
-		$(COMPILES) $(IFLAGS) $(PATH) -o $(PATHK)
+all: rshell
 
 rshell:	
 		mkdir -p ./bin
-		$(COMPILES) $(IFLAGS) $(PATH) -o $(PATHK)
+		$(ICOMPILES) $(IFLAGS) $(PATHI) -o $(PATHK)
 clean:
 		rm -rf ./bin

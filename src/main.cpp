@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include <string>
 #include <string.h>
 #include <vector>
@@ -11,14 +12,125 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <dirent.h>
+#include <sys/stat.h>
 
 using namespace std;
 
 #define MAXSIZE 10000
 
-void ls()//insert parameters
+void printAll()
+{
+	cout << "printAll" << endl; //REMOVE
+}
+void printLong()
+{
+	cout << "printLong" << endl; //REMOVE
+
+}
+void printRecursive()
+{
+	cout << "printRecursive" << endl; //REMOVE
+
+}
+void printAllLong()
+{
+	cout << "printAllLong" << endl; //REMOVE
+
+}
+void printAllRecursive()
+{
+	cout << "printAllRecursive" << endl; //REMOVE
+
+}
+void printLongRecursive()
+{
+	cout << "printLongRecursive" << endl; //REMOVE
+
+}
+void printAllLongRecursive()
+{
+	cout << "printAllLongRecursive" << endl; //REMOVE
+
+}
+
+void fileSpecs(int argc/*argc needs to be the number of entries passed into argv*/, char* argv[]/*argv needs to be the directory pointer*/ )//insert parameters and return value
+{
+	//May delete this functions and just put the directory stuff into the print functions to make coding easier
+	if(argc <= 1)
+	{
+		perror("argc");//Nothing passed in to argc
+		exit(1);
+	}
+	DIR *dirp;
+	if(NULL == (dirp = opendir(argv[1])))
+	{
+		perror("opendir()");
+		exit(1);
+	}
+	struct dirent *filespecs;
+	errno = 0;
+	while(NULL != (filespecs = readdir(dirp)))
+	{
+		//change to put files in certain order
+		cout << filespecs->d_name << " ";
+	}
+	if(errno != 0)
+	{
+		perror("readdir()");
+		exit(1);
+	}
+	cout << endl;
+	if(-1 == closedir(dirp))
+	{
+		perror("closedir");
+		exit(1);
+	}
+
+	//return *filespecs; if used, return value is struct dirent
+}
+
+void ls_define(int argc, char* argv[])//insert parameters
 {
 	//ls functionality
+
+	cout << "ls" << endl;//REMOVE
+	
+	//fileSpecs(argc, directory_name);
+
+	//create flags (-a, -l, -R)
+	map<string, void(*)()> flag_functions;
+	flag_functions["--all"] = printAll;
+	flag_functions["-a"] = printAll;
+	flag_functions["--long"] = printLong;
+	flag_functions["-l"] = printLong;
+	flag_functions["--recursive"] = printRecursive;
+	flag_functions["-R"] = printRecursive;
+	flag_functions["-al"] = printAllLong;
+	flag_functions["-la"] = printAllLong;
+	flag_functions["-aR"] = printAllRecursive;
+	flag_functions["-Ra"] = printAllRecursive;
+	flag_functions["-lR"] = printLongRecursive;
+	flag_functions["-Rl"] = printLongRecursive;
+	flag_functions["-alR"] = printAllLongRecursive;
+	flag_functions["-aRl"] = printAllLongRecursive;
+	flag_functions["-lRa"] = printAllLongRecursive;
+	flag_functions["-laR"] = printAllLongRecursive;
+	flag_functions["-Ral"] = printAllLongRecursive;
+	flag_functions["-Rla"] = printAllLongRecursive;
+
+	for(int i = 1; i < argc; i++)
+	{
+		void(*fp)() = flag_functions[string(argv[i])];
+		if(fp != NULL)
+		{
+			fp();
+		}
+		else
+		{
+			cout << "Invalid Flag: " << argv[i] << endl;
+		}
+	}
 }
 
 void get_input(string& usr_input)
@@ -141,7 +253,16 @@ void get_input(string& usr_input)
 			else if(pid == 0)
 			{
 				argvcmd[index] = NULL;
-				status = execvp(argvcmd[0], argvcmd);
+				
+				if(!(strcmp(argvcmd[0], "ls")))
+				{
+					ls_define(index, argvcmd);
+				}
+				else
+				{
+					status = execvp(argvcmd[0], argvcmd);
+				}
+		
 				if(status == -1)
 				{
 					perror("execvp");
