@@ -19,6 +19,10 @@ using namespace std;
 
 #define MAXSIZE 10000
 
+void printNoArguments()
+{
+	cout << "ls with no arguments" << endl; //REMOVE
+}
 void printAll()
 {
 	cout << "printAll" << endl; //REMOVE
@@ -98,6 +102,76 @@ void ls_define(int argc, char* argv[])//insert parameters
 	
 	//fileSpecs(argc, directory_name);
 
+	vector<string> destination;
+	int arguments = 0; //000
+	int a = 0;
+	while(a < argc)
+	{
+		if(a != 0 && argv[a][0] != '-')
+		{
+			cout << "destination: " << argv[a] << endl;
+			destination.push_back(argv[a]);
+		}
+		else if(argv[a][0] == '-')
+		{
+			int b = 0;
+			while(argv[a][b] != '\0')
+			{
+				if(argv[a][b] == 'a')
+				{
+					arguments = arguments | 1;
+				}
+				else if(argv[a][b] == 'l')
+				{
+					arguments = arguments | 2;
+				}
+				else if(argv[a][b] == 'R')
+				{
+					arguments = arguments | 4;
+				}
+				b++;
+			}
+		}
+		a++;
+	}
+	if(destination.size() == 0)
+	{
+		destination.push_back(".");//Current destination
+	}
+	switch(arguments)
+	{
+		case 0:
+			printNoArguments();
+			break;
+		case 1:
+			printAll();
+			break;
+		case 2:
+			printLong();
+			break;
+		case 3:
+			printAllLong();
+			break;
+		case 4:
+			printRecursive();
+			break;
+		case 5:
+			printAllRecursive();
+			break;
+		case 6:
+			printLongRecursive();
+			break;
+		case 7:
+			printAllLongRecursive();
+			break;
+		default:
+			cout << "Something went wrong" << endl; //REMOVE
+			break;
+	}
+
+	/*
+	//Need to figure out how to print -a -l as if it is -al for all arguments
+
 	//create flags (-a, -l, -R)
 	map<string, void(*)()> flag_functions;
 	flag_functions["--all"] = printAll;
@@ -131,6 +205,7 @@ void ls_define(int argc, char* argv[])//insert parameters
 			cout << "Invalid Flag: " << argv[i] << endl;
 		}
 	}
+	*/
 }
 
 void get_input(string& usr_input)
