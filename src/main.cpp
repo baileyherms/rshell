@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <map>
 #include <string>
 #include <string.h>
@@ -19,98 +20,108 @@ using namespace std;
 
 #define MAXSIZE 10000
 
-void printNoArguments()
+void printNoArguments(vector<string> &output)
 {
-	cout << "ls with no arguments" << endl; //REMOVE
+	//cout << "ls with no arguments" << endl; //REMOVE
+	for(int i = 0; i < output.size(); i++)
+	{
+		if(output[i][0] == '.')
+		{
+			//file is hidden
+		}
+		else
+		{
+			cout << output[i] << " ";
+		}
+	}
+	cout << endl;
 }
-void printAll()
+void printAll(vector<string> &output)
 {
-	cout << "printAll" << endl; //REMOVE
+	//cout << "printAll" << endl; //REMOVE
+	for(int i = 0; i < output.size(); i++)
+	{
+		cout << output[i] << " ";
+	}
+	cout << endl;
 }
-void printLong()
+void printLong(vector<string> &output)
 {
 	cout << "printLong" << endl; //REMOVE
 
 }
-void printRecursive()
+void printRecursive(vector<string> &output)
 {
 	cout << "printRecursive" << endl; //REMOVE
 
 }
-void printAllLong()
+void printAllLong(vector<string> &output)
 {
 	cout << "printAllLong" << endl; //REMOVE
 
 }
-void printAllRecursive()
+void printAllRecursive(vector<string> &output)
 {
 	cout << "printAllRecursive" << endl; //REMOVE
 
 }
-void printLongRecursive()
+void printLongRecursive(vector<string> &output)
 {
 	cout << "printLongRecursive" << endl; //REMOVE
 
 }
-void printAllLongRecursive()
+void printAllLongRecursive(vector<string> &output)
 {
 	cout << "printAllLongRecursive" << endl; //REMOVE
 
 }
 
-void fileSpecs(int argc/*argc needs to be the number of entries passed into argv*/, char* argv[]/*argv needs to be the directory pointer*/ )//insert parameters and return value
+void fileSpecs(string &args, vector<string> &output)
 {
-	//May delete this functions and just put the directory stuff into the print functions to make coding easier
-	if(argc <= 1)
-	{
-		perror("argc");//Nothing passed in to argc
-		exit(1);
-	}
+	//cout << "filespecs" << endl;
 	DIR *dirp;
-	if(NULL == (dirp = opendir(argv[1])))
+	dirp = opendir(args.c_str());
+	if(NULL == dirp)
 	{
 		perror("opendir()");
+		//cout << "opendir" << endl;
 		exit(1);
 	}
 	struct dirent *filespecs;
-	errno = 0;
 	while(NULL != (filespecs = readdir(dirp)))
 	{
-		//change to put files in certain order
-		cout << filespecs->d_name << " ";
+		//cout << "out" << endl;
+		output.push_back(filespecs->d_name);
 	}
-	if(errno != 0)
-	{
-		perror("readdir()");
-		exit(1);
-	}
-	cout << endl;
 	if(-1 == closedir(dirp))
 	{
+		//cout << "closedir" << endl;
 		perror("closedir");
 		exit(1);
 	}
-
-	//return *filespecs; if used, return value is struct dirent
 }
 
 void ls_define(int argc, char* argv[])//insert parameters
 {
 	//ls functionality
 
-	cout << "ls" << endl;//REMOVE
+	//cout << "ls" << endl;//REMOVE
 	
 	//fileSpecs(argc, directory_name);
 
+	char* arguments_v[argc];
+	string hold_args;
 	vector<string> destination;
 	int arguments = 0; //000
 	int a = 0;
+	int args_so_far = 0;
 	while(a < argc)
 	{
 		if(a != 0 && argv[a][0] != '-')
 		{
-			cout << "destination: " << argv[a] << endl;
-			destination.push_back(argv[a]);
+			hold_args = argv[a];
+			arguments_v[args_so_far] = argv[a];
+			args_so_far++;
 		}
 		else if(argv[a][0] == '-')
 		{
@@ -134,78 +145,62 @@ void ls_define(int argc, char* argv[])//insert parameters
 		}
 		a++;
 	}
-	if(destination.size() == 0)
+	//cout << args_so_far << endl;
+	
+	vector<string> output;
+	
+	arguments_v[args_so_far] = NULL;
+	if(hold_args == "")
 	{
-		destination.push_back(".");//Current destination
+		hold_args = ".";
 	}
+	if(args_so_far > 0)
+	{
+		for(int i = 0; i < args_so_far; i++)
+		{
+			//cout << arguments_v[i] << endl;
+		}
+		//fileSpecs(hold_args, output);
+	}
+	fileSpecs(hold_args, output);
+	for(int i = 0; i < output.size(); i++)
+	{
+		//cout << output[i] << endl;
+	}
+	//cout << "here" << endl;
+	sort(output.begin(), output.end());
 	switch(arguments)
 	{
 		case 0:
-			printNoArguments();
+			printNoArguments(output);
 			break;
 		case 1:
-			printAll();
+			printAll(output);
 			break;
 		case 2:
-			printLong();
+			printLong(output);
 			break;
 		case 3:
-			printAllLong();
+			printAllLong(output);
 			break;
 		case 4:
-			printRecursive();
+			printRecursive(output);
 			break;
 		case 5:
-			printAllRecursive();
+			printAllRecursive(output);
 			break;
 		case 6:
-			printLongRecursive();
+			printLongRecursive(output);
 			break;
 		case 7:
-			printAllLongRecursive();
+			printAllLongRecursive(output);
 			break;
 		default:
 			cout << "Something went wrong" << endl; //REMOVE
 			break;
 	}
 
-	/*
-	//Need to figure out how to print -a -l as if it is -al for all arguments
-
-	//create flags (-a, -l, -R)
-	map<string, void(*)()> flag_functions;
-	flag_functions["--all"] = printAll;
-	flag_functions["-a"] = printAll;
-	flag_functions["--long"] = printLong;
-	flag_functions["-l"] = printLong;
-	flag_functions["--recursive"] = printRecursive;
-	flag_functions["-R"] = printRecursive;
-	flag_functions["-al"] = printAllLong;
-	flag_functions["-la"] = printAllLong;
-	flag_functions["-aR"] = printAllRecursive;
-	flag_functions["-Ra"] = printAllRecursive;
-	flag_functions["-lR"] = printLongRecursive;
-	flag_functions["-Rl"] = printLongRecursive;
-	flag_functions["-alR"] = printAllLongRecursive;
-	flag_functions["-aRl"] = printAllLongRecursive;
-	flag_functions["-lRa"] = printAllLongRecursive;
-	flag_functions["-laR"] = printAllLongRecursive;
-	flag_functions["-Ral"] = printAllLongRecursive;
-	flag_functions["-Rla"] = printAllLongRecursive;
-
-	for(int i = 1; i < argc; i++)
-	{
-		void(*fp)() = flag_functions[string(argv[i])];
-		if(fp != NULL)
-		{
-			fp();
-		}
-		else
-		{
-			cout << "Invalid Flag: " << argv[i] << endl;
-		}
-	}
-	*/
+	
 }
 
 void get_input(string& usr_input)
