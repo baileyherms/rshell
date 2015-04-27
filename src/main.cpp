@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <algorithm>
 #include <map>
 #include <string>
@@ -19,11 +20,11 @@
 using namespace std;
 
 #define MAXSIZE 10000
-
+#define TABLE_SIZE 30
 void printNoArguments(vector<string> &output)
 {
 	//cout << "ls with no arguments" << endl; //REMOVE
-	for(int i = 0; i < output.size(); i++)
+	for(int unsigned i = 0; i < output.size(); i++)
 	{
 		if(output[i][0] == '.')
 		{
@@ -31,7 +32,8 @@ void printNoArguments(vector<string> &output)
 		}
 		else
 		{
-			cout << output[i] << " ";
+			//cout << setw(4);
+			cout << output[i] << "  ";
 		}
 	}
 	cout << endl;
@@ -39,9 +41,10 @@ void printNoArguments(vector<string> &output)
 void printAll(vector<string> &output)
 {
 	//cout << "printAll" << endl; //REMOVE
-	for(int i = 0; i < output.size(); i++)
+	for(unsigned i = 0; i < output.size(); i++)
 	{
-		cout << output[i] << " ";
+		//cout << setw(4);
+		cout << output[i] << "  ";
 	}
 	cout << endl;
 }
@@ -75,7 +78,10 @@ void printAllLongRecursive(vector<string> &output)
 	cout << "printAllLongRecursive" << endl; //REMOVE
 
 }
+void permissions()
+{
 
+}
 void fileSpecs(string &args, vector<string> &output)
 {
 	//cout << "filespecs" << endl;
@@ -99,6 +105,20 @@ void fileSpecs(string &args, vector<string> &output)
 		perror("closedir");
 		exit(1);
 	}
+	//sort(output.begin(), output.end());
+}
+
+bool changeCaseCompare(string c1, string c2)
+{
+	for(int i = 0; i < c1.size(); i++)
+	{
+		c1.at(i) = tolower(c1.at(i));
+	}
+	for(int i = 0; i < c2.size(); i++)
+	{
+		c2.at(i) = tolower(c2.at(i));
+	}
+	return c1.compare(c2) < 0;
 }
 
 void ls_define(int argc, char* argv[])//insert parameters
@@ -109,7 +129,7 @@ void ls_define(int argc, char* argv[])//insert parameters
 	
 	//fileSpecs(argc, directory_name);
 
-	char* arguments_v[argc];
+	//char* arguments_v[10000];
 	string hold_args;
 	vector<string> destination;
 	int arguments = 0; //000
@@ -120,7 +140,7 @@ void ls_define(int argc, char* argv[])//insert parameters
 		if(a != 0 && argv[a][0] != '-')
 		{
 			hold_args = argv[a];
-			arguments_v[args_so_far] = argv[a];
+			//arguments_v[args_so_far] = argv[a];
 			args_so_far++;
 		}
 		else if(argv[a][0] == '-')
@@ -149,7 +169,7 @@ void ls_define(int argc, char* argv[])//insert parameters
 	
 	vector<string> output;
 	
-	arguments_v[args_so_far] = NULL;
+	//arguments_v[args_so_far] = NULL;
 	if(hold_args == "")
 	{
 		hold_args = ".";
@@ -163,12 +183,12 @@ void ls_define(int argc, char* argv[])//insert parameters
 		//fileSpecs(hold_args, output);
 	}
 	fileSpecs(hold_args, output);
-	for(int i = 0; i < output.size(); i++)
+	for(unsigned i = 0; i < output.size(); i++)
 	{
 		//cout << output[i] << endl;
 	}
 	//cout << "here" << endl;
-	sort(output.begin(), output.end());
+	sort(output.begin(), output.end(), changeCaseCompare);
 	switch(arguments)
 	{
 		case 0:
