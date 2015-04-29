@@ -24,7 +24,7 @@ using namespace std;
 
 #define MAXSIZE 10000
 #define TABLE_SIZE 30
-void printNoArguments(unsigned max, vector<string> &output)
+void printNoArguments(vector<string> &output)
 {
 	//cout << "ls with no arguments" << endl; //REMOVE
 	for(int unsigned i = 0; i < output.size(); i++)
@@ -41,7 +41,7 @@ void printNoArguments(unsigned max, vector<string> &output)
 	}
 	cout << endl;
 }
-void printAll(unsigned max, vector<string> &output)
+void printAll(vector<string> &output)
 {
 	//cout << "printAll" << endl; //REMOVE
 	for(unsigned i = 0; i < output.size(); i++)
@@ -53,7 +53,7 @@ void printAll(unsigned max, vector<string> &output)
 	cout << endl;
 }
 
-void printLong(string args, vector<string> &output)
+void printLong(vector<string> &output)
 {
 	//cout << "printLong" << endl; //REMOVE
 	//cout << "args " << args << endl;
@@ -415,7 +415,7 @@ void ls_define(int argc, char* argv[])//insert parameters
 		//fileSpecs(hold_args, output);
 	}
 	fileSpecs(hold_args, output);
-	unsigned max_size = max_length(output);
+	//unsigned max_size = max_length(output);
 	for(unsigned i = 0; i < output.size(); i++)
 	{
 		//cout << output[i] << endl;
@@ -425,13 +425,13 @@ void ls_define(int argc, char* argv[])//insert parameters
 	switch(arguments)
 	{
 		case 0:
-			printNoArguments(max_size, output);
+			printNoArguments(output);
 			break;
 		case 1:
-			printAll(max_size, output);
+			printAll(output);
 			break;
 		case 2:
-			printLong(hold_args, output);
+			printLong(output);
 			break;
 		case 3:
 			printAllLong(output);
