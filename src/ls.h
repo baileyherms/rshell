@@ -25,47 +25,111 @@ using namespace std;
 
 #define MAXSIZE 10000
 #define TABLE_SIZE 30
+
 void fileSpecs(int &max_length, string &args, vector<string> &output);
 bool changeCaseCompare(string c1, string c2);
-void printNoArguments(unsigned max_length, vector<string> &output)
+unsigned max_length(vector<string> output);
+void printAll(unsigned max_length, vector<string> &output, string &args);
+void colors(string item, struct stat perms)
+{
+	if(S_ISDIR(perms.st_mode))
+	{
+		//cout << perms.st_mode << endl;
+		//color directory
+		if(item[0] != '.')
+		{
+			//directory
+			//cout << "here" << endl;
+			cout << "\x1b[1;34m" << item << "\x1b[0m";
+		}
+		else
+		{
+			//directory hidden
+			cout << "\x1b[0;34m\x1b[11;47m" << item << "\x1b[0m\x1b[0m";
+		}
+		
+	}
+	else if((perms.st_mode & S_IEXEC) && S_ISREG(perms.st_mode))
+	{
+			//color executable
+			if(item[0] != '.')
+			{
+				//executable
+				cout << "\x1b[0;32m" << item << "\x1b[0m";
+			}
+			else
+			{
+				//executable hidden
+				cout << "\x1b[0;32m\x1b[11;47m" << item << "\x1b[0m\x1b[0m";
+			}
+	}
+	else if(item[0] == '.')
+	{
+		//hidden
+		cout << "\x1b[11;47m" << item << "\x1b[0m";
+	}
+	else
+	{
+		cout << item;
+	}
+}
+void printNoArguments(unsigned max, vector<string> &output, string &args)
 {	
+	vector<string> no_hide;
+	for(unsigned i = 0; i < output.size(); i++)
+	{
+		if(output[i][0] != '.')
+		{
+			//cout << output.at(i) << endl;
+			no_hide.push_back(output.at(i));
+		}
+	}
+	unsigned max_l = max_length(no_hide) + 1;
+	//printAll(max_l, no_hide);
+	
 	struct winsize win;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
-	int width = output.size()*max_length;
+	int width = no_hide.size()*max_l;
 	unsigned row_count = ceil((double)width/(double)win.ws_col);
-	
 	for(unsigned i = 0; i < row_count; i++)
 	{
-		//cout << "file: " << output.at(i) << endl;
-		for(unsigned j = i; j < output.size(); j += row_count)
+		string file= "";
+		for(unsigned j = i; j < no_hide.size(); j += row_count)
 		{
-			if(output[j][0] != '.')
-			{
-				cout << output.at(j);
-				//unsigned k = strlen(output.at(j).c_str());
-				for(unsigned k = strlen(output.at(j).c_str()); k < max_length; k++)
-				{	
-					cout << " ";
-				}
+			struct stat perms;
+			file = args + "/" + no_hide.at(i);
+			stat(file.c_str(), &perms);
+			cout << no_hide.at(j);
+			//colors(no_hide.at(j), perms);
+			unsigned k;// = strlen(output.at(j).c_str();
+			for(k = strlen(no_hide.at(j).c_str()); k < max_l; k++)
+			{	
+				cout << " ";
 			}
-			
 		}
 		cout << endl;
 	}
+	
 }
-void printAll(unsigned max_length, vector<string> &output)
+
+void printAll(unsigned max_length, vector<string> &output, string &args)
 {
 	//cout << "max length: " << max_length << endl;
 	struct winsize win;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
 	int width = output.size()*max_length;
 	unsigned row_count = ceil((double)width/(double)win.ws_col);
-	
+	//int arguments = 0;
 	for(unsigned i = 0; i < row_count; i++)
 	{
+		string file = "";
 		for(unsigned j = i; j < output.size(); j += row_count)
 		{
-			cout << output.at(j);
+			//cout << output.at(i) << endl;
+			struct stat perms;
+			file = args + "/" + output.at(i);
+			stat(output.at(j).c_str(), &perms);
+			colors(output.at(j), perms);
 			unsigned k;// = strlen(output.at(j).c_str();
 			for(k = strlen(output.at(j).c_str()); k < max_length; k++)
 			{	
@@ -77,8 +141,6 @@ void printAll(unsigned max_length, vector<string> &output)
 }
 void printLong(unsigned max_length, vector<string> &output, string args)
 {
-
-	
 	struct stat perms;//holds the directory files
 	unsigned entire_size = 0;
 	unsigned max = 0;
@@ -211,7 +273,10 @@ void printLong(unsigned max_length, vector<string> &output, string args)
 				cout << dt->tm_min;
 			}
 
-			cout << " " << output[i] << endl;
+			cout << " ";
+			colors(output.at(i), perms);
+			cout << endl;
+			//cout << " " << output[i] << endl;
 		}
 	}
 	
@@ -220,7 +285,7 @@ void printRecursive(unsigned max_length, vector<string> &output, string args)
 {
 	//cout << "printRecursive" << endl; //REMOVE
 	cout << args << ":" << endl;
-	printNoArguments(max_length, output);
+	printNoArguments(max_length, output, args);
 	max_length = 0;
 	cout << endl;
 	vector<string> rec_output;
@@ -411,8 +476,10 @@ void printAllLong(unsigned max_length, vector<string> &output, string &args)
 			{
 				cout << dt->tm_min;
 			}
-
-			cout << " " << output[i] << endl;
+			cout << " ";
+			colors(output.at(i), perms);
+			cout << endl;
+			//cout << " " << output[i] << endl;
 		}
 	}
 }
@@ -420,7 +487,7 @@ void printAllRecursive(unsigned max_length, vector<string> &output, string args)
 {
 	//cout << "printAllRecursive" << endl; //REMOVE
 	cout << args << ":" << endl;
-	printAll(max_length, output);
+	printAll(max_length, output, args);
 	cout << endl;
 	vector<string> rec_output;
 	for(unsigned i = 0; i < output.size(); i++)
@@ -695,10 +762,10 @@ void ls_define(int argc, char* argv[])//insert parameters
 	switch(arguments)
 	{
 		case 0:
-			printNoArguments(max_length, output);
+			printNoArguments(max_length, output, hold_args);
 			break;
 		case 1:
-			printAll(max_length, output);
+			printAll(max_length, output, hold_args);
 			break;
 		case 2:
 			printLong(max_length, output, hold_args);
