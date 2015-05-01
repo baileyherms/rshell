@@ -16,6 +16,7 @@
 #include <fcntl.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <sys/ioctl.h>
 #include <grp.h>
 #include <pwd.h>
 #include <ctime>
@@ -24,45 +25,55 @@ using namespace std;
 
 #define MAXSIZE 10000
 #define TABLE_SIZE 30
-void printNoArguments(vector<string> &output)
-{
-	//cout << "ls with no arguments" << endl; //REMOVE
-	for(int unsigned i = 0; i < output.size(); i++)
+void printNoArguments(int max_length, vector<string> &output)
+{	
+	struct winsize win;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
+	int width = output.size()*max_length;
+	int row_count = ceil((double)width/(double)win.ws_col);
+	
+	for(unsigned i = 0; i < row_count; i++)
 	{
-		if(output[i][0] == '.')
+		for(unsigned j = i; j < output.size(); j += row_count)
 		{
-			//file is hidden
-		}
-		else
-		{
-			cout << left << setw(output.at(i).size() + 2) << output[i];
+			if(output[j][0] != '.')
+			{
+				cout << left << output.at(j);
+				int k = strlen(output.at(j).c_str());
+				for(k; k < max_length; k++)
+				{	
+					cout << " ";
+				}
+			}
 			
 		}
+		cout << endl;
 	}
-	cout << endl;
 }
-void printAll(vector<string> &output)
+void printAll(int max_length, vector<string> &output)
 {
-	//cout << "printAll" << endl; //REMOVE
-	for(unsigned i = 0; i < output.size(); i++)
-	{
-		//cout << setw(6);
-		cout << left << setw(output.at(i).size() + 2) << output[i];
+	struct winsize win;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
+	int width = output.size()*max_length;
+	int row_count = ceil((double)width/(double)win.ws_col);
 	
-	}
-	cout << endl;
-}
-
-void printLong(vector<string> &output)
-{
-	//cout << "printLong" << endl; //REMOVE
-	//cout << "args " << args << endl;
-	/*
-	for(unsigned i = 0; i < output.size(); i++)
+	for(unsigned i = 0; i < row_count; i++)
 	{
-		cout << "output at " << i << " " << output.at(i) << endl;
+		for(unsigned j = i; j < output.size(); j += row_count)
+		{
+			cout << left <<  output.at(j);
+			int k = strlen(output.at(j).c_str());
+			for(k; k < max_length; k++)
+			{	
+				cout << " ";
+			}
+		}
+		cout << endl;
 	}
-	*/
+}
+void printLong(int max_length, vector<string> &output)
+{
+
 	cout << "total " << "#"; //Add number here	
 	cout << endl;
 	struct stat perms;//holds the directory files
@@ -75,11 +86,14 @@ void printLong(vector<string> &output)
 		}
 		else
 		{
+			
 			if((stat(output.at(i).c_str(), &perms)) != 0)
 			{
 				perror(output.at(i).c_str());
 				exit(1);
 			}
+			
+			//stat(output.at(i).c_str(), &perms);
 			for(unsigned j = 0; j < output.size(); j++)
 			{
 				unsigned temp_max = 0;
@@ -167,17 +181,17 @@ void printLong(vector<string> &output)
 				cout << dt->tm_min;
 			}
 
-			cout << " " << output.at(i).c_str() << endl;
+			cout << " " << output[i] << endl;
 		}
 	}
 	
 }
-void printRecursive(vector<string> &output)
+void printRecursive(int max_length, vector<string> &output)
 {
 	cout << "printRecursive" << endl; //REMOVE
 
 }
-void printAllLong(vector<string> &output)
+void printAllLong(int max_length, vector<string> &output)
 {
 	//cout << "printAllLong" << endl; //REMOVE
 	cout << "total " << "#";//Add number here
@@ -192,12 +206,19 @@ void printAllLong(vector<string> &output)
 		}
 		else
 		{
+			
 			if((stat(output.at(i).c_str(), &perms)) != 0)
 			{
+				//FIX PROBLEM IS HERE
+				//Account for files, keep getting directory errors here with files
+				//cout << "Problem" << endl;
+				vector<string> recursive_vector;
+
 				perror(output.at(i).c_str());
 				exit(1);
 			}
 			
+			//stat(output.at(i).c_str(), &perms);
 			for(unsigned j = 0; j < output.size(); j++)
 			{
 				unsigned temp_max = 0;
@@ -285,30 +306,31 @@ void printAllLong(vector<string> &output)
 				cout << dt->tm_min;
 			}
 
-			cout << " " << output.at(i).c_str() << endl;
+			cout << " " << output[i] << endl;
 		}
 	}
 }
-void printAllRecursive(vector<string> &output)
+void printAllRecursive(int max_length, vector<string> &output)
 {
 	cout << "printAllRecursive" << endl; //REMOVE
 
 }
-void printLongRecursive(vector<string> &output)
+void printLongRecursive(int max_length, vector<string> &output)
 {
 	cout << "printLongRecursive" << endl; //REMOVE
 
 }
-void printAllLongRecursive(vector<string> &output)
+void printAllLongRecursive(int max_length, vector<string> &output)
 {
 	cout << "printAllLongRecursive" << endl; //REMOVE
 
 }
-void fileSpecs(string &args, vector<string> &output)
+void fileSpecs(int &max_length, string &args, vector<string> &output)
 {
 	//cout << "filespecs" << endl;
 	DIR *dirp;
 	dirp = opendir(args.c_str());
+	//cout << "**** directory ****" << args.c_str() << endl;
 	if(NULL == dirp)
 	{
 		perror("opendir()");
@@ -320,6 +342,10 @@ void fileSpecs(string &args, vector<string> &output)
 	{
 		//cout << "out" << endl;
 		output.push_back(filespecs->d_name);
+		if(strlen(filespecs->d_name) > max_length)
+		{
+			max_length = strlen(filespecs->d_name); 
+		}
 	}
 	if(-1 == closedir(dirp))
 	{
@@ -414,7 +440,10 @@ void ls_define(int argc, char* argv[])//insert parameters
 		}
 		//fileSpecs(hold_args, output);
 	}
-	fileSpecs(hold_args, output);
+	int max_length = 0;
+	fileSpecs(max_length, hold_args, output);
+	max_length += 1;
+	//cout << "Max Length: " << max_length << endl;
 	//unsigned max_size = max_length(output);
 	for(unsigned i = 0; i < output.size(); i++)
 	{
@@ -425,28 +454,28 @@ void ls_define(int argc, char* argv[])//insert parameters
 	switch(arguments)
 	{
 		case 0:
-			printNoArguments(output);
+			printNoArguments(max_length, output);
 			break;
 		case 1:
-			printAll(output);
+			printAll(max_length, output);
 			break;
 		case 2:
-			printLong(output);
+			printLong(max_length, output);
 			break;
 		case 3:
-			printAllLong(output);
+			printAllLong(max_length, output);
 			break;
 		case 4:
-			printRecursive(output);
+			printRecursive(max_length, output);
 			break;
 		case 5:
-			printAllRecursive(output);
+			printAllRecursive(max_length, output);
 			break;
 		case 6:
-			printLongRecursive(output);
+			printLongRecursive(max_length, output);
 			break;
 		case 7:
-			printAllLongRecursive(output);
+			printAllLongRecursive(max_length, output);
 			break;
 		default:
 			cout << "Something went wrong" << endl; //REMOVE
