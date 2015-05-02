@@ -1,4 +1,4 @@
-ICOMPILES = g++ --std=c++11
+ICOMPILES = g++
 IFLAGS = -Wall -Werror -ansi -pedantic
 PATHI = ./src/main.cpp
 PATHB = ./src/ls.cpp
