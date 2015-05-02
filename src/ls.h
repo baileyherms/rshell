@@ -90,7 +90,8 @@ void printNoArguments(unsigned max, vector<string> &output, string &args)
 	struct winsize win;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
 	int width = no_hide.size()*max_l;
-	unsigned row_count = ceil((double)width/(double)win.ws_col);
+	double row_coun = ceil((double)width/(double)win.ws_col);
+	unsigned row_count = (unsigned)row_coun;
 	for(unsigned i = 0; i < row_count; i++)
 	{
 		string file= "";
@@ -118,7 +119,8 @@ void printAll(unsigned max_length, vector<string> &output, string &args)
 	struct winsize win;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
 	int width = output.size()*max_length;
-	unsigned row_count = ceil((double)width/(double)win.ws_col);
+	double row_coun = ceil((double)width/(double)win.ws_col);
+	unsigned row_count = (unsigned)row_coun;
 	//int arguments = 0;
 	for(unsigned i = 0; i < row_count; i++)
 	{
