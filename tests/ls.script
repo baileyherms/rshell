@@ -1,26 +1,32 @@
 Script started on Fri 01 May 2015 05:50:02 PM PDT
-~
+~
+
 bherm001@well $ ls
 [0m[01;32ma.out[0m*      [0massn3.asm~[0m   [01;34mDownloads[0m/                   [0mhold.asm~[0m      [01;32mlab2_ex1.cpp[0m*  [0mlab2_ex4.asm[0m   [0mlab6_ex1.asm~[0m  [01;34mPublic[0m/     [0mstuff.asm~[0m
 [0massn1.asm[0m   [0mbomb.cpp[0m     [01;32mex2.cpp[0m*                     [0mlab2_ex1[0m       [0mlab2_ex2.asm[0m   [0mlab2_ex4.asm~[0m  [0mlab6_ex2.asm[0m   [01;34mrshell[0m/     [01;34mTemplates[0m/
 [0massn2.asm[0m   [01;34mcs100-labs[0m/  [01;32mFirefox_wallpaper.png[0m*       [0mlab2_ex1~[0m      [0mlab2_ex2.asm~[0m  [0mlab2_ex5.asm[0m   [0mlab6_ex2.asm~[0m  [0msshkey[0m      [0mTEST[0m
 [0massn2.asm~[0m  [01;34mDesktop[0m/     [01;32mgit-credential-osxkeychain[0m*  [0mlab2_ex1.asm[0m   [0mlab2_ex3.asm[0m   [0mlab2_ex5.asm~[0m  [01;34mMusic[0m/         [0msshkey.pub[0m  [01;34mucr-cs100[0m/
 [0massn3.asm[0m   [01;34mDocuments[0m/   [0mhold.asm[0m                     [0mlab2_ex1.asm~[0m  [0mlab2_ex3.asm~[0m  [0mlab6_ex1.asm[0m   [01;34mPictures[0m/      [0mstuff.asm[0m   [01;34mVideos[0m/
-[m~
+[m~
+
 bherm001@well $ cd rshell
-~/rshell
+~/rshell
+
 bherm001@well $ make
 mkdir -p ./bin
 g++ -Wall -Werror -ansi -pedantic ./src/ls.cpp -o ./bin/ls
 mkdir -p ./bin
 g++ -Wall -Werror -ansi -pedantic ./src/ls.cpp -o ./bin/rshell
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls
 bin       LICENSE   Makefile  README.md src       tests     
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -a
 [0;34m[11;47m.[0m[0m         [0;34m[11;47m..[0m[0m        [0;34m[11;47m.git[0m[0m      [1;34mbin[0m       LICENSE   Makefile  README.md [1;34msrc[0m       [1;34mtests[0m     
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -a[Kl
 total 20
 drwx------  2 bherm001 csmajs 4096 May  1 17:50 [1;34mbin[0m
@@ -29,7 +35,8 @@ drwx------  2 bherm001 csmajs 4096 May  1 17:50 [1;34mbin[0m
 -rw-------  1 bherm001 csmajs   24 May  1 16:47 README.md
 drwx------  2 bherm001 csmajs 4096 May  1 17:44 [1;34msrc[0m
 drwx------  2 bherm001 csmajs 4096 May  1 17:50 [1;34mtests[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -l[KR
 .:
 bin       LICENSE   Makefile  README.md src       tests     
@@ -43,7 +50,8 @@ ls.cpp ls.h
 ./tests:
 exec.script 
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -R[C[Kal
 total 40
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m.[0m[0m
@@ -55,7 +63,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mbin[0m
 -rw-------  1 bherm001 csmajs    24 May  1 16:47 README.md
 drwx------  2 bherm001 csmajs  4096 May  1 17:44 [1;34msrc[0m
 drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mtests[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -al[K -l
 total 40
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m.[0m[0m
@@ -67,7 +76,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mbin[0m
 -rw-------  1 bherm001 csmajs    24 May  1 16:47 README.md
 drwx------  2 bherm001 csmajs  4096 May  1 17:44 [1;34msrc[0m
 drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mtests[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -a -l[K[K[K[Kla
 total 40
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m.[0m[0m
@@ -79,7 +89,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mbin[0m
 -rw-------  1 bherm001 csmajs    24 May  1 16:47 README.md
 drwx------  2 bherm001 csmajs  4096 May  1 17:44 [1;34msrc[0m
 drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mtests[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -la[K -a
 total 40
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m.[0m[0m
@@ -91,7 +102,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mbin[0m
 -rw-------  1 bherm001 csmajs    24 May  1 16:47 README.md
 drwx------  2 bherm001 csmajs  4096 May  1 17:44 [1;34msrc[0m
 drwx------  2 bherm001 csmajs  4096 May  1 17:50 [1;34mtests[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -l -a[K[K[K[KaR
 .:
 [0;34m[11;47m.[0m[0m         [0;34m[11;47m..[0m[0m        [0;34m[11;47m.git[0m[0m      [1;34mbin[0m       LICENSE   Makefile  README.md [1;34msrc[0m       [1;34mtests[0m     
@@ -189,7 +201,8 @@ bherm001@well $ bin/ls -l -a[K[K[K[KaR
 ./tests:
 [0;34m[11;47m.[0m[0m           [0;34m[11;47m..[0m[0m          [1;34mexec.script[0m 
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -aR[K[KRa
 .:
 [0;34m[11;47m.[0m[0m         [0;34m[11;47m..[0m[0m        [0;34m[11;47m.git[0m[0m      [1;34mbin[0m       LICENSE   Makefile  README.md [1;34msrc[0m       [1;34mtests[0m     
@@ -287,7 +300,8 @@ bherm001@well $ bin/ls -aR[K[KRa
 ./tests:
 [0;34m[11;47m.[0m[0m           [0;34m[11;47m..[0m[0m          [1;34mexec.script[0m 
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -Ra[K[K [Ka -R
 .:
 [0;34m[11;47m.[0m[0m         [0;34m[11;47m..[0m[0m        [0;34m[11;47m.git[0m[0m      [1;34mbin[0m       LICENSE   Makefile  README.md [1;34msrc[0m       [1;34mtests[0m     
@@ -385,7 +399,8 @@ bherm001@well $ bin/ls -Ra[K[K [Ka -R
 ./tests:
 [0;34m[11;47m.[0m[0m           [0;34m[11;47m..[0m[0m          [1;34mexec.script[0m 
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -a -R [K[K[K[KRl
 .:
 total 40
@@ -619,7 +634,8 @@ drwx------  2 bherm001 csmajs 4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs 4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs    0 May  1 17:50 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -aRl[K[KlR
 .:
 total 40
@@ -853,7 +869,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 32768 May  1 17:50 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -alR[1PlR[C[Ca
 .:
 total 40
@@ -1087,7 +1104,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 32768 May  1 17:50 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -lRa[K[K[KRal
 .:
 total 40
@@ -1321,7 +1339,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 32768 May  1 17:50 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -Ral-al -al[C[C l-l
 .:
 total 40
@@ -1555,7 +1574,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 65536 May  1 17:51 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -R -a -l[1P[C[C[C[1P-l
 .:
 total 40
@@ -1789,7 +1809,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 65536 May  1 17:51 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -R-a-l -lllllll         -RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -----------------[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K                           -AAAAAAAA[K[K[K[K[K[K[K[Kaaaaaaaaaaaaaaaaaaaaaaaaaa
 .:
 total 40
@@ -2023,7 +2044,8 @@ drwx------  2 bherm001 csmajs  4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 65536 May  1 17:51 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -R-a-l -lllllll         -RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR                           -aaaaaaaaaaaaaaaaaaaaaaaaaa ~/Desktop
 /home/csmajs/bherm001/Desktop:
 total 104
@@ -2127,7 +2149,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -R-a-l -lllllll         -RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR                           -aaaaaaaaaaaaaaaaaaaaaaaaaa ~/Desktop -alalalalalaalR
 /home/csmajs/bherm001/Desktop:
 total 104
@@ -2231,10 +2254,12 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -R-a-l -lllllll         -RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR                           -aaaaaaaaaaaaaaaaaaaaaaaaaa ~/Desktop -alalalalalaalR[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P
 bash: bin/ls~/Desktop: No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls~/Desktop -alalalalalaalR[4h [4l[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
 /home/csmajs/bherm001/Desktop:
 total 104
@@ -2338,10 +2363,12 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop -alalalalalaalR -a 0-[K[K-                         a
 opendir(): No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop -alalalalalaalR -a -                         a[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ka
 /home/csmajs/bherm001/Desktop:
 total 104
@@ -2445,7 +2472,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop -alalalalalaalR -a -a                                                     [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K                        -R
 /home/csmajs/bherm001/Desktop:
 total 104
@@ -2549,14 +2577,17 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop -alalalalalaal                        -R[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K/simpl
 bin                gt16as             gt16text           lc3as              README             simp               simpl.desktop      
 COPYING            gt16qt             hi16-app-simpl.png LICENSE            README.CS2110      simpl              
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin
 gt16as   gt16qt   gt16text lc3as    simp     simpl    
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -alR
 /home/csmajs/bherm001/Desktop/simpl/bin:
 total 8576
@@ -2569,7 +2600,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -alR[K[K[Kal
 total 8576
 drwxr-xr-x  2 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m.[0m[0m
@@ -2580,10 +2612,12 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root  884097 Jul 10 16:34 [0;32mlc3as[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -al[K
 [0;34m[11;47m.[0m[0m        [0;34m[11;47m..[0m[0m       [1;34mgt16as[0m   [1;34mgt16qt[0m   [1;34mgt16text[0m [1;34mlc3as[0m    [1;34msimp[0m     [1;34msimpl[0m    
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -a[Kl
 total 8568
 -rwxr-xr-x  1 root root  836453 Jul 10 16:34 [0;32mgt16as[0m
@@ -2592,12 +2626,14 @@ total 8568
 -rwxr-xr-x  1 root root  884097 Jul 10 16:34 [0;32mlc3as[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -l[KR
 /home/csmajs/bherm001/Desktop/simpl/bin:
 gt16as   gt16qt   gt16text lc3as    simp     simpl    
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -R =-[K-[K[K-a -l     -a ----[K[K[K   [K[K[K[K                        -llllllll-l-l-l-l-l-l
 /home/csmajs/bherm001/Desktop/simpl/bin:
 total 8576
@@ -2610,7 +2646,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -R -a -l     -a                         -llllllll-l-l-l-l-l-l[C[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1Pllllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1Pllllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1Pllllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1P-llllllll-l-l-l-l-l-l[1Pllllllll-l-l-l-l-l-l
 total 8568
 -rwxr-xr-x  1 root root  836453 Jul 10 16:34 [0;32mgt16as[0m
@@ -2619,7 +2656,8 @@ total 8568
 -rwxr-xr-x  1 root root  884097 Jul 10 16:34 [0;32mlc3as[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -llllllll-l-l-l-l-l-l-a
 total 8576
 drwxr-xr-x  2 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m.[0m[0m
@@ -2630,7 +2668,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root  884097 Jul 10 16:34 [0;32mlc3as[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Desktop/simpl/bin -llllllll-l-l-l-l-l-l-a-R
 /home/csmajs/bherm001/Desktop/simpl/bin:
 total 8576
@@ -2643,8 +2682,10 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
-bherm001@well $ bin/ls ~/Desktop/simpl/bin -llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ~/Desktop/simpl/bin
+~/rshell
+
+bherm001@well $ bin/ls ~/Desktop/simpl/bin -llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R[1P-llllllll-l-l-l-l-l-l-a-R
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ~/Desktop/simpl/bin
 /home/csmajs/bherm001/Desktop/simpl/bin:
 total 8576
 drwxr-xr-x  2 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m.[0m[0m
@@ -2656,7 +2697,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l-a-R ~/Desktop/simpl/bin[K[K[K[K
 /home/csmajs/bherm001/Desktop/simpl:
 total 8632
@@ -2687,7 +2729,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l-a-R ~/Desktop/simpl -R
 /home/csmajs/bherm001/Desktop/simpl:
 total 8632
@@ -2718,7 +2761,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l-a-R ~/Desktop/simpl -R[C[1P[1P
 /home/csmajs/bherm001/Desktop/simpl:
 total 8632
@@ -2749,7 +2793,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l-a ~/Desktop/simpl -R[1P[1P
 /home/csmajs/bherm001/Desktop/simpl:
 total 8624
@@ -2776,7 +2821,8 @@ total 8568
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l ~/Desktop/simpl -Ra
 /home/csmajs/bherm001/Desktop/simpl:
 total 8632
@@ -2807,7 +2853,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l ~/Desktop/simpl -Ra[K -a
 /home/csmajs/bherm001/Desktop/simpl:
 total 8632
@@ -2838,7 +2885,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l ~/Desktop/simpl -R -a -l
 /home/csmajs/bherm001/Desktop/simpl:
 total 8632
@@ -2869,7 +2917,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l ~/Desktop/simpl -R -a -l -RRRRRRRRRRRRRRRRRRR -aaaaaaaaaaaaaaaaaaaaa -lllllllllllllllllllllll -RRRRLALA[K[K[K[Klalalalalr[KRlalal
 /home/csmajs/bherm001/Desktop/simpl:
 total 8632
@@ -2900,7 +2949,8 @@ drwxr-xr-x  3 bherm001 csmajs    4096 Jul 10 16:10 [0;34m[11;47m..[0m[0m
 -rwxr-xr-x  1 root root 1212062 Jul 10 16:34 [0;32msimp[0m
 -rwxr-xr-x  1 root root 2469870 Jul 10 16:34 [0;32msimpl[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l ~/Desktop/simpl -R -a -l -RRRRRRRRRRRRRRRRRRR -aaaaaaaaaaaaaaaaaaaaa -lllllllllllllllllllllll -RRRRlalalalalRlalal[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[4h.[4l[4h.[4l
 ..:
 total 4592
@@ -5586,7 +5636,8 @@ drwx------ 49 bherm001 csmajs 12288 May  1 17:49 [0;34m[11;47m..[0m[0m
 
 ../.kde:
 stat: No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l .. -R -a -l -RRRRRRRRRRRRRRRRRRR -aaaaaaaaaaaaaaaaaaaaa -lllllllllllllllllllllll -RRRRlalalalalRlalal[1P[1P[4h~[4l[4h/[4l[4hD[4l[4ho[4l[4hw[4l[4hn[4l[4hk[4l[1P[4hl[4l[4ho[4l[4ha[4l[4hs[4l[4hd[4l[1P[1P[4hd[4l[4hs[4l
 /home/csmajs/bherm001/Downloads:
 total 7616
@@ -5651,7 +5702,8 @@ drwx------  3 bherm001 csmajs 8192 Mar 13 20:01 [0;34m[11;47m..[0m[0m
 -rwx------  1 bherm001 csmajs  426 Jan  9 13:21 [0;32mfile.zip[0m
 -rwx------  1 bherm001 csmajs 2208 Jan  9 14:20 [0;32mmain(4).cpp[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -llllllll-l-l-l-l-l-l ~/Downloads -R -a -l -RRRRRRRRRRRRRRRRRRR -aaaaaaaaaaaaaaaaaaaaa -lllllllllllllllllllllll -RRRRlalalalalRlalal[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P ~/Downloads[1P~/Downloads[1P ~/Downloadss ~/Downloads[C ~/Downloads
 a.out                      assn3(1).asm               assn4(1).asm               download.zip               main(2).cc~                MyList.H                   
 assn1(1).tgz               assn3(2).asm               assn4.asm                  File                       main(3).cc                 Node(1).cc                 
@@ -5661,7 +5713,8 @@ assn2(2).asm               assn4 (1)(1).asm           bst.h                     
 assn2(3).asm               assn4 (1)(2).asm           Date.cpp                   lab4.tgz                   MyList(1).cc               
 assn2.asm                  assn4 (1).asm              download(1).zip            main(1).cc                 MyList(1).H                
 assn3 (2).asm              assn4 (2).asm              download(2).zip            main(2).cc                 MyList.cc                  
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls  ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads[C[C ~/Downloads
 a.out                      assn3(1).asm               assn4(1).asm               download.zip               main(2).cc~                MyList.H                   
 assn1(1).tgz               assn3(2).asm               assn4.asm                  File                       main(3).cc                 Node(1).cc                 
@@ -5671,7 +5724,8 @@ assn2(2).asm               assn4 (1)(1).asm           bst.h                     
 assn2(3).asm               assn4 (1)(2).asm           Date.cpp                   lab4.tgz                   MyList(1).cc               
 assn2.asm                  assn4 (1).asm              download(1).zip            main(1).cc                 MyList(1).H                
 assn3 (2).asm              assn4 (2).asm              download(2).zip            main(2).cc                 MyList.cc                  
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls                                                 ~/Downloads[4h-[4l[4ha[4l
 [0;34m[11;47m.[0m[0m                          [1;34massn1.tgz[0m                  [1;34massn3.asm[0m                  [1;34mbst.h[0m                      [1;34mlab4.tgz[0m                   [1;34mMyList(1).H[0m                
 [0;34m[11;47m..[0m[0m                         [1;34massn2(1).asm[0m               [1;34massn4 (1)(1).asm[0m           [1;34mDate.cpp[0m                   [1;34mmain(1).cc[0m                 [1;34mMyList.cc[0m                  
@@ -5682,7 +5736,8 @@ bherm001@well $ bin/ls                                                 ~/Downloa
 [0;34m[11;47m._Node.H[0m[0m                   [1;34massn3(1).asm[0m               [1;34massn4.asm[0m                  [1;34mherms_bailey_861095129.tgz[0m [1;34mmain.cc~[0m                   [1;34mNode.H[0m                     
 [1;34ma.out[0m                      [1;34massn3(2).asm[0m               [1;34massn4.asm~[0m                 [1;34mlab2_ex1.cpp~[0m              [1;34mmain.cp[0m                    
 [1;34massn1(1).tgz[0m               [1;34massn3(3).asm[0m               [1;34mbst(1).h[0m                   [1;34mlab2_ex2.cpp~[0m              [1;34mMyList(1).cc[0m               
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls                    -a                             ~/Downloads -[K             -l
 total 7616
 drwx------  3 bherm001 csmajs    8192 Mar 13 20:01 [0;34m[11;47m.[0m[0m
@@ -5737,7 +5792,8 @@ drwx------  2 bherm001 csmajs    4096 Jan  9 14:21 [1;34mFile[0m
 -rw-r--r--  1 bherm001 csmajs     226 Jan 19 15:15 Node(1).H
 -rw-------  1 bherm001 csmajs  277292 Jan 18 17:12 Node.cc
 -rw-------  1 bherm001 csmajs  276700 Jan 18 17:12 Node.H
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls                    -a                             ~/Downloads              -l                                               -R
 /home/csmajs/bherm001/Downloads:
 total 7616
@@ -5802,25 +5858,32 @@ drwx------  3 bherm001 csmajs 8192 Mar 13 20:01 [0;34m[11;47m..[0m[0m
 -rwx------  1 bherm001 csmajs  426 Jan  9 13:21 [0;32mfile.zip[0m
 -rwx------  1 bherm001 csmajs 2208 Jan  9 14:20 [0;32mmain(4).cpp[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls                    -a                             ~/Downloads              -l                                               -R[4h/[4l[4hf[4l[4ha[4l[4hk[4l[4he[4l[4h_[4l[4hd[4l[4hi[4l[4hr[4l[4he[4l[4hc[4l[4ht[4l[4ho[4l[4hr[4l[4hy[4l
 opendir(): No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls                    -a                             ~/Downloads/fake_directory              -l                                               -R[C[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[4h [4l[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C\[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
 opendir(): No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads/fake_directory -a
 opendir(): No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads/fake_directory -a[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K -p
 invalid argument: Success
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads -pa
 invalid argument: Success
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads -palR
 invalid argument: Success
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads -palR[1PalR
 /home/csmajs/bherm001/Downloads:
 total 7616
@@ -5885,7 +5948,8 @@ drwx------  3 bherm001 csmajs 8192 Mar 13 20:01 [0;34m[11;47m..[0m[0m
 -rwx------  1 bherm001 csmajs  426 Jan  9 13:21 [0;32mfile.zip[0m
 -rwx------  1 bherm001 csmajs 2208 Jan  9 14:20 [0;32mmain(4).cpp[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads -alR[C/ -alRF -alRi -alRl -alRe -alR
 /home/csmajs/bherm001/Downloads/File:
 total 24
@@ -5895,7 +5959,8 @@ drwx------  3 bherm001 csmajs 8192 Mar 13 20:01 [0;34m[11;47m..[0m[0m
 -rwx------  1 bherm001 csmajs  426 Jan  9 13:21 [0;32mfile.zip[0m
 -rwx------  1 bherm001 csmajs 2208 Jan  9 14:20 [0;32mmain(4).cpp[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads/File -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR
 /home/csmajs/bherm001/Downloads:
 total 7616
@@ -5960,10 +6025,12 @@ drwx------  3 bherm001 csmajs 8192 Mar 13 20:01 [0;34m[11;47m..[0m[0m
 -rwx------  1 bherm001 csmajs  426 Jan  9 13:21 [0;32mfile.zip[0m
 -rwx------  1 bherm001 csmajs 2208 Jan  9 14:20 [0;32mmain(4).cpp[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads -alR[C/ -alRa -alR. -alRo -alRu -alRt -alR
 opendir(): Not a directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/Downloads/a.out -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR[1P -alR
 /home/csmajs/bherm001/:
 total 4592
@@ -8649,7 +8716,8 @@ drwx------ 49 bherm001 csmajs 12288 May  1 17:49 [0;34m[11;47m..[0m[0m
 
 /home/csmajs/bherm001//.kde:
 stat: No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/ -alR[1P -alR[1P -alR[1P-alR
 .:
 total 40
@@ -8883,10 +8951,12 @@ drwx------  2 bherm001 csmajs   4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs   4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 491520 May  1 17:56 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -alR~-alR/-alRb-alRi-alRn-alR -alR
 opendir(): No such file or directory
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ~/bin -alR[1P[4h.[4l
 ./bin:
 total 120
@@ -8895,7 +8965,8 @@ drwx------  6 bherm001 csmajs  4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rwx------  1 bherm001 csmajs 56368 May  1 17:50 [0;32mls[0m
 -rwx------  1 bherm001 csmajs 56368 May  1 17:50 [0;32mrshell[0m
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./bin -alR[1P -alR[1P -alR[1P -alR[1P -alR/ -alRt -alRe -alRs -alRt -alRs -alR
 ./tests:
 total 492
@@ -8903,7 +8974,8 @@ drwx------  2 bherm001 csmajs   4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs   4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 491520 May  1 17:56 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -alR[C[C[C[C[C -a 
 ./tests:
 total 492
@@ -8911,27 +8983,33 @@ drwx------  2 bherm001 csmajs   4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs   4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 491520 May  1 17:56 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -alR -a [K[K[K[K[K[K
 [0;34m[11;47m.[0m[0m           [0;34m[11;47m..[0m[0m          [1;34mexec.script[0m 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -a[Kl
 total 484
 -rw-------  1 bherm001 csmajs 491520 May  1 17:56 exec.script
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -l[Kr
 invalid argument: Success
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -r[KR
 ./tests:
 exec.script 
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -Ra
 ./tests:
 [0;34m[11;47m.[0m[0m           [0;34m[11;47m..[0m[0m          [1;34mexec.script[0m 
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -Ral
 ./tests:
 total 492
@@ -8939,13 +9017,16 @@ drwx------  2 bherm001 csmajs   4096 May  1 17:50 [0;34m[11;47m.[0m[0m
 drwx------  6 bherm001 csmajs   4096 May  1 17:49 [0;34m[11;47m..[0m[0m
 -rw-------  1 bherm001 csmajs 491520 May  1 17:56 exec.script
 
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls ./tests -Ral[K[K[K[K[K[K[K[K[K[K[K[K[K
 bin       LICENSE   Makefile  README.md src       tests     
-~/rshell
+~/rshell
+
 bherm001@well $ bin/ls -a
 [0;34m[11;47m.[0m[0m         [0;34m[11;47m..[0m[0m        [0;34m[11;47m.git[0m[0m      [1;34mbin[0m       LICENSE   Makefile  README.md [1;34msrc[0m       [1;34mtests[0m     
-~/rshell
+~/rshell
+
 bherm001@well $ exit
 exit
 
