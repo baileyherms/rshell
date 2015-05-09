@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <cstdio>
+#include "redirect.h"
 
 using namespace std;
 using namespace boost;
@@ -55,6 +56,7 @@ void get_input(string usr_input)
 	
 	int con_amount = 0;
 	int hold_amt = 0;
+	/*
 	for(int i = 0; i < x; i++)
 	{
 		if(strcmp(argv[i], "&&") || strcmp(argv[i], "||") || strcmp(argv[i], ";"))
@@ -75,6 +77,7 @@ void get_input(string usr_input)
 			exit(0);
 		}
 	}
+	*/
 	if(hold_amt > 0)
 	{
 		cmd_arg_amt.push_back(hold_amt);
@@ -147,12 +150,13 @@ void get_input(string usr_input)
 	{
 		exec_works = true;
 		char* run[10000];
+		char* run_pior[10000];
 		for(unsigned i = 0; i < 10000; i++)
 		{
 			run[i] = 0;
+			run_pior[i] = 0;
 		}
 		int b = 0;
-		b = 0;
 		bool stop = false;
 		while(!stop && argv[place] != NULL)
 		{	
@@ -165,6 +169,7 @@ void get_input(string usr_input)
 			else
 			{
 				run[b] = argv[place];
+				run_pior[b] = argv[place];
 				b++;
 				place++;
 			}
@@ -193,7 +198,7 @@ void get_input(string usr_input)
 		else if(pid == 0)
 		{
 			exit_now = true;
-			//exiting(run[0]);
+			piping(run);
 			executive = execvp(run[0], run);
 			exec_works = executive;
 			if(executive == -1)
