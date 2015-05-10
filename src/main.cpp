@@ -197,10 +197,27 @@ void get_input(string usr_input)
 		}
 		else if(pid == 0)
 		{
+			bool pipe = false;
 			exit_now = true;
-			piping(run);
-			executive = execvp(run[0], run);
-			exec_works = executive;
+			int value = 0;
+			while(run[value] != NULL)
+			{
+				if(!strcmp(run[value], "|") || !strcmp(run[value], "<") || !strcmp(run[value], ">") || !strcmp(run[value], ">>") )
+				{
+					pipe = true;
+				}
+				value++;
+			}
+			if(pipe)
+			{
+				executive = piping(run);
+				exec_works = executive;
+			}
+			else
+			{
+				executive = execvp(run[0], run);
+				exec_works = executive;
+			}
 			if(executive == -1)
 			{
 				exec_works = false;
