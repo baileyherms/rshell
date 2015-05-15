@@ -9,7 +9,9 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <cstdio>
+#include <stdio.h>
 
 using namespace std;
 
@@ -38,7 +40,10 @@ void loop_pipe(char*** cmd)//, char** pior_order)
 			}
 			close(p[0]);
 			//cout << "execute" << endl;
-			execvp((*cmd)[0], *cmd);
+			if(execvp((*cmd)[0], *cmd) == -1)
+			{
+				perror("execvp");
+			}
 			exit(1);
 			
 		}
@@ -57,16 +62,109 @@ void loop_pipe_out(char*** cmd)
 {
 	//do output redirection and send execvp stuff to file
 }
-void input()
+void input_func(char **argv)//, char* input, char* command)
 {
 	//input redirection
+	//figure out what input and output would be
+	unsigned place = 0;
+	unsigned place2 = 0;
+	char* in_arg[1000];
+	char* out_arg[1000];
+	while(argv[place] != NULL)// && !stop)
+	{
+		//cout << "there" << endl;
+		out_arg[place] = argv[place];
+		place++;
+		if(!strcmp(argv[place], "<"))
+		{
+			out_arg[place] = '\0';
+			place++;
+			if(argv[place] != NULL && (strcmp(argv[place], "|")) != 0 && (strcmp(argv[place], "<")) != 0 && (strcmp(argv[place], ">>")) != 0 )
+			{
+				in_arg[place2] = argv[place];
+				cout << in_arg[place2] << endl;
+				place++;
+				place2++;
+				/*
+				if(!strcmp(argv[place], "<"))
+				{
+					perror("Too many '<' arguments");
+					exit(1);
+				}
+				*/
+			}
+			in_arg[place2] = '\0';
+		}
+	}
+	
+	place = 0;
+	while(out_arg[place] != NULL)
+	{
+		cout << "out_arg: " << endl;
+		cout << out_arg[place] << endl;
+		place++;
+	}
+	place = 0;
+	while(in_arg[place] != NULL)
+	{
+		cout << "in_arg: " << endl;
+		cout << in_arg[place] << endl;
+		place++;
+	}
+	//output is beginning to before <
+	//input is after < to before either end or next > | >>
+	//if next is < then output error (shouldn't work)
+	/*
+	int in, out;
+	close(0);
+	in = open(in_arg[0], O_RDONLY, 0);
+	dup2(in, 0);
+	close(in);
+	in = 0;
+	//if(fork() == 0)
+	{
+		//cout << out_arg[0] << endl;
+		if(execvp(out_arg[0], out_arg) == -1)
+		{
+			perror("execvp");
+			exit(1);
+		}
+	}
+	*/
+	
+	pid_t pid;
+	pid = fork();
+	if(pid < 0)
+	{
+		perror("input fork error");
+		exit(1);
+	}
+	else if(pid == 0)
+	{
+		close(0);
+		int fd = open(in_arg[0], O_RDONLY);
+		if(fd)
+		{
+			perror("open");
+			exit(1);
+		}
+		dup2(fd, 0);
+		execvp(out_arg[0], out_arg);
+		perror("execvp");
+		exit(1);
+	}
+	else
+	{
+		wait(NULL);
+	}
+	
 }
-/*
-void output()
+
+void output_no_erase()
 {
 	//output redirection
 }
-*/
+
 void output_erase()
 {
 	//output_erase redirection
@@ -105,6 +203,7 @@ bool piping(char* arr[])
 			if(!strcmp(arr[i], "<"))
 			{
 				input = true;
+				cout << "INPUT" << endl;
 			}
 			else if(!strcmp(arr[i], ">"))
 			{
@@ -121,6 +220,7 @@ bool piping(char* arr[])
 		else
 		{
 			argv[argv_count] = arr[i];
+			//cout << argv[argv_count] << endl;
 			argv_count++;
 		}
 		count++;
@@ -147,9 +247,12 @@ bool piping(char* arr[])
 			pipe_amount++;
 		}
 	}
+	//char* name = new char[pipe_amount];
 	if(input)
 	{
 		//do input redirection
+		cout << "----------------------------------" << endl;
+		input_func(arr);
 	}
 	while(x < pior_place_vect.size())
 	{
