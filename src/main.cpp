@@ -54,7 +54,7 @@ void get_input(string usr_input)
 	x = 0;
 	
 	
-	int con_amount = 0;
+	//int con_amount = 0;
 	int hold_amt = 0;
 	/*
 	for(int i = 0; i < x; i++)
@@ -150,11 +150,11 @@ void get_input(string usr_input)
 	{
 		exec_works = true;
 		char* run[10000];
-		char* run_pior[10000];
+		//char* run_pior[10000];
 		for(unsigned i = 0; i < 10000; i++)
 		{
 			run[i] = 0;
-			run_pior[i] = 0;
+			//run_pior[i] = 0;
 		}
 		int b = 0;
 		bool stop = false;
@@ -169,7 +169,7 @@ void get_input(string usr_input)
 			else
 			{
 				run[b] = argv[place];
-				run_pior[b] = argv[place];
+				//run_pior[b] = argv[place];
 				b++;
 				place++;
 			}

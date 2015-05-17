@@ -21,7 +21,7 @@ void loop_pipe(char*** cmd)
 	int p[2];
 	pid_t pid;
 	int fd_in = 0;
-	int iterate = 0;
+	//int iterate = 0;
 	while(*cmd != NULL)
 	{
 		pipe(p);
@@ -64,8 +64,8 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 	unsigned place = 0;
 	unsigned place2 = 0;
 	char* in_arg[1000];
-	char* out_arg[1000];
-	char* in2_arg[1000];
+	//char* out_arg[1000];
+	//char* in2_arg[1000];
 	char* out2_arg[1000];
 	bool stop = false;
 	if(input)
@@ -73,12 +73,12 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 		while(argv[place] != NULL && !stop)
 		{
 			//cout << "there" << endl;
-			out_arg[place] = argv[place];
+			//out_arg[place] = argv[place];
 			//cout << "out_arg: " << out_arg[place] << endl;
 			place++;
 			if(!strcmp(argv[place], "<"))
 			{
-				out_arg[place] = '\0';
+				//out_arg[place] = '\0';
 				place++;
 				if(argv[place] != NULL && (strcmp(argv[place], ">")) != 0 && (strcmp(argv[place], "|")) != 0 && (strcmp(argv[place], "<")) != 0 && (strcmp(argv[place], ">>")) != 0 )
 				{
@@ -118,12 +118,12 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 		while(argv[place] != NULL && !stop)
 		{
 			//cout << "there" << endl;
-			in2_arg[place2] = argv[place];
+			//in2_arg[place2] = argv[place];
 			place++;
 			place2++;
 			if(!strcmp(argv[place], ">") || !strcmp(argv[place], ">>"))
 			{
-				in2_arg[place2] = '\0';
+				//in2_arg[place2] = '\0';
 				place++;
 				place2 = 0;
 				//if(argv[place] != NULL && (strcmp(argv[place], ">")) && (strcmp(argv[place], "|")) != 0 && (strcmp(argv[place], "<")) != 0 && (strcmp(argv[place], ">>")) != 0 )
@@ -146,7 +146,7 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 	int p[2];
 	pid_t pid;
 	int fd_in = 0;
-	int iterate = 0;
+	//int iterate = 0;
 	//cout << "out2_arg[0] " << out2_arg[0] << endl;
 	//cout << "in_arg[0] " << in_arg[0] << endl;
 	while(*cmd != NULL)
@@ -455,6 +455,7 @@ void output_func(char **argv, bool appending, bool number)
 		{
 			//cout << "there" << endl;
 			in_arg[place] = argv[place];
+			//cout << "in_arg " << in_arg[place] << endl;
 			place++;
 			if(!strcmp(argv[place], ">") || (!strcmp(argv[place], ">>")))
 			{
@@ -469,7 +470,7 @@ void output_func(char **argv, bool appending, bool number)
 					place2++;
 					end = true;
 				}
-				in_arg[place2] = '\0';
+				out_arg[place2] = '\0';
 			}
 		}
 
@@ -480,8 +481,10 @@ void output_func(char **argv, bool appending, bool number)
 		place++;
 	}
 	place = 0;
+	//cout << "    ";
 	while(in_arg[place] != NULL)
 	{
+		//cout << in_arg[place] << endl;
 		place++;
 	}
 	/*
@@ -527,6 +530,7 @@ void output_func(char **argv, bool appending, bool number)
 		perror("close");
 		exit(1);
 	}
+	//cout << in_arg[0] << " " << in_arg[1] << endl;
 	execvp(in_arg[0], in_arg);
 	perror("execvp");
 	exit(1);
@@ -635,13 +639,13 @@ bool piping(char* arr[])
 	char* pior_order[100];//holds each of the pior in order
 	vector<int> pior_place_vect;//holds where in arr each pior is
 	
-	char* argv[1000];
+	//char* argv[1000];
 	unsigned x = 0;
-	unsigned argv_count = 0;
+	//unsigned argv_count = 0;
 	unsigned count = 0;
 	bool input = false;
 	bool output = false;
-	bool output_erase = false;
+	//bool output_erase = false;
 	bool appending = false;
 	bool number = false;
 	bool translate = false;
@@ -721,13 +725,13 @@ bool piping(char* arr[])
 		}
 		else
 		{
-			argv[argv_count] = arr[i];
+			//argv[argv_count] = arr[i];
 			//cout << argv[argv_count] << endl;
-			argv_count++;
+			//argv_count++;
 		}
 		count++;
 	}
-	argv[argv_count] = '\0';
+	//argv[argv_count] = '\0';
 	x = 0;
 	//char* new_arr[10000];
 	char* one[20];

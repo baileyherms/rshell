@@ -9,11 +9,11 @@ all: rshell ls
 
 rshell:	
 		mkdir -p ./bin
-		$(ICOMPILES) $(IFLAGS) $(PATHB) -o $(PATHJ)
+		$(ICOMPILES) $(IFLAGS) $(PATHI) -o $(PATHK)
 
 ls:	
 		mkdir -p ./bin
-		$(ICOMPILES) $(IFLAGS) $(PATHB) -o $(PATHK)
+		$(ICOMPILES) $(IFLAGS) $(PATHB) -o $(PATHJ)
 
 clean:
 		rm -rf ./bin
