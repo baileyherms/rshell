@@ -20,6 +20,7 @@ $ bin/<branch>
 - Does not detect more than double connectors (ex: '|||')
 - No input or output redirection
 - The arrow keys are unreliable
+- Pipes ('|') do not work with input/output redirection ('<,>,>>')
 
 ###ls
 - Does not run correct colors on ls, ls -a, ls -R, ls -Ra due to an error in the ls and ls -a functions (planning to fix in the future)
