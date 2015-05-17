@@ -15,7 +15,7 @@
 
 using namespace std;
 
-void loop_pipe(char*** cmd)//, char** pior_order)
+void loop_pipe(char*** cmd)
 {
 	int p[2];
 	pid_t pid;
@@ -56,7 +56,7 @@ void loop_pipe(char*** cmd)//, char** pior_order)
 		}
 	}
 }
-void loop_pipe(char*** cmd, bool input, bool output)
+void loop_pipe(char*** cmd, bool input, bool output, bool appending)
 {
 	//do output redirection and send execvp stuff to file
 	int p[2];
@@ -98,7 +98,7 @@ void loop_pipe(char*** cmd, bool input, bool output)
 		}
 	}
 }
-void input_func(char **argv, bool output)//, char* input, char* command)
+void input_func(char **argv, bool output, bool appending)
 {
 	//input redirection
 	//figure out what input and output would be
@@ -192,7 +192,7 @@ void input_func(char **argv, bool output)//, char* input, char* command)
 			in2_arg[place2] = argv[place];
 			place++;
 			place2++;
-			if(!strcmp(argv[place], ">"))
+			if(!strcmp(argv[place], ">") || !strcmp(argv[place], ">>"))
 			{
 				in2_arg[place2] = '\0';
 				place++;
@@ -205,13 +205,7 @@ void input_func(char **argv, bool output)//, char* input, char* command)
 					place++;
 					place2++;
 					stop = true;
-					/*
-					if(!strcmp(argv[place], "<"))
-					{
-						perror("Too many '<' arguments");
-						exit(1);
-					}
-					*/
+					
 				}
 				in2_arg[place2] = '\0';
 			}
@@ -228,7 +222,16 @@ void input_func(char **argv, bool output)//, char* input, char* command)
 			perror("dup2");
 			exit(1);
 		}
-		int out = open(out2_arg[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		int out;
+		if(appending)
+		{
+			//cout << appending << endl;
+			out = open(out2_arg[0], O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		}
+		else
+		{
+			out = open(out2_arg[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		}
 		if(out == -1)
 		{
 			perror("open: output");
@@ -258,27 +261,32 @@ void input_func(char **argv, bool output)//, char* input, char* command)
 	
 }
 
-void output_no_erase(char **argv)
+void output_func(char **argv, bool appending)
 {
 	//output redirection
 	unsigned place = 0;
 	unsigned place2 = 0;
 	char* in_arg[1000];
 	char* out_arg[1000];
-	while((strcmp(argv[place], ">")))
+	bool end = false;
+	/*
+	while((strcmp(argv[place], ">")) != 0 && strcmp(argv[place], ">>") != 0)
 	{
 		place++;
 	}
 	place--;
+	*/
 	//cout << "place: " << place << endl;
-	while(argv[place] != NULL)// && !stop)
+	//cout << argv[place] << endl;
+	while(argv[place] != NULL && !end)
 	{
 		//cout << "there" << endl;
 		in_arg[place] = argv[place];
 		place++;
-		if(!strcmp(argv[place], ">"))
+		if(!strcmp(argv[place], ">") || (!strcmp(argv[place], ">>")))
 		{
 			in_arg[place] = '\0';
+			//cout << "in " << in_arg[place] << endl;
 			place++;
 			if(argv[place] != NULL && (strcmp(argv[place], ">")) && (strcmp(argv[place], "|")) != 0 && (strcmp(argv[place], "<")) != 0 && (strcmp(argv[place], ">>")) != 0 )
 			{
@@ -286,13 +294,7 @@ void output_no_erase(char **argv)
 				//cout << out_arg[place2] << endl;
 				place++;
 				place2++;
-				/*
-				if(!strcmp(argv[place], "<"))
-				{
-					perror("Too many '<' arguments");
-					exit(1);
-				}
-				*/
+				end = true;
 			}
 			in_arg[place2] = '\0';
 		}
@@ -301,8 +303,6 @@ void output_no_erase(char **argv)
 	place = 0;
 	while(out_arg[place] != NULL)
 	{
-		//cout << "out_arg: " << endl;
-		//cout << out_arg[place] << endl;
 		place++;
 	}
 	place = 0;
@@ -312,20 +312,17 @@ void output_no_erase(char **argv)
 		//cout << in_arg[place] << endl;
 		place++;
 	}
-	/*
-	int fd = open(in_arg[0], O_RDONLY, 0);
-	if(fd == -1)
+	int fd;
+	//cout << "here" << endl;
+	if(appending)
 	{
-		perror("open: input");
-		exit(1);
+		//cout << appending << endl;
+		fd = open(out_arg[0], O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	}
-	if(dup2(fd, 0) == -1)
+	else
 	{
-		perror("dup2");
-		exit(1);
+		fd = open(out_arg[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	}
-	*/
-	int fd = open(out_arg[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if(fd == -1)
 	{
 		perror("open: output");
@@ -355,10 +352,6 @@ void output_no_erase(char **argv)
 
 }
 
-void output_erase()
-{
-	//output_erase redirection
-}
 bool piping(char* arr[])
 {
 	//input first
@@ -374,6 +367,7 @@ bool piping(char* arr[])
 	bool input = false;
 	bool output = false;
 	bool output_erase = false;
+	bool appending = false;
 	vector<int> seperate_argv;
 	for(unsigned i = 0; arr[i] != '\0'; i++)
 	{
@@ -391,7 +385,7 @@ bool piping(char* arr[])
 			}
 			else if(!strcmp(arr[i], ">>"))
 			{
-				output_erase = true;
+				appending = true;
 			}
 			pior_order[x] = arr[i];
 			x++;
@@ -433,12 +427,13 @@ bool piping(char* arr[])
 	{
 		//do input redirection
 		//cout << "----------------------------------" << endl;
-		input_func(arr, output);
+		input_func(arr, output, appending);
 	}
-	if(output && !input && !pipe)
+	if((appending || output) && !input && !pipe)
 	{
 		//cout << "----------------------------------" << endl;
-		output_no_erase(arr);
+		//cout << "here " << appending << endl;
+		output_func(arr, appending);
 	}
 	while(x < pior_place_vect.size())
 	{
@@ -615,8 +610,8 @@ bool piping(char* arr[])
 			if(parts >= 10)
 				cmd[9] = ten;
 			cmd[parts] = '\0';
-			if(input | output)
-				loop_pipe(cmd, input, output);
+			if(input | output | appending)
+				loop_pipe(cmd, input, output, appending);
 			else
 				loop_pipe(cmd);
 		}
