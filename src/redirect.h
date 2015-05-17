@@ -448,6 +448,9 @@ void output_func(char **argv, bool appending, bool number)
 	}
 	else
 	{
+		//cout << "else" << endl;
+		end = false;
+		place = 0;
 		while(argv[place] != NULL && !end)
 		{
 			//cout << "there" << endl;
@@ -479,16 +482,17 @@ void output_func(char **argv, bool appending, bool number)
 	place = 0;
 	while(in_arg[place] != NULL)
 	{
-		//cout << "in_arg: " << endl;
-		//cout << in_arg[place] << endl;
 		place++;
 	}
-	
-	if(-1 == close(port))
+	/*
+	if(number && number != 1)
 	{
-		perror("close");
+		if(-1 == close(port))
+		{
+			perror("close");
+		}
 	}
-	
+	*/
 	int fd;
 	//cout << "here" << endl;
 	if(appending)
@@ -506,7 +510,7 @@ void output_func(char **argv, bool appending, bool number)
 		exit(1);
 
 	}
-	if(dup2(fd, 1) == -1)
+	if(dup2(fd, port) == -1)
 	{
 		perror("dup2");
 		exit(1);
@@ -738,13 +742,12 @@ bool piping(char* arr[])
 	char* ten[20];
 	char** cmd[11];
 	unsigned pipe_amount = 0;
-	bool pipe = false;
 	for(unsigned i = 0; i < pior_place_vect.size(); i++)
 	{
 		if(!strcmp(pior_order[x], "|"))
 		{
 			pipe_amount++;
-			pipe = true;
+			pipes = true;
 		}
 	}
 	//char* name = new char[pipe_amount];
