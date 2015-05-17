@@ -202,7 +202,7 @@ void get_input(string usr_input)
 			int value = 0;
 			while(run[value] != NULL)
 			{
-				if(!strcmp(run[value], "|") || !strcmp(run[value], "<") || !strcmp(run[value], ">") || !strcmp(run[value], ">>") )
+				if(!strcmp(run[value], "<<<") || !strcmp(run[value], "|") || !strcmp(run[value], "<") || !strcmp(run[value], ">") || !strcmp(run[value], ">>")  || !strcmp(run[value], "0>") || !strcmp(run[value], "0>>")  || !strcmp(run[value], "1>") || !strcmp(run[value], "1>>")  || !strcmp(run[value], "2>") || !strcmp(run[value], "2>>")  || !strcmp(run[value], "3>") || !strcmp(run[value], "3>>") )
 				{
 					pipe = true;
 				}
