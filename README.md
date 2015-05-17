@@ -21,6 +21,7 @@ $ bin/<branch>
 - No input or output redirection
 - The arrow keys are unreliable
 - Pipes ('|') do not work with input/output redirection ('<,>,>>')
+- ('<,>') together does not work
 - tee does not work with pipes
 - Ignores ('<,>,>>') without an argument before it (no seg fault, just ignores)
 
