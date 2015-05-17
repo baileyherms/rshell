@@ -1,0 +1,322 @@
+Script started on Sun 17 May 2015 03:01:35 PM PDT
+~
+bherm001@hammer $ cd rshell
+~/rshell
+bherm001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m l[Kclear
+[H[2J[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd re[Ksge[K[Khell
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (redirect) [0;36m$[0m ls
+bin  LICENSE  Makefile	README.md  src	tests
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (redirect) [0;36m$[0m make
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/main.cpp -o ./bin/rshell
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/ls.cpp -o ./bin/ls
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (redirect) [0;36m$[0m bin/rshell
+bherm001@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls -a > a
+bherm001@hammer.cs.ucr.edu $ cat < a
+.
+..
+a
+bin
+.git
+LICENSE
+Makefile
+README.md
+src
+tests
+bherm001@hammer.cs.ucr.edu $ ls -l >> a
+bherm001@hammer.cs.ucr.edu $ cat < a
+.
+..
+a
+bin
+.git
+LICENSE
+Makefile
+README.md
+src
+tests
+total 24
+-rw------- 1 bherm001 csmajs   53 May 17 14:55 a
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 bin
+-rw------- 1 bherm001 csmajs 1477 May  9 13:27 LICENSE
+-rw------- 1 bherm001 csmajs  318 May 17 14:12 Makefile
+-rw------- 1 bherm001 csmajs  930 May  9 13:27 README.md
+drwx------ 2 bherm001 csmajs 4096 May 17 14:28 src
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 tests
+bherm001@hammer.cs.ucr.edu $ a > b
+execvp: Permission denied
+bherm001@hammer.cs.ucr.edu $ l ls -a | wc
+     11      11      55
+bherm001@hammer.cs.ucr.edu $ ls | grep a   | grep a
+a
+Makefile
+bherm001@hammer.cs.ucr.edu $ ls | grep b | grep i
+bin
+bherm001@hammer.cs.ucr.edu $ ls | grep b | grep i | wc
+      1       1       4
+bherm001@hammer.cs.ucr.edu $ ls | grep        -a | grep .
+.
+..
+a
+b
+bin
+.git
+LICENSE
+Makefile
+README.md
+src
+tests
+bherm001@hammer.cs.ucr.edu $ ls -a | wc-l
+execvp: No such file or directory
+bherm001@hammer.cs.ucr.edu $ ls -a | wc -= ' l
+11
+bherm001@hammer.cs.ucr.edu $ ls -a    -l | grep a
+total 28
+-rw------- 1 bherm001 csmajs  434 May 17 14:55 a
+-rw------- 1 bherm001 csmajs    0 May 17 14:55 b
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 bin
+-rw------- 1 bherm001 csmajs 1477 May  9 13:27 LICENSE
+-rw------- 1 bherm001 csmajs  318 May 17 14:12 Makefile
+-rw------- 1 bherm001 csmajs  930 May  9 13:27 README.md
+drwx------ 2 bherm001 csmajs 4096 May 17 14:28 src
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 tests
+bherm001@hammer.cs.ucr.edu $ ls -l | grep a | grep d
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 bin
+-rw------- 1 bherm001 csmajs  930 May  9 13:27 README.md
+drwx------ 2 bherm001 csmajs 4096 May 17 14:28 src
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 tests
+bherm001@hammer.cs.ucr.edu $ ls -l | grep a | grep d | grep s
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 bin
+-rw------- 1 bherm001 csmajs  930 May  9 13:27 README.md
+drwx------ 2 bherm001 csmajs 4096 May 17 14:28 src
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 tests
+bherm001@hammer.cs.ucr.edu $ ls -l | grep a | grep d | grep -v x
+-rw------- 1 bherm001 csmajs  930 May  9 13:27 README.md
+bherm001@hammer.cs.ucr.edu $ ls -l | grep a | grep d | grep -c v x | wc
+      1       9      57
+bherm001@hammer.cs.ucr.edu $ cat     ls
+a  b  bin  LICENSE  Makefile  README.md  src  tests
+bherm001@hammer.cs.ucr.edu $ ls | grep m e M
+grep: e: No such file or directory
+grep: M: No such file or directory
+bherm001@hammer.cs.ucr.edu $ ls | grep m | grep e | grep M
+bherm001@hammer.cs.ucr.edu $ ls
+a  b  bin  LICENSE  Makefile  README.md  src  tests
+bherm001@hammer.cs.ucr.edu $ echo hello > file
+bherm001@hammer.cs.ucr.edu $ echo      cat < file
+hello
+bherm001@hammer.cs.ucr.edu $ echo world > file
+bherm001@hammer.cs.ucr.edu $ cat < file
+world
+bherm001@hammer.cs.ucr.edu $ echo says hello >> file
+bherm001@hammer.cs.ucr.edu $ cat < file
+world
+says hello
+bherm001@hammer.cs.ucr.edu $ wc < file
+ 2  3 17
+bherm001@hammer.cs.ucr.edu $ wc -l < file
+2
+bherm001@hammer.cs.ucr.edu $ grep a < file             grep s , < file
+says hello
+bherm001@hammer.cs.ucr.edu $ grep -v s < file
+world
+bherm001@hammer.cs.ucr.edu $ cat hello       > hello
+^C
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (redirect) [0;36m$[0m bin/rshell
+bherm001@hammer.cs.ucr.edu $ cat < hello > out
+cat: -: Bad file descriptor
+cat: closing standard input: Bad file descriptor
+bherm001@hammer.cs.ucr.edu $ cat < hello
+bherm001@hammer.cs.ucr.edu $ ls
+a  b  bin  file  hello	LICENSE  Makefile  out	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ cat   M   < b
+bherm001@hammer.cs.ucr.edu $ cat >     cat ,   < file
+world
+says hello
+bherm001@hammer.cs.ucr.edu $ rm hello
+bherm001@hammer.cs.ucr.edu $ cat < file > ab
+cat: -: Bad file descriptor
+cat: closing standard input: Bad file descriptor
+bherm001@hammer.cs.ucr.edu $ ls
+a  ab  b  bin  file  LICENSE  Makefile	out  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $ sort < file
+says hello
+world
+bherm001@hammer.cs.ucr.edu $ sort < file > sorted
+sort: stat failed: -: Bad file descriptor
+bherm001@hammer.cs.ucr.edu $ ls
+a  ab  b  bin  file  LICENSE  Makefile	out  README.md	sorted	src  tests
+bherm001@hammer.cs.ucr.edu $ cat M   < sorted
+bherm001@hammer.cs.ucr.edu $ cat < ab
+bherm001@hammer.cs.ucr.edu $ cat file
+world
+says hello
+bherm001@hammer.cs.ucr.edu $ cat file | hrep    grep a
+says hello
+bherm001@hammer.cs.ucr.edu $ cat file | sort uniq      | uniq | pr | lpr
+bherm001@hammer.cs.ucr.edu $ cat file
+world
+says hello
+bherm001@hammer.cs.ucr.edu $ ls
+a  ab  b  bin  file  LICENSE  Makefile	out  README.md	sorted	src  tests
+bherm001@hammer.cs.ucr.edu $ ls -al > al
+bherm001@hammer.cs.ucr.edu $ cat < al
+total 48
+drwx------  6 bherm001 csmajs  4096 May 17 15:02 .
+drwx------ 50 bherm001 csmajs 12288 May 17 14:28 ..
+-rw-------  1 bherm001 csmajs   434 May 17 14:55 a
+-rw-------  1 bherm001 csmajs     0 May 17 15:00 ab
+-rw-------  1 bherm001 csmajs     0 May 17 15:02 al
+-rw-------  1 bherm001 csmajs     0 May 17 14:55 b
+drwx------  2 bherm001 csmajs  4096 May 17 14:55 bin
+-rw-------  1 bherm001 csmajs    17 May 17 14:59 file
+drwx------  8 bherm001 csmajs  4096 May 17 02:05 .git
+-rw-------  1 bherm001 csmajs  1477 May  9 13:27 LICENSE
+-rw-------  1 bherm001 csmajs   318 May 17 14:12 Makefile
+-rw-------  1 bherm001 csmajs     0 May 17 15:00 out
+-rw-------  1 bherm001 csmajs   930 May  9 13:27 README.md
+-rw-------  1 bherm001 csmajs     0 May 17 15:01 sorted
+drwx------  2 bherm001 csmajs  4096 May 17 14:28 src
+drwx------  2 bherm001 csmajs  4096 May 17 14:55 tests
+bherm001@hammer.cs.ucr.edu $ ls 	-a 	> ala
+bherm001@hammer.cs.ucr.edu $ cat < ala
+.
+..
+a
+ab
+al
+ala
+b
+bin
+file
+.git
+LICENSE
+Makefile
+out
+README.md
+sorted
+src
+tests
+bherm001@hammer.cs.ucr.edu $ la   s 	-a 	> 	filee
+bherm001@hammer.cs.ucr.edu $ cat < fill ee
+.
+..
+a
+ab
+al
+ala
+b
+bin
+file
+filee
+.git
+LICENSE
+Makefile
+out
+README.md
+sorted
+src
+tests
+bherm001@hammer.cs.ucr.edu $ ls 	-a	>  l 	>  > 		filee
+bherm001@hammer.cs.ucr.edu $ cat 	< 	filee
+.
+..
+a
+ab
+al
+ala
+b
+bin
+file
+filee
+.git
+LICENSE
+Makefile
+out
+README.md
+sorted
+src
+tests
+total 40
+-rw------- 1 bherm001 csmajs  434 May 17 14:55 a
+-rw------- 1 bherm001 csmajs    0 May 17 15:00 ab
+-rw------- 1 bherm001 csmajs  870 May 17 15:02 al
+-rw------- 1 bherm001 csmajs   81 May 17 15:02 ala
+-rw------- 1 bherm001 csmajs    0 May 17 14:55 b
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 bin
+-rw------- 1 bherm001 csmajs   17 May 17 14:59 file
+-rw------- 1 bherm001 csmajs   87 May 17 15:03 filee
+-rw------- 1 bherm001 csmajs 1477 May  9 13:27 LICENSE
+-rw------- 1 bherm001 csmajs  318 May 17 14:12 Makefile
+-rw------- 1 bherm001 csmajs    0 May 17 15:00 out
+-rw------- 1 bherm001 csmajs  930 May  9 13:27 README.md
+-rw------- 1 bherm001 csmajs    0 May 17 15:01 sorted
+drwx------ 2 bherm001 csmajs 4096 May 17 14:28 src
+drwx------ 2 bherm001 csmajs 4096 May 17 14:55 tests
+bherm001@hammer.cs.ucr.edu $ cat     cat <<< "extre a credit rocks"
+extra credit rocks
+bherm001@hammer.cs.ucr.edu $ echo      grep      wc <<< "extra       hello world"
+hello world
+bherm001@hammer.cs.ucr.edu $ cat <<< "lol lol"
+lol lol
+bherm001@hammer.cs.ucr.edu $ Makefile 2> erros rs
+bherm001@hammer.cs.ucr.edu $ ls 2  > errors
+a   al	 b    errors  filee    Makefile  README.md  src
+ab  ala  bin  file    LICENSE  out	 sorted     tests
+bherm001@hammer.cs.ucr.edu $ ls -a 2>e  erros
+a   al	 b    errors  file   LICENSE   out	  sorted  tests
+ab  ala  bin  erros   filee  Makefile  README.md  src
+bherm001@hammer.cs.ucr.edu $ ls -l 3>	erorrs
+a   al	 b    erorrs  erros  filee    Makefile	README.md  src
+ab  ala  bin  errors  file   LICENSE  out	sorted	   tests
+bherm001@hammer.cs.ucr.edu $ ls 2> wewer
+a   al	 b    erorrs  erros  filee    Makefile	README.md  src	  wewer
+ab  ala  bin  errors  file   LICENSE  out	sorted	   tests
+bherm001@hammer.cs.ucr.edu $ ls  3>    sl
+a   al	 b    erorrs  erros  filee    Makefile	README.md  sorted  tests
+ab  ala  bin  errors  file   LICENSE  out	sl	   src	   wewer
+bherm001@hammer.cs.ucr.edu $ cat hello 2 > al
+cat: hello: No such file or directory
+bherm001@hammer.cs.ucr.edu $ cat Makefile > al
+bherm001@hammer.cs.ucr.edu $ cat Me akefile 2> al
+ls
+ls
+as
+as
+^C
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (redirect) [0;36m$[0m bin/rshell
+bherm001@hammer.cs.ucr.edu $ g+  ls           0>      ep
+a   al	 b    ep      errors  file   LICENSE   out	  sl	  src	 wewer
+ab  ala  bin  erorrs  erros   filee  Makefile  README.md  sorted  tests
+bherm001@hammer.cs.ucr.edu $ exit
+[s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (redirect) [0;36m$[0m exit
+exit
+~/rshell
+bherm001@hammer $ exit
+exit
+
+Script done on Sun 17 May 2015 03:13:36 PM PDT
