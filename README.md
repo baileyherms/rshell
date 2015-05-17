@@ -21,6 +21,8 @@ $ bin/<branch>
 - No input or output redirection
 - The arrow keys are unreliable
 - Pipes ('|') do not work with input/output redirection ('<,>,>>')
+- tee does not work with pipes
+- Ignores ('<,>,>>') without an argument before it (no seg fault, just ignores)
 
 ###ls
 - Does not run correct colors on ls, ls -a, ls -R, ls -Ra due to an error in the ls and ls -a functions (planning to fix in the future)
