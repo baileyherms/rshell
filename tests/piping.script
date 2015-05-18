@@ -1,7 +1,9 @@
 Script started on Sun 17 May 2015 03:01:35 PM PDT
-~
+~
+
 bherm001@hammer $ cd rshell
-~/rshell
+~/rshell
+
 bherm001@hammer $ cs100
 [0;91m
 ===============================================================================
@@ -315,7 +317,8 @@ ab  ala  bin  erorrs  erros   filee  Makefile  README.md  sorted  tests
 bherm001@hammer.cs.ucr.edu $ exit
 [s%%%%%%%%%%[u[0;32mbherm001[0;36m@[0;32mcs100[0;36m:[0;32m~/rshell[0;95m (redirect) [0;36m$[0m exit
 exit
-~/rshell
+~/rshell
+
 bherm001@hammer $ exit
 exit
 
