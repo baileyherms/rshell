@@ -11,7 +11,7 @@
 
 using namespace std;
 using namespace boost;
-
+void output();
 void exiting(char *in)
 {
 	if(!strcmp(in, "exit"))
@@ -282,7 +282,16 @@ void get_input(string usr_input)
 		exit(1);
 	}
 }
-
+void ctrl(int signal)
+{
+	const char *signal_name;
+	sigset_t pending;
+	if(signal == SIGINT)
+	{
+		cout << "Ctrl-C" << endl;
+		output();
+	}
+}
 void output()
 {
 	char host[255];
@@ -303,6 +312,10 @@ void output()
 
 int main(int argc, char *argv[])
 {
+	struct sigaction act;
+	act.sa_handler = ctrl;
+	if(sigaction(SIGINT, &act, NULL) <= -1)
+		perror("sigaction");
 	while(1)
 	{
 		output();
