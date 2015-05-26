@@ -8,10 +8,54 @@
 #include <sys/wait.h>
 #include <cstdio>
 #include "redirect.h"
+#include <errno.h>
 
 using namespace std;
 using namespace boost;
+
+char* prev;
+
 void output();
+void cd_command(char *argv[])
+{
+	unsigned number = 0;
+	//cout << "argv: ";
+	for(number; argv[number] != NULL; number++)
+	{
+		//cout << argv[number] << " ";//DELETE
+	}
+	//cout << endl;
+	//if cd
+	//change directory to home
+	//cout << "number: " << number << endl;
+	if(number == 1)
+	{
+		//cout << "cd" << endl;
+		//Need to save current directory
+		if(chdir(getenv("HOME")) == -1)
+			perror("chdir");
+		//prev = getcwd(prev, 1200);
+	}
+	//if cd -
+	//change directory to previous (need to store previous maybe in global)
+	else if(number == 2 && !strcmp(argv[1], "-"))
+	{
+		cout << "cd -" << endl;
+		//prev = getcwd(prev, 0);
+		//chdir(prev);
+		//prev = getcwd(prev, 1200);
+		//free(prev);
+	}
+	//if cd <PATH>
+	//change directory to PATH
+	else
+	{
+		//cout << "cd <PATH>" << endl;
+		if(chdir(argv[1]) == -1)
+			perror("chdir");
+	}
+	//change directories
+}
 void exiting(char *in)
 {
 	if(!strcmp(in, "exit"))
@@ -56,28 +100,7 @@ void get_input(string usr_input)
 	
 	//int con_amount = 0;
 	int hold_amt = 0;
-	/*
-	for(int i = 0; i < x; i++)
-	{
-		if(strcmp(argv[i], "&&") || strcmp(argv[i], "||") || strcmp(argv[i], ";"))
-		{
-			cmd_arg_amt.push_back(hold_amt);//push back the number of arguments for a certain command
-			hold_amt = 0;
-			con_amount++;
-		}
-		else if(strcmp(argv[i], "#"))
-		{
-			cmd_arg_amt.push_back(hold_amt);
-			hold_amt = 0;
-			con_amount++;
-			break;
-		}
-		else if(strcmp(argv[i], "exit"))
-		{
-			exit(0);
-		}
-	}
-	*/
+	
 	if(hold_amt > 0)
 	{
 		cmd_arg_amt.push_back(hold_amt);
@@ -182,6 +205,18 @@ void get_input(string usr_input)
 			}
 		}
 		run[b] = NULL;
+		bool cd = false;
+		for(int i = 0; i < b; i++)
+		{
+			if(!strcmp(run[i], "cd"))
+			{
+				//cout << "CD" << endl;
+				cd_command(run);
+				cd = true;
+			}
+		}
+		if(cd)
+			break;
 		int pid = fork();
 		for(int i = 0; i < b; i++)
 		{
@@ -282,22 +317,36 @@ void get_input(string usr_input)
 		exit(1);
 	}
 }
-void ctrl(int signal)
+void ctrl(int signal1)
 {
-	const char *signal_name;
-	sigset_t pending;
-	if(signal == SIGINT)
+	if(signal1 == SIGINT)
 	{
-		cout << "Ctrl-C" << endl;
+		//cout << "Ctrl-C" << endl;
+		signal(SIGINT, SIG_IGN);
+		if(errno <= -1)
+		{
+			perror("SIGINT");
+		}
 		output();
 	}
 }
 void output()
 {
 	char host[255];
+	char direc[1200];
 	string login = getlogin();
 	gethostname(host, 255);
-	cout << login << "@" << host << " ";
+	
+	if(getcwd(direc, 1200))
+	{
+		//cout << direc;
+	}
+	else
+	{
+		perror("getcwd");
+	}
+	cout << login << "@" << host << ":";
+	cout << direc << " ";
 	string usr_input;
 	size_t poso = usr_input.find("exit");
 	if(poso > 0 && poso < 1000)
@@ -308,14 +357,18 @@ void output()
 	cout << " ";
 	getline(cin, usr_input);
 	get_input(usr_input);
+
 }
 
 int main(int argc, char *argv[])
 {
-	struct sigaction act;
-	act.sa_handler = ctrl;
-	if(sigaction(SIGINT, &act, NULL) <= -1)
+	//struct sigaction act;
+	//act.sa_handler = ctrl;
+	signal(SIGINT, ctrl);
+	if(errno <= -1)
 		perror("sigaction");
+	//get path
+	
 	while(1)
 	{
 		output();
