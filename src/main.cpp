@@ -8,42 +8,83 @@
 #include <sys/wait.h>
 #include <cstdio>
 #include "redirect.h"
+#include <pwd.h>
 #include <errno.h>
+#include <signal.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 using namespace std;
 using namespace boost;
 
 char* prev;
+bool unblock = false;
 
 void output();
 void cd_command(char *argv[])
 {
+	//Need to getenv and setenv to have cd - working
+	//cd - is not currently working
 	unsigned number = 0;
+	char path[1024];
 	//cout << "argv: ";
 	for(number; argv[number] != NULL; number++)
 	{
 		//cout << argv[number] << " ";//DELETE
 	}
+	string holder = "";
 	//cout << endl;
 	//if cd
 	//change directory to home
 	//cout << "number: " << number << endl;
-	if(number == 1)
+	if(number == 1 || (number == 2 && !strcmp(argv[1], "~")))
 	{
 		//cout << "cd" << endl;
 		//Need to save current directory
+		//prev = getcwd(prev, 0);
+		//prev holds nothing second time around
+		//cout << prev << endl;
+		if((getcwd(path, (size_t)sizeof(path)) == NULL))
+		{
+			perror("getcwd");
+		}
+		if((setenv("OLDPWD", path, 0)) == -1)
+		{
+			perror("setenv");
+		}
+
 		if(chdir(getenv("HOME")) == -1)
 			perror("chdir");
-		//prev = getcwd(prev, 1200);
+		//prev = getcwd(prev, 0);
+		//holder = holder + prev;
 	}
 	//if cd -
 	//change directory to previous (need to store previous maybe in global)
 	else if(number == 2 && !strcmp(argv[1], "-"))
 	{
+		if((getcwd(path, (size_t)sizeof(path)) == NULL))
+		{
+			perror("getcwd");
+		}
+		if((setenv("OLDPWD", path, 0)) == -1)
+		{
+			perror("setenv");
+		}
 		cout << "cd -" << endl;
 		//prev = getcwd(prev, 0);
-		//chdir(prev);
-		//prev = getcwd(prev, 1200);
+		//cout << prev << endl;
+		//prev = getenv("OLDPWD");
+		char* hold = getcwd(prev, 0);
+		//cout << prev << endl;
+		if(chdir(getenv("OLDPWD")) == -1)
+			perror("chdir");
+		else
+		{
+			prev = hold;
+		}
+		//cout << prev << endl;
 		//free(prev);
 	}
 	//if cd <PATH>
@@ -51,8 +92,20 @@ void cd_command(char *argv[])
 	else
 	{
 		//cout << "cd <PATH>" << endl;
+		prev = getcwd(prev, 0);
+		//prev holds nothing second time around
+		//cout << prev << endl;
+		if((getcwd(path, (size_t)sizeof(path)) == NULL))
+		{
+			perror("getcwd");
+		}
+		if((setenv("OLDPWD", path, 0)) == -1)
+		{
+			perror("setenv");
+		}
 		if(chdir(argv[1]) == -1)
 			perror("chdir");
+		//prev = getcwd(prev, 0);
 	}
 	//change directories
 }
@@ -319,21 +372,38 @@ void get_input(string usr_input)
 }
 void ctrl(int signal1)
 {
+	//const char *signal_name;
+	//sigset_t pending;
+	//unblock = true;
 	if(signal1 == SIGINT)
 	{
 		//cout << "Ctrl-C" << endl;
-		signal(SIGINT, SIG_IGN);
+		//cin.clear();
+		//cin.ignore(10000, '\n');
+		//signal(SIGINT, SIG_IGN);
+		/*
 		if(errno <= -1)
 		{
 			perror("SIGINT");
 		}
+		*/
+		//sigaction(SIGINT, &sa, 0);
 		output();
 	}
+	
 }
 void output()
 {
+	struct sigaction sa;
+	sa.sa_handler = ctrl;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, 0);
+	if(errno <= -1)
+		perror("sigaction");
+
 	char host[255];
 	char direc[1200];
+	cin.clear();
 	string login = getlogin();
 	gethostname(host, 255);
 	
@@ -356,22 +426,22 @@ void output()
 	cout << "$";
 	cout << " ";
 	getline(cin, usr_input);
+	//if(usr_input != SIGINT)
 	get_input(usr_input);
-
-}
+	}
 
 int main(int argc, char *argv[])
 {
-	//struct sigaction act;
-	//act.sa_handler = ctrl;
-	signal(SIGINT, ctrl);
-	if(errno <= -1)
-		perror("sigaction");
 	//get path
-	
 	while(1)
 	{
+		//cin.clear();
+		//cout << "hi" << endl;
+		//Stuck in this loop once ^C is called
 		output();
+		//pause();
 	}
+
+
 	return 0;
 }
