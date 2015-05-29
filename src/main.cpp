@@ -19,71 +19,93 @@
 using namespace std;
 using namespace boost;
 
-char* prev;
 bool unblock = false;
+char* prev;
+char* curr;
 
 void output();
+void ground_signal_bg()
+{
+	cout << "BG" << endl;
+	
+}
+void ground_signal_fg()
+{
+	cout << "FG" << endl;
+	
+}
 void cd_command(char *argv[])
 {
+	//char* prev;
+	//char* curr;
 	//Need to getenv and setenv to have cd - working
 	//cd - is not currently working
-	unsigned number = 0;
-	char path[1024];
+	unsigned number;
+	//char* prev;
 	//cout << "argv: ";
-	for(number; argv[number] != NULL; number++)
+	for(number = 0; argv[number] != NULL; number++)
 	{
 		//cout << argv[number] << " ";//DELETE
+		
 	}
-	string holder = "";
-	//cout << endl;
-	//if cd
-	//change directory to home
-	//cout << "number: " << number << endl;
 	if(number == 1 || (number == 2 && !strcmp(argv[1], "~")))
 	{
-		//cout << "cd" << endl;
-		//Need to save current directory
-		//prev = getcwd(prev, 0);
-		//prev holds nothing second time around
-		//cout << prev << endl;
-		if((getcwd(path, (size_t)sizeof(path)) == NULL))
+		if((curr = getenv("HOME")) == NULL)
 		{
-			perror("getcwd");
+			perror("getenv");
 		}
-		if((setenv("OLDPWD", path, 0)) == -1)
+		if((prev = getenv("PWD")) == NULL)
+		{
+			perror("getenv");
+		}
+		if(chdir(curr) == -1)
+		{
+			perror("chdir");
+		}
+		if(setenv("OPENPWD", prev, 1) == -1)
 		{
 			perror("setenv");
 		}
-
-		if(chdir(getenv("HOME")) == -1)
-			perror("chdir");
+		if(setenv("PWD", curr, 1) == -1)
+		{
+			perror("setenv");
+		}
 		//prev = getcwd(prev, 0);
 		//holder = holder + prev;
 	}
 	//if cd -
 	//change directory to previous (need to store previous maybe in global)
+	//automatically goes to /rshell every time for some reason
 	else if(number == 2 && !strcmp(argv[1], "-"))
 	{
-		if((getcwd(path, (size_t)sizeof(path)) == NULL))
+		//cout << "prev: " << prev << endl;
+		//cout << "curr: " << curr << endl;
+		if((prev = getenv("PWD")) == NULL)
 		{
-			perror("getcwd");
+			perror("getenv");
+			exit(1);
 		}
-		if((setenv("OLDPWD", path, 0)) == -1)
+		//cout << "prev: " << prev << endl;
+		//char* fix;
+		if((curr = getenv("OLDPWD")) == NULL)//(getcwd(prev, (size_t)sizeof(prev)) == NULL))
+		{
+			perror("getenv");
+			exit(1);
+		}
+		//cout << "curr: " << curr << endl;
+		if(chdir(curr) == -1)
+		{
+			perror("chdir");
+		}
+		if((setenv("OLDPWD", prev, 1)) == -1)
 		{
 			perror("setenv");
 		}
-		cout << "cd -" << endl;
-		//prev = getcwd(prev, 0);
-		//cout << prev << endl;
-		//prev = getenv("OLDPWD");
-		char* hold = getcwd(prev, 0);
-		//cout << prev << endl;
-		if(chdir(getenv("OLDPWD")) == -1)
-			perror("chdir");
-		else
+		if((setenv("PWD", curr, 1)) == -1)
 		{
-			prev = hold;
+			perror("setenv");
 		}
+		
 		//cout << prev << endl;
 		//free(prev);
 	}
@@ -91,20 +113,26 @@ void cd_command(char *argv[])
 	//change directory to PATH
 	else
 	{
-		//cout << "cd <PATH>" << endl;
-		prev = getcwd(prev, 0);
-		//prev holds nothing second time around
-		//cout << prev << endl;
-		if((getcwd(path, (size_t)sizeof(path)) == NULL))
+		if((prev = getenv("PWD")) == NULL)
 		{
-			perror("getcwd");
+			perror("getenv");
 		}
-		if((setenv("OLDPWD", path, 0)) == -1)
+		if((curr = getenv("HOME")) == NULL)
+		{
+			perror("getenv");
+		}
+		if(chdir(argv[1]) == -1)
+		{
+			perror("chdir");
+		}
+		if(setenv("PWD", argv[1], 1) == -1)
 		{
 			perror("setenv");
 		}
-		if(chdir(argv[1]) == -1)
-			perror("chdir");
+		if(setenv("OLDPWD", prev, 1) == -1)
+		{
+			perror("setenv");
+		}
 		//prev = getcwd(prev, 0);
 	}
 	//change directories
@@ -250,13 +278,30 @@ void get_input(string usr_input)
 				place++;
 			}
 		}
+		bool stop1 = false;
 		for(int i = 0; i < b; i++)
 		{
 			if(!strcmp(run[i], ";") || !strcmp(run[i], "&&") || !strcmp(run[i], "||") || !strcmp(run[i], "#") )
 			{
 				run[i] = NULL;
 			}
+			else if(!strcmp(run[i], "bg"))
+			{
+				//run[i] = NULL;
+				ground_signal_bg();
+				stop1 = true;
+				break;
+			}
+			else if(!strcmp(run[i], "fg"))
+			{
+				//run[i] = NULL;
+				ground_signal_fg();
+				stop1 = true;
+				break;
+			}
 		}
+		if(stop1)
+			break;
 		run[b] = NULL;
 		bool cd = false;
 		for(int i = 0; i < b; i++)
@@ -319,9 +364,22 @@ void get_input(string usr_input)
 		else if(pid > 0)
 		{
 			//exiting(run[0]);
-
+			sigignore(SIGINT);
 			if(-1 == wait(0))
 				perror("wait");
+			
+			/*
+			do
+			{
+				wpid = wait(&status);
+			}
+			while(wpid == -1 && errno == EINTR);
+			if(wpid == -1)
+			{
+				perror("wait");
+				return -1;
+			}
+			*/
 		}	
 		//exiting(run[0]);
 		if(con_arr[a] == NULL)
@@ -388,28 +446,66 @@ void ctrl(int signal1)
 		}
 		*/
 		//sigaction(SIGINT, &sa, 0);
+		cout << endl;
 		output();
 	}
 	
 }
+void ctrl2(int signal2)
+{
+	if(signal2 == SIGTSTP)
+	{
+		cout << endl;
+		//break;
+	}
+}
 void output()
 {
-	struct sigaction sa;
+	//cin.clear();
+	struct sigaction sa, as;
 	sa.sa_handler = ctrl;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, 0);
 	if(errno <= -1)
 		perror("sigaction");
-
+	//struct sigaction2 as;
+	as.sa_handler = ctrl2;
+	sigemptyset(&as.sa_mask);
+	sigaction(SIGTSTP, &as, 0);
+	if(errno <= -1)
+		perror("sigaction");
 	char host[255];
 	char direc[1200];
-	cin.clear();
+	//cin.clear();
+	//cout << "info" << endl;
 	string login = getlogin();
 	gethostname(host, 255);
-	
+	char home[1200];
+
 	if(getcwd(direc, 1200))
 	{
 		//cout << direc;
+	}
+
+	if(getenv("HOME") != NULL)
+	{
+		//cout << direc << endl;
+		//holder = strstr(direc, getenv("HOME"));
+		//strncpy(holder, "~", strlen(getenv("HOME")));
+		//cout << strlen(getenv("HOME")) << endl;
+		//puts(direc);
+		//strcpy(home, direc - getenv("HOME"));
+		//direc[strlen(getenv("HOME"))] = '~';
+		for(unsigned i = strlen(getenv("HOME")); i < 1200; i++)
+		{
+			direc[i-strlen(getenv("HOME")) + 1] = direc[i];
+		}
+		//cout << direc[1] << endl;
+		if(direc[1] != '\0')
+			direc[1] = '/';
+		direc[0] = '~';
+		//replace(direc, strlen(getenv("HOME")), home, '~');
+		//cout << getenv("HOME") << endl;
 	}
 	else
 	{
@@ -425,21 +521,18 @@ void output()
 	}
 	cout << "$";
 	cout << " ";
+	cin.clear();
 	getline(cin, usr_input);
 	//if(usr_input != SIGINT)
 	get_input(usr_input);
-	}
+}
 
 int main(int argc, char *argv[])
 {
 	//get path
 	while(1)
 	{
-		//cin.clear();
-		//cout << "hi" << endl;
-		//Stuck in this loop once ^C is called
 		output();
-		//pause();
 	}
 
 
