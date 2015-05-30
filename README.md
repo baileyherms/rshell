@@ -24,6 +24,7 @@ $ bin/<branch>
 - ('<,>') together does not work
 - tee does not work with pipes
 - Ignores ('<,>,>>') without an argument before it (no seg fault, just ignores)
+- If ctrl-C is entered three times in a row the user is required to press enter and type ctrl-C again
 
 ###ls
 - Does not run correct colors on ls, ls -a, ls -R, ls -Ra due to an error in the ls and ls -a functions (planning to fix in the future)
