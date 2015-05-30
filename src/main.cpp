@@ -20,8 +20,8 @@ using namespace std;
 using namespace boost;
 
 bool unblock = false;
-char* prev;
-char* curr;
+//char* prev;
+//char* curr;
 //char* other;
 vector<char*> env;
 
@@ -39,8 +39,8 @@ void ground_signal_fg()
 }
 void cd_command(char *argv[])
 {
-	//char* prev;
-	//char* curr;
+	char* prev;
+	char* curr;
 	//Need to getenv and setenv to have cd - working
 	//cd - is not currently working
 	unsigned number;
@@ -135,7 +135,10 @@ void cd_command(char *argv[])
 		{
 			perror("chdir");
 		}
-		getcwd(prev, 2000);
+		if(getcwd(prev, 1000) == NULL)
+		{
+			perror("getcwd");
+		}
 		if(setenv("PWD", prev, 1) == -1)
 		{
 			perror("setenv");
@@ -383,12 +386,15 @@ void get_input(string usr_input)
 				perror("wait");
 				exit(1);
 			}
+			/*
 			struct sigaction sa;
 			sa.sa_handler = ctrl;
 			sigemptyset(&sa.sa_mask);
 			sigaction(SIGINT, &sa, 0);
 			if(errno <= -1)
 				perror("sigaction");
+			*/
+			
 			/*
 			do
 			{
@@ -467,7 +473,7 @@ void ctrl(int signal1)
 		}
 		*/
 		//sigaction(SIGINT, &sa, 0);
-		cout << endl;
+		cout << endl << flush;
 		output();
 	}
 	
@@ -476,26 +482,26 @@ void ctrl2(int signal2)
 {
 	if(signal2 == SIGTSTP)
 	{
-		cout << endl;
+		cout << endl << flush;
 		//break;
 	}
 }
 void output()
 {
-	//cin.clear();
-	bool log = false;
 	struct sigaction sa, as;
 	sa.sa_handler = ctrl;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, 0);
 	if(errno <= -1)
 		perror("sigaction");
-	//struct sigaction2 as;
 	as.sa_handler = ctrl2;
 	sigemptyset(&as.sa_mask);
 	sigaction(SIGTSTP, &as, 0);
 	if(errno <= -1)
 		perror("sigaction");
+	//cin.clear();
+	bool log = false;
+		//cin.clear();
 	char host[255];
 	char direc[1200];
 	string new_direc;
