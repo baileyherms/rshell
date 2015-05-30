@@ -22,6 +22,7 @@ using namespace boost;
 bool unblock = false;
 char* prev;
 char* curr;
+vector<char*> env;
 
 void output();
 void ground_signal_bg()
@@ -80,6 +81,7 @@ void cd_command(char *argv[])
 	{
 		//cout << "prev: " << prev << endl;
 		//cout << "curr: " << curr << endl;
+		string holder;
 		if((prev = getenv("PWD")) == NULL)
 		{
 			perror("getenv");
@@ -87,12 +89,21 @@ void cd_command(char *argv[])
 		}
 		//cout << "prev: " << prev << endl;
 		//char* fix;
+		holder = "";
 		if((curr = getenv("OLDPWD")) == NULL)//(getcwd(prev, (size_t)sizeof(prev)) == NULL))
 		{
 			perror("getenv");
 			exit(1);
 		}
-		//cout << "curr: " << curr << endl;
+		//holder += curr;
+		//cout << holder << endl;
+		//cout << getenv("OLDPWD") << endl;
+		//cout << getenv("PWD") << endl;
+		if(curr != getenv("HOME"))
+		{
+			//curr = getenv("HOME") + getenv("OLDPWD");
+		}
+		cout << curr << endl;
 		if(chdir(curr) == -1)
 		{
 			perror("chdir");
@@ -125,10 +136,12 @@ void cd_command(char *argv[])
 		{
 			perror("chdir");
 		}
-		if(setenv("PWD", argv[1], 1) == -1)
+		getcwd(curr, 2000);
+		if(setenv("PWD", curr, 1) == -1)
 		{
 			perror("setenv");
 		}
+		//cout << getenv("PWD") << endl;
 		if(setenv("OLDPWD", prev, 1) == -1)
 		{
 			perror("setenv");
@@ -462,6 +475,7 @@ void ctrl2(int signal2)
 void output()
 {
 	//cin.clear();
+	bool log = false;
 	struct sigaction sa, as;
 	sa.sa_handler = ctrl;
 	sigemptyset(&sa.sa_mask);
@@ -476,41 +490,43 @@ void output()
 		perror("sigaction");
 	char host[255];
 	char direc[1200];
+	/*
+	string new_direc;
+	string out_direc;
+	string home;
+	size_t minus = -1;
+	*/
 	//cin.clear();
 	//cout << "info" << endl;
 	string login = getlogin();
+	if(log)
+		perror("getlogin");
 	gethostname(host, 255);
-	char home[1200];
+	/*
+	if(host == NULL)
+		perror("gethostname");
 
-	if(getcwd(direc, 1200))
-	{
-		//cout << direc;
-	}
-
-	if(getenv("HOME") != NULL)
-	{
-		//cout << direc << endl;
-		//holder = strstr(direc, getenv("HOME"));
-		//strncpy(holder, "~", strlen(getenv("HOME")));
-		//cout << strlen(getenv("HOME")) << endl;
-		//puts(direc);
-		//strcpy(home, direc - getenv("HOME"));
-		//direc[strlen(getenv("HOME"))] = '~';
-		for(unsigned i = strlen(getenv("HOME")); i < 1200; i++)
-		{
-			direc[i-strlen(getenv("HOME")) + 1] = direc[i];
-		}
-		//cout << direc[1] << endl;
-		if(direc[1] != '\0')
-			direc[1] = '/';
-		direc[0] = '~';
-		//replace(direc, strlen(getenv("HOME")), home, '~');
-		//cout << getenv("HOME") << endl;
-	}
-	else
+	if(getcwd(direc, 1200) == NULL)
 	{
 		perror("getcwd");
 	}
+	else
+	{
+		home = getenv("HOME");
+		cout << "getenv(HOME): " << getenv("HOME") << endl;
+		cout << "home: " << home << endl;
+		new_direc = direc;
+		//cout << new_direc << endl;
+		cout << "home: " <<  home << endl;
+		if(new_direc.find(home, 0) != minus)
+		{
+			new_direc.erase(0, home.size());
+			cout << new_direc << endl;
+			out_direc = "~" + new_direc;
+			cout << out_direc << endl;
+		}
+	}
+	*/
 	cout << login << "@" << host << ":";
 	cout << direc << " ";
 	string usr_input;

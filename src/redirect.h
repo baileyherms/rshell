@@ -27,7 +27,8 @@ void loop_pipe(char*** cmd)
 		pipe(p);
 		if((pid = fork()) == -1)
 		{
-			perror("loop_pipe fork error");
+			perror("loop_pipe");
+			perror("fork");
 			exit(1);
 		}
 		else if(pid == 0)
@@ -37,7 +38,10 @@ void loop_pipe(char*** cmd)
 			{
 				dup2(p[1], 1);
 			}
-			close(p[0]);
+			else
+				perror("dup2");
+			if(close(p[0]) == -1)
+				perror("closee");
 			//cout << "execute" << endl;
 			if(execvp((*cmd)[0], *cmd) == -1)
 			{
@@ -48,9 +52,11 @@ void loop_pipe(char*** cmd)
 		}
 		else
 		{
-			wait(NULL);
+			if(wait(NULL) == 0)
+				perror("wait(NULL)");
 			//close(p[0]);
-			close(p[1]);
+			if (close(p[1]) == -1)
+				perror("close");
 			fd_in = p[0];
 			cmd++;
 			//pior_order++;
@@ -151,13 +157,15 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 	//cout << "in_arg[0] " << in_arg[0] << endl;
 	while(*cmd != NULL)
 	{
-		pipe(p);
-		pid = fork();
+		if(pipe(p) == -1)
+			perror("pipe(p)");
+		if((pid = fork()) == -1)
+			perror("fork");
 		if(input)
 		{
-			close(0);
+			if(close(0) == -1)
+				perror("close");
 			int in = open(in_arg[0], O_RDONLY);
-
 			if(in == -1)
 			{
 				perror("open in");
@@ -171,22 +179,35 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 		}
 		if(output || appending)
 		{
-			close(1);
+			if(close(1) == -1)
+				perror("close");
 			//cout << "out2_arg[0] " << out2_arg[0] << endl;
 			int out;
 			if(!appending)
 			{
 				out = open(out2_arg[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+				if(out == -1)
+				{
+					perror("open");
+					exit(1);
+				}
 			}
 			else
 			{
 				out = open(out2_arg[0], O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+				if(out == -1)
+				{
+					perror("open");
+					exit(1);
+				}
 			}
+			/*
 			if(out == -1)
 			{
 				perror("open out");
 				exit(1);
 			}
+			*/
 			if(dup2(out, 1) == -1)
 			{
 				perror("dup2");
@@ -200,12 +221,14 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 		}	
 		else if(pid == 0)
 		{
-			dup2(fd_in, 0);
+			if(dup2(fd_in, 0) == -1)
+				perror("dup2");
 			if(*(cmd + 1) != NULL)
 			{
 				dup2(p[1], 1);
 			}
-			close(p[0]);
+			if(close(p[0]) == -1)
+				perror("close");
 			//cout << "execute" << endl;
 			if(execvp((*cmd)[0], *cmd) == -1)
 			{
@@ -216,9 +239,11 @@ void loop_pipe(char** argv, char*** cmd, bool input, bool output, bool appending
 		}
 		else
 		{
-			wait(NULL);
+			if(wait(NULL) == 0)
+				perror("wait");
 			//close(p[0]);
-			close(p[1]);
+			if(close(p[1]) == -1)
+				perror("close");
 			fd_in = p[0];
 			cmd++;
 			//pior_order++;
@@ -280,14 +305,16 @@ void input_func(char **argv, bool output, bool appending, bool number)
 		}
 		else if(pid == 0)
 		{
-			close(0);
+			if(close(0) == -1)
+				perror("close");
 			int fd = open(in_arg[0], O_RDONLY);
 			if(fd)
 			{
 				perror("open");
 				exit(1);
 			}
-			dup2(fd, 0);
+			if(dup2(fd, 0) == -1)
+				perror("dup2");
 			//close(fd);
 			execvp(out_arg[0], out_arg);
 			perror("execvp");
@@ -295,7 +322,8 @@ void input_func(char **argv, bool output, bool appending, bool number)
 		}
 		else
 		{
-			wait(NULL);
+			if(wait(NULL) == -1)
+				perror("wait");
 		}
 	}
 	else
@@ -358,17 +386,24 @@ void input_func(char **argv, bool output, bool appending, bool number)
 		{
 			//cout << appending << endl;
 			out = open(out2_arg[0], O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			if(out == -1)
+			{
+				perror("open: output");
+				exit(1);
+
+			}
 		}
 		else
 		{
 			out = open(out2_arg[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-		}
-		if(out == -1)
-		{
-			perror("open: output");
-			exit(1);
+			if(out == -1)
+			{
+				perror("open: output");
+				exit(1);
 
+			}
 		}
+		
 		if(dup2(out, 1) == -1)
 		{
 			perror("dup2");
@@ -502,17 +537,31 @@ void output_func(char **argv, bool appending, bool number)
 	{
 		//cout << appending << endl;
 		fd = open(out_arg[0], O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		if(fd == -1)
+		{
+			perror("open: output");
+			exit(1);
+
+		}
 	}
 	else
 	{
 		fd = open(out_arg[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		if(fd == -1)
+		{
+			perror("open: output");
+			exit(1);
+
+		}
 	}
+	/*
 	if(fd == -1)
 	{
 		perror("open: output");
 		exit(1);
 
 	}
+	*/
 	if(dup2(fd, port) == -1)
 	{
 		perror("dup2");

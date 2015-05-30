@@ -26,6 +26,8 @@ using namespace std;
 #define MAXSIZE 10000
 #define TABLE_SIZE 30
 
+bool stuf = false;
+
 void fileSpecs(int &max_length, string &args, vector<string> &output);
 bool changeCaseCompare(string c1, string c2);
 unsigned max_length(vector<string> output);
@@ -88,7 +90,8 @@ void printNoArguments(unsigned max, vector<string> &output, string &args)
 	//printAll(max_l, no_hide);
 	
 	struct winsize win;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
+	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &win) == -1)
+		perror("ioctl");
 	int width = no_hide.size()*max_l;
 	double row_coun = ceil((double)width/(double)win.ws_col);
 	unsigned row_count = (unsigned)row_coun;
@@ -99,7 +102,10 @@ void printNoArguments(unsigned max, vector<string> &output, string &args)
 		{
 			struct stat perms;
 			file = args + "/" + no_hide.at(i);
-			stat(file.c_str(), &perms);
+			if(stat(file.c_str(), &perms) == -1)
+			{
+				if(stuf) perror("stat");
+			}
 			cout << no_hide.at(j);
 			//colors(no_hide.at(j), perms);
 			unsigned k;// = strlen(output.at(j).c_str();
@@ -117,7 +123,8 @@ void printAll(unsigned max_length, vector<string> &output, string &args)
 {
 	//cout << "max length: " << max_length << endl;
 	struct winsize win;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
+	if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &win) == -1)
+		perror("ioctl");
 	int width = output.size()*max_length;
 	double row_coun = ceil((double)width/(double)win.ws_col);
 	unsigned row_count = (unsigned)row_coun;
@@ -130,7 +137,11 @@ void printAll(unsigned max_length, vector<string> &output, string &args)
 			//cout << output.at(i) << endl;
 			struct stat perms;
 			file = args + "/" + output.at(i);
-			stat(output.at(j).c_str(), &perms);
+			if(stat(output.at(j).c_str(), &perms) == -1)
+			{
+				if(stuf)
+					perror("stat");
+			}
 			colors(output.at(j), perms);
 			unsigned k;// = strlen(output.at(j).c_str();
 			for(k = strlen(output.at(j).c_str()); k < max_length; k++)
@@ -190,27 +201,33 @@ void printLong(unsigned max_length, vector<string> &output, string args)
 			file += output[i];
 			if(stat(file.c_str(), &perms) == -1)
 			{
-
-				perror("stat");
-				exit(1);
+				if(stuf)
+				{
+					perror("stat");
+					exit(1);
+				}
 			}
 
 
 			
-			stat(file.c_str(), &perms);
+			
 			struct tm *dt = localtime(&perms.st_mtime);
 			if(!dt)
 			{
-				perror("Error gettting date");
+				//perror("Error gettting date");
 				exit(1);
 			}
 			if(S_ISDIR(perms.st_mode))
 			{
 				cout << "d";
+				//if(stuf)
+					//perror("S_ISDIR");
 			}
 			else if(S_ISLNK(perms.st_mode))
 			{
 				cout << "l";
+				//if(stuf)
+					//perror("S_ISLNK");
 			}
 			else
 			{
@@ -296,10 +313,19 @@ void printRecursive(unsigned max_length, vector<string> &output, string args)
 		vector<string> rec_output;
 		struct stat perms;
 		DIR *dirp;
+		bool stuff = false;
 		string rec_args = args + "/" + output.at(i);
 		dirp = opendir(rec_args.c_str());
+		if(0)
+		{
+			perror("opendir");
+			//cout << "opendir" << endl;
+			exit(1);
+		}
 		if(NULL != dirp && output[i][0] != '.' && !(stat(rec_args.c_str(), &perms) == -1))
 		{
+			if(stuf)
+				perror("stat");
 			if(S_ISDIR(perms.st_mode))
 			{
 				//cout << rec_args  << ":";
@@ -308,6 +334,8 @@ void printRecursive(unsigned max_length, vector<string> &output, string args)
 				max_length = 0;
 				while(NULL != (filespecs = readdir(dirp)))
 				{
+					if(stuff)
+						perror("readdir");
 					rec_output.push_back(filespecs->d_name);
 					if(strlen(filespecs->d_name) > max_length)
 					{
@@ -401,7 +429,11 @@ void printAllLong(unsigned max_length, vector<string> &output, string &args)
 				exit(1);
 			}
 			
-			stat(file.c_str(), &perms);	
+			if(stat(file.c_str(), &perms) == -1)
+			{
+				perror("stat");
+				exit(1);
+			}
 			struct passwd *pw = getpwuid(perms.st_uid);
 			struct group *gr = getgrgid(perms.st_gid);
 			if(!pw)
@@ -417,7 +449,7 @@ void printAllLong(unsigned max_length, vector<string> &output, string &args)
 			struct tm *dt = localtime(&perms.st_mtime);
 			if(!dt)
 			{
-				perror("Error gettting date");
+				//perror("Error gettting date");
 				exit(1);
 			}
 			
@@ -499,8 +531,16 @@ void printAllRecursive(unsigned max_length, vector<string> &output, string args)
 		DIR *dirp;
 		string rec_args = args + "/" + output.at(i);
 		dirp = opendir(rec_args.c_str());
+		if(0)
+		{
+			perror("opendir()");
+			//cout << "opendir" << endl;
+			exit(1);
+		}
 		if(NULL != dirp && output[i] != "." && output[i] != ".." && !(stat(rec_args.c_str(), &perms) == -1))
 		{
+			if(stuf)
+				perror("stat");
 			if(S_ISDIR(perms.st_mode))
 			{
 				//cout << rec_args  << ":";
@@ -509,6 +549,8 @@ void printAllRecursive(unsigned max_length, vector<string> &output, string args)
 				max_length = 0;
 				while(NULL != (filespecs = readdir(dirp)))
 				{
+					if(0)
+						perror("readdir");
 					rec_output.push_back(filespecs->d_name);
 					if(strlen(filespecs->d_name) > max_length)
 					{
@@ -544,8 +586,17 @@ void printLongRecursive(unsigned max_length, vector<string> &output, string args
 		DIR *dirp;
 		string rec_args = args + "/" + output.at(i);
 		dirp = opendir(rec_args.c_str());
+		int stuff = false;
+		if(stuff)
+		{
+			perror("opendir()");
+			//cout << "opendir" << endl;
+			exit(1);
+		}
 		if(NULL != dirp && output[i][0] != '.' && !(stat(rec_args.c_str(), &perms) == -1))
 		{
+			if(stuf)
+				perror("stat");
 			if(S_ISDIR(perms.st_mode))
 			{
 				//cout << rec_args  << ":";
@@ -554,6 +605,8 @@ void printLongRecursive(unsigned max_length, vector<string> &output, string args
 				max_length = 0;
 				while(NULL != (filespecs = readdir(dirp)))
 				{
+					if(0)
+						perror("readdir");
 					rec_output.push_back(filespecs->d_name);
 					if(strlen(filespecs->d_name) > max_length)
 					{
@@ -589,8 +642,16 @@ void printAllLongRecursive(unsigned max_length, vector<string> &output, string a
 		DIR *dirp;
 		string rec_args = args + "/" + output.at(i);
 		dirp = opendir(rec_args.c_str());
+		if(0)
+		{
+			perror("opendir()");
+			//cout << "opendir" << endl;
+			exit(1);
+		}
 		if(NULL != dirp && output[i] != "." && output[i] != ".." && !(stat(rec_args.c_str(), &perms) == -1))
 		{
+			if(stuf)
+				perror("stat");
 			if(S_ISDIR(perms.st_mode))
 			{
 				//cout << rec_args  << ":";
@@ -599,6 +660,8 @@ void printAllLongRecursive(unsigned max_length, vector<string> &output, string a
 				max_length = 0;
 				while(NULL != (filespecs = readdir(dirp)))
 				{
+					if(0)
+						perror("readdir");
 					rec_output.push_back(filespecs->d_name);
 					if(strlen(filespecs->d_name) > max_length)
 					{
@@ -625,7 +688,6 @@ void fileSpecs(unsigned &max_length, string &args, vector<string> &output)
 	//cout << "filespecs" << endl;
 	DIR *dirp;
 	dirp = opendir(args.c_str());
-	//cout << "**** directory ****" << args.c_str() << endl;
 	if(NULL == dirp)
 	{
 		perror("opendir()");
@@ -637,6 +699,8 @@ void fileSpecs(unsigned &max_length, string &args, vector<string> &output)
 	{
 		//cout << "filespecs: " << filespecs->d_name << endl;
 		//cout << "out" << endl;
+		if(0)
+			perror("readdir");
 		output.push_back(filespecs->d_name);
 		if(strlen(filespecs->d_name) > max_length)
 		{
@@ -724,8 +788,6 @@ void ls_define(int argc, char* argv[])//insert parameters
 				else if(argv[a][b] != ' ' && argv[a][b] != '-')
 				{
 					//cout << argv[a][b] << endl;
-					perror("invalid argument");
-					exit(1);
 				}
 				b++;
 			}
