@@ -22,9 +22,11 @@ using namespace boost;
 bool unblock = false;
 char* prev;
 char* curr;
+//char* other;
 vector<char*> env;
 
 void output();
+void ctrl(int signal1);
 void ground_signal_bg()
 {
 	cout << "BG" << endl;
@@ -63,6 +65,7 @@ void cd_command(char *argv[])
 		{
 			perror("chdir");
 		}
+		//cout << "curr: " << curr << endl;
 		if(setenv("OPENPWD", prev, 1) == -1)
 		{
 			perror("setenv");
@@ -81,7 +84,6 @@ void cd_command(char *argv[])
 	{
 		//cout << "prev: " << prev << endl;
 		//cout << "curr: " << curr << endl;
-		string holder;
 		if((prev = getenv("PWD")) == NULL)
 		{
 			perror("getenv");
@@ -89,7 +91,6 @@ void cd_command(char *argv[])
 		}
 		//cout << "prev: " << prev << endl;
 		//char* fix;
-		holder = "";
 		if((curr = getenv("OLDPWD")) == NULL)//(getcwd(prev, (size_t)sizeof(prev)) == NULL))
 		{
 			perror("getenv");
@@ -99,14 +100,11 @@ void cd_command(char *argv[])
 		//cout << holder << endl;
 		//cout << getenv("OLDPWD") << endl;
 		//cout << getenv("PWD") << endl;
-		if(curr != getenv("HOME"))
-		{
-			//curr = getenv("HOME") + getenv("OLDPWD");
-		}
 		cout << curr << endl;
 		if(chdir(curr) == -1)
 		{
 			perror("chdir");
+			exit(1);
 		}
 		if((setenv("OLDPWD", prev, 1)) == -1)
 		{
@@ -124,11 +122,12 @@ void cd_command(char *argv[])
 	//change directory to PATH
 	else
 	{
-		if((prev = getenv("PWD")) == NULL)
+		//char* other;
+		if((curr = getenv("PWD")) == NULL)
 		{
 			perror("getenv");
 		}
-		if((curr = getenv("HOME")) == NULL)
+		if((prev = getenv("OLDPWD")) == NULL)
 		{
 			perror("getenv");
 		}
@@ -136,16 +135,17 @@ void cd_command(char *argv[])
 		{
 			perror("chdir");
 		}
-		getcwd(curr, 2000);
-		if(setenv("PWD", curr, 1) == -1)
+		getcwd(prev, 2000);
+		if(setenv("PWD", prev, 1) == -1)
 		{
 			perror("setenv");
 		}
 		//cout << getenv("PWD") << endl;
-		if(setenv("OLDPWD", prev, 1) == -1)
+		if(setenv("OLDPWD", curr, 1) == -1)
 		{
 			perror("setenv");
 		}
+		//cout << getenv("OLDPWD") << endl;
 		//prev = getcwd(prev, 0);
 	}
 	//change directories
@@ -379,8 +379,16 @@ void get_input(string usr_input)
 			//exiting(run[0]);
 			sigignore(SIGINT);
 			if(-1 == wait(0))
+			{
 				perror("wait");
-			
+				exit(1);
+			}
+			struct sigaction sa;
+			sa.sa_handler = ctrl;
+			sigemptyset(&sa.sa_mask);
+			sigaction(SIGINT, &sa, 0);
+			if(errno <= -1)
+				perror("sigaction");
 			/*
 			do
 			{
@@ -490,19 +498,17 @@ void output()
 		perror("sigaction");
 	char host[255];
 	char direc[1200];
-	/*
 	string new_direc;
 	string out_direc;
 	string home;
 	size_t minus = -1;
-	*/
 	//cin.clear();
 	//cout << "info" << endl;
 	string login = getlogin();
 	if(log)
 		perror("getlogin");
 	gethostname(host, 255);
-	/*
+	
 	if(host == NULL)
 		perror("gethostname");
 
@@ -513,22 +519,19 @@ void output()
 	else
 	{
 		home = getenv("HOME");
-		cout << "getenv(HOME): " << getenv("HOME") << endl;
-		cout << "home: " << home << endl;
+		//cout << "home: " << home << endl;
 		new_direc = direc;
-		//cout << new_direc << endl;
-		cout << "home: " <<  home << endl;
 		if(new_direc.find(home, 0) != minus)
 		{
 			new_direc.erase(0, home.size());
-			cout << new_direc << endl;
+			//cout << new_direc << endl;
 			out_direc = "~" + new_direc;
-			cout << out_direc << endl;
+			//cout << out_direc << endl;
 		}
 	}
-	*/
+	
 	cout << login << "@" << host << ":";
-	cout << direc << " ";
+	cout << out_direc << " ";
 	string usr_input;
 	size_t poso = usr_input.find("exit");
 	if(poso > 0 && poso < 1000)
