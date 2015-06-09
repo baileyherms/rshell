@@ -1,0 +1,862 @@
+Script started on Mon 08 Jun 2015 10:28:25 PM PDT
+~
+bherm001@hammer $ cd rshell
+~/rshell
+bherm001@hammer $ ls
+[0m[38;5;27mbin[0m/  LICENSE  Makefile  README.md  [38;5;27msrc[0m/  [38;5;27mtests[0m/
+[m~/rshell
+bherm001@hammer $ make clean
+rm -rf ./bin
+~/rshell
+bherm001@hammer $ make rshell
+mkdir -p ./bin
+g++ -Wall -Werror -ansi -pedantic ./src/rshell.cpp -o ./bin/rshell
+~/rshell
+bherm001@hammer $ bin/rshell
+bherm001@hammer.cs.ucr.edu $ ls - # run any command with no params
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls -a -l -R # run any command with a small number of params
+.:
+total 44
+drwx------  6 bherm001 csmajs  4096 Jun  8 22:21 .
+drwx------ 50 bherm001 csmajs 12288 Jun  8 21:58 ..
+drwx------  2 bherm001 csmajs  4096 Jun  8 22:21 bin
+drwx------  8 bherm001 csmajs  4096 Jun  8 19:06 .git
+-rw-------  1 bherm001 csmajs  1477 May 29 21:22 LICENSE
+-rw-------  1 bherm001 csmajs   440 Jun  8 21:52 Makefile
+-rw-------  1 bherm001 csmajs  1243 May 29 21:22 README.md
+drwx------  2 bherm001 csmajs  4096 Jun  8 21:58 src
+drwx------  2 bherm001 csmajs  4096 Jun  8 21:28 tests
+
+./bin:
+total 24
+drwx------ 2 bherm001 csmajs  4096 Jun  8 22:21 .
+drwx------ 6 bherm001 csmajs  4096 Jun  8 22:21 ..
+-rwx------ 1 bherm001 csmajs 15156 Jun  8 22:21 rshell
+
+./.git:
+total 48
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 6 bherm001 csmajs 4096 Jun  8 22:21 ..
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 branches
+-rw------- 1 bherm001 csmajs   48 Jun  8 19:06 COMMIT_EDITMSG
+-rw------- 1 bherm001 csmajs  266 May 29 21:22 config
+-rw------- 1 bherm001 csmajs   73 May 29 21:22 description
+-rw------- 1 bherm001 csmajs   23 May 29 21:22 HEAD
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 hooks
+-rw------- 1 bherm001 csmajs 1156 Jun  8 19:06 index
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 info
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 logs
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 objects
+-rw------- 1 bherm001 csmajs  611 May 29 21:22 packed-refs
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 refs
+
+./.git/branches:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+
+./.git/hooks:
+total 48
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rwx------ 1 bherm001 csmajs  452 May 29 21:22 applypatch-msg.sample
+-rwx------ 1 bherm001 csmajs  896 May 29 21:22 commit-msg.sample
+-rwx------ 1 bherm001 csmajs  189 May 29 21:22 post-update.sample
+-rwx------ 1 bherm001 csmajs  398 May 29 21:22 pre-applypatch.sample
+-rwx------ 1 bherm001 csmajs 1635 May 29 21:22 pre-commit.sample
+-rwx------ 1 bherm001 csmajs 1239 May 29 21:22 prepare-commit-msg.sample
+-rwx------ 1 bherm001 csmajs 1348 May 29 21:22 pre-push.sample
+-rwx------ 1 bherm001 csmajs 4951 May 29 21:22 pre-rebase.sample
+-rwx------ 1 bherm001 csmajs 3611 May 29 21:22 update.sample
+
+./.git/info:
+total 12
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rw------- 1 bherm001 csmajs  240 May 29 21:22 exclude
+
+./.git/logs:
+total 16
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rw------- 1 bherm001 csmajs  372 Jun  8 19:06 HEAD
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 refs
+
+./.git/logs/refs:
+total 16
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 heads
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 remotes
+
+./.git/logs/refs/heads:
+total 12
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs  372 Jun  8 19:06 master
+
+./.git/logs/refs/remotes:
+total 12
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 origin
+
+./.git/logs/refs/remotes/origin:
+total 16
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs  185 May 29 21:22 HEAD
+-rw------- 1 bherm001 csmajs  146 Jun  8 19:07 master
+
+./.git/objects:
+total 32
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 37
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 9c
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 ac
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 f6
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 info
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 pack
+
+./.git/objects/37:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  177 Jun  8 19:06 993443274f6a0ed310e371c96dfb61276cd472
+
+./.git/objects/9c:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  229 Jun  8 19:06 bbf26273c24937ccfdfa0ee459e7de0d18e867
+
+./.git/objects/ac:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  188 Jun  8 19:06 dd8bb4acd43bbe0cbb97261e0fc593e89624cf
+
+./.git/objects/f6:
+total 16
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs 4171 Jun  8 19:06 e0666f9bb839f7e7120725a8a3b9090e1d32c0
+
+./.git/objects/info:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+
+./.git/objects/pack:
+total 220
+drwx------ 2 bherm001 csmajs   4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs   4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  10312 May 29 21:22 pack-ded42d4681626f897742239fa4e8c000f8586d6a.idx
+-r-------- 1 bherm001 csmajs 198919 May 29 21:22 pack-ded42d4681626f897742239fa4e8c000f8586d6a.pack
+
+./.git/refs:
+total 20
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 heads
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 remotes
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 tags
+
+./.git/refs/heads:
+total 8
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs   41 Jun  8 19:06 master
+
+./.git/refs/remotes:
+total 12
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 origin
+
+./.git/refs/remotes/origin:
+total 8
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs   32 May 29 21:22 HEAD
+-rw------- 1 bherm001 csmajs   41 Jun  8 19:07 master
+
+./.git/refs/tags:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+
+./src:
+total 116
+drwx------ 2 bherm001 csmajs  4096 Jun  8 21:58 .
+drwx------ 6 bherm001 csmajs  4096 Jun  8 22:21 ..
+-rwx------ 1 bherm001 csmajs 26013 Jun  8 21:49 a.out
+-rw------- 1 bherm001 csmajs  1464 May 29 21:22 handle_signals.cpp
+-rw------- 1 bherm001 csmajs   112 Jun  8 17:40 ls.cpp
+-rw------- 1 bherm001 csmajs 19174 Jun  8 19:06 ls.h
+-rw------- 1 bherm001 csmajs  9990 Jun  8 21:42 main.cpp
+-rw------- 1 bherm001 csmajs  1185 May 29 21:22 mv.cpp
+-rw------- 1 bherm001 csmajs 21421 May 29 21:22 redirect.h
+-rw------- 1 bherm001 csmajs  2202 May 29 21:22 rm.cpp
+-rw------- 1 bherm001 csmajs  5063 Jun  8 21:58 rshell.cpp
+
+./tests:
+total 536
+drwx------ 2 bherm001 csmajs   4096 Jun  8 21:28 .
+drwx------ 6 bherm001 csmajs   4096 Jun  8 22:21 ..
+-rw------- 1 bherm001 csmajs      0 Jun  8 22:21 exec.script
+-rw------- 1 bherm001 csmajs 494534 May 29 21:22 ls.script
+-rw------- 1 bherm001 csmajs  11863 May 29 21:22 piping.script
+-rw------- 1 bherm001 csmajs  24836 May 29 21:22 signals.script
+bherm001@hammer.cs.ucr.edu $ ls -a -l -ls aR -R -R -l -a -l -A a -lr r Ra -l -a -a -l -R -a -l -R -a # run any command with a large (>10) number of params
+.:
+total 44
+drwx------  6 bherm001 csmajs  4096 Jun  8 22:21 .
+drwx------ 50 bherm001 csmajs 12288 Jun  8 21:58 ..
+drwx------  2 bherm001 csmajs  4096 Jun  8 22:21 bin
+drwx------  8 bherm001 csmajs  4096 Jun  8 19:06 .git
+-rw-------  1 bherm001 csmajs  1477 May 29 21:22 LICENSE
+-rw-------  1 bherm001 csmajs   440 Jun  8 21:52 Makefile
+-rw-------  1 bherm001 csmajs  1243 May 29 21:22 README.md
+drwx------  2 bherm001 csmajs  4096 Jun  8 21:58 src
+drwx------  2 bherm001 csmajs  4096 Jun  8 21:28 tests
+
+./bin:
+total 24
+drwx------ 2 bherm001 csmajs  4096 Jun  8 22:21 .
+drwx------ 6 bherm001 csmajs  4096 Jun  8 22:21 ..
+-rwx------ 1 bherm001 csmajs 15156 Jun  8 22:21 rshell
+
+./.git:
+total 48
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 6 bherm001 csmajs 4096 Jun  8 22:21 ..
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 branches
+-rw------- 1 bherm001 csmajs   48 Jun  8 19:06 COMMIT_EDITMSG
+-rw------- 1 bherm001 csmajs  266 May 29 21:22 config
+-rw------- 1 bherm001 csmajs   73 May 29 21:22 description
+-rw------- 1 bherm001 csmajs   23 May 29 21:22 HEAD
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 hooks
+-rw------- 1 bherm001 csmajs 1156 Jun  8 19:06 index
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 info
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 logs
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 objects
+-rw------- 1 bherm001 csmajs  611 May 29 21:22 packed-refs
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 refs
+
+./.git/branches:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+
+./.git/hooks:
+total 48
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rwx------ 1 bherm001 csmajs  452 May 29 21:22 applypatch-msg.sample
+-rwx------ 1 bherm001 csmajs  896 May 29 21:22 commit-msg.sample
+-rwx------ 1 bherm001 csmajs  189 May 29 21:22 post-update.sample
+-rwx------ 1 bherm001 csmajs  398 May 29 21:22 pre-applypatch.sample
+-rwx------ 1 bherm001 csmajs 1635 May 29 21:22 pre-commit.sample
+-rwx------ 1 bherm001 csmajs 1239 May 29 21:22 prepare-commit-msg.sample
+-rwx------ 1 bherm001 csmajs 1348 May 29 21:22 pre-push.sample
+-rwx------ 1 bherm001 csmajs 4951 May 29 21:22 pre-rebase.sample
+-rwx------ 1 bherm001 csmajs 3611 May 29 21:22 update.sample
+
+./.git/info:
+total 12
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rw------- 1 bherm001 csmajs  240 May 29 21:22 exclude
+
+./.git/logs:
+total 16
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rw------- 1 bherm001 csmajs  372 Jun  8 19:06 HEAD
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 refs
+
+./.git/logs/refs:
+total 16
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 heads
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 remotes
+
+./.git/logs/refs/heads:
+total 12
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs  372 Jun  8 19:06 master
+
+./.git/logs/refs/remotes:
+total 12
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 origin
+
+./.git/logs/refs/remotes/origin:
+total 16
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs  185 May 29 21:22 HEAD
+-rw------- 1 bherm001 csmajs  146 Jun  8 19:07 master
+
+./.git/objects:
+total 32
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 37
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 9c
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 ac
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 f6
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 info
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 pack
+
+./.git/objects/37:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  177 Jun  8 19:06 993443274f6a0ed310e371c96dfb61276cd472
+
+./.git/objects/9c:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  229 Jun  8 19:06 bbf26273c24937ccfdfa0ee459e7de0d18e867
+
+./.git/objects/ac:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  188 Jun  8 19:06 dd8bb4acd43bbe0cbb97261e0fc593e89624cf
+
+./.git/objects/f6:
+total 16
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs 4171 Jun  8 19:06 e0666f9bb839f7e7120725a8a3b9090e1d32c0
+
+./.git/objects/info:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+
+./.git/objects/pack:
+total 220
+drwx------ 2 bherm001 csmajs   4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs   4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  10312 May 29 21:22 pack-ded42d4681626f897742239fa4e8c000f8586d6a.idx
+-r-------- 1 bherm001 csmajs 198919 May 29 21:22 pack-ded42d4681626f897742239fa4e8c000f8586d6a.pack
+
+./.git/refs:
+total 20
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 heads
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 remotes
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 tags
+
+./.git/refs/heads:
+total 8
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs   41 Jun  8 19:06 master
+
+./.git/refs/remotes:
+total 12
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 origin
+
+./.git/refs/remotes/origin:
+total 8
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs   32 May 29 21:22 HEAD
+-rw------- 1 bherm001 csmajs   41 Jun  8 19:07 master
+
+./.git/refs/tags:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+
+./src:
+total 116
+drwx------ 2 bherm001 csmajs  4096 Jun  8 21:58 .
+drwx------ 6 bherm001 csmajs  4096 Jun  8 22:21 ..
+-rwx------ 1 bherm001 csmajs 26013 Jun  8 21:49 a.out
+-rw------- 1 bherm001 csmajs  1464 May 29 21:22 handle_signals.cpp
+-rw------- 1 bherm001 csmajs   112 Jun  8 17:40 ls.cpp
+-rw------- 1 bherm001 csmajs 19174 Jun  8 19:06 ls.h
+-rw------- 1 bherm001 csmajs  9990 Jun  8 21:42 main.cpp
+-rw------- 1 bherm001 csmajs  1185 May 29 21:22 mv.cpp
+-rw------- 1 bherm001 csmajs 21421 May 29 21:22 redirect.h
+-rw------- 1 bherm001 csmajs  2202 May 29 21:22 rm.cpp
+-rw------- 1 bherm001 csmajs  5063 Jun  8 21:58 rshell.cpp
+
+./tests:
+total 536
+drwx------ 2 bherm001 csmajs   4096 Jun  8 21:28 .
+drwx------ 6 bherm001 csmajs   4096 Jun  8 22:21 ..
+-rw------- 1 bherm001 csmajs      0 Jun  8 22:21 exec.script
+-rw------- 1 bherm001 csmajs 494534 May 29 21:22 ls.script
+-rw------- 1 bherm001 csmajs  11863 May 29 21:22 piping.script
+-rw------- 1 bherm001 csmajs  24836 May 29 21:22 signals.script
+bherm001@hammer.cs.ucr.edu $ echo      echo hello world
+hello world
+bherm001@hammer.cs.ucr.edu $ echo run both a command in `/bin` and a command in the current directory
+run both a command in `/bin` and a command in the current directory
+bherm001@hammer.cs.ucr.edu $ bin/rshell
+bherm001@hammer.cs.ucr.edu $ pw  d #in     in rshell within rshell
+/home/csmajs/bherm001/rshell
+bherm001@hammer.cs.ucr.edu $ exit # exit rshell within rshell
+bherm001@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ # back in regual  lar rshelll 
+bherm001@hammer.cs.ucr.edu $ laa # if command does not exit st print                                 if command doesn't exist, print appropriate error message
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ ls                 ls       -a       -l      -R # commands with lots of spaces between parameters
+.:
+total 44
+drwx------  6 bherm001 csmajs  4096 Jun  8 22:21 .
+drwx------ 50 bherm001 csmajs 12288 Jun  8 21:58 ..
+drwx------  2 bherm001 csmajs  4096 Jun  8 22:21 bin
+drwx------  8 bherm001 csmajs  4096 Jun  8 19:06 .git
+-rw-------  1 bherm001 csmajs  1477 May 29 21:22 LICENSE
+-rw-------  1 bherm001 csmajs   440 Jun  8 21:52 Makefile
+-rw-------  1 bherm001 csmajs  1243 May 29 21:22 README.md
+drwx------  2 bherm001 csmajs  4096 Jun  8 21:58 src
+drwx------  2 bherm001 csmajs  4096 Jun  8 21:28 tests
+
+./bin:
+total 24
+drwx------ 2 bherm001 csmajs  4096 Jun  8 22:21 .
+drwx------ 6 bherm001 csmajs  4096 Jun  8 22:21 ..
+-rwx------ 1 bherm001 csmajs 15156 Jun  8 22:21 rshell
+
+./.git:
+total 48
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 6 bherm001 csmajs 4096 Jun  8 22:21 ..
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 branches
+-rw------- 1 bherm001 csmajs   48 Jun  8 19:06 COMMIT_EDITMSG
+-rw------- 1 bherm001 csmajs  266 May 29 21:22 config
+-rw------- 1 bherm001 csmajs   73 May 29 21:22 description
+-rw------- 1 bherm001 csmajs   23 May 29 21:22 HEAD
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 hooks
+-rw------- 1 bherm001 csmajs 1156 Jun  8 19:06 index
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 info
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 logs
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 objects
+-rw------- 1 bherm001 csmajs  611 May 29 21:22 packed-refs
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 refs
+
+./.git/branches:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+
+./.git/hooks:
+total 48
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rwx------ 1 bherm001 csmajs  452 May 29 21:22 applypatch-msg.sample
+-rwx------ 1 bherm001 csmajs  896 May 29 21:22 commit-msg.sample
+-rwx------ 1 bherm001 csmajs  189 May 29 21:22 post-update.sample
+-rwx------ 1 bherm001 csmajs  398 May 29 21:22 pre-applypatch.sample
+-rwx------ 1 bherm001 csmajs 1635 May 29 21:22 pre-commit.sample
+-rwx------ 1 bherm001 csmajs 1239 May 29 21:22 prepare-commit-msg.sample
+-rwx------ 1 bherm001 csmajs 1348 May 29 21:22 pre-push.sample
+-rwx------ 1 bherm001 csmajs 4951 May 29 21:22 pre-rebase.sample
+-rwx------ 1 bherm001 csmajs 3611 May 29 21:22 update.sample
+
+./.git/info:
+total 12
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rw------- 1 bherm001 csmajs  240 May 29 21:22 exclude
+
+./.git/logs:
+total 16
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-rw------- 1 bherm001 csmajs  372 Jun  8 19:06 HEAD
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 refs
+
+./.git/logs/refs:
+total 16
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 heads
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 remotes
+
+./.git/logs/refs/heads:
+total 12
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs  372 Jun  8 19:06 master
+
+./.git/logs/refs/remotes:
+total 12
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 4 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 origin
+
+./.git/logs/refs/remotes/origin:
+total 16
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs  185 May 29 21:22 HEAD
+-rw------- 1 bherm001 csmajs  146 Jun  8 19:07 master
+
+./.git/objects:
+total 32
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 37
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 9c
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 ac
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 f6
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 info
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 pack
+
+./.git/objects/37:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  177 Jun  8 19:06 993443274f6a0ed310e371c96dfb61276cd472
+
+./.git/objects/9c:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  229 Jun  8 19:06 bbf26273c24937ccfdfa0ee459e7de0d18e867
+
+./.git/objects/ac:
+total 12
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  188 Jun  8 19:06 dd8bb4acd43bbe0cbb97261e0fc593e89624cf
+
+./.git/objects/f6:
+total 16
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs 4171 Jun  8 19:06 e0666f9bb839f7e7120725a8a3b9090e1d32c0
+
+./.git/objects/info:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+
+./.git/objects/pack:
+total 220
+drwx------ 2 bherm001 csmajs   4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs   4096 Jun  8 19:06 ..
+-r-------- 1 bherm001 csmajs  10312 May 29 21:22 pack-ded42d4681626f897742239fa4e8c000f8586d6a.idx
+-r-------- 1 bherm001 csmajs 198919 May 29 21:22 pack-ded42d4681626f897742239fa4e8c000f8586d6a.pack
+
+./.git/refs:
+total 20
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 8 bherm001 csmajs 4096 Jun  8 19:06 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 heads
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 remotes
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 tags
+
+./.git/refs/heads:
+total 8
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:06 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs   41 Jun  8 19:06 master
+
+./.git/refs/remotes:
+total 12
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 origin
+
+./.git/refs/remotes/origin:
+total 8
+drwx------ 2 bherm001 csmajs 4096 Jun  8 19:07 .
+drwx------ 3 bherm001 csmajs 4096 May 29 21:22 ..
+-rw------- 1 bherm001 csmajs   32 May 29 21:22 HEAD
+-rw------- 1 bherm001 csmajs   41 Jun  8 19:07 master
+
+./.git/refs/tags:
+total 8
+drwx------ 2 bherm001 csmajs 4096 May 29 21:22 .
+drwx------ 5 bherm001 csmajs 4096 May 29 21:22 ..
+
+./src:
+total 116
+drwx------ 2 bherm001 csmajs  4096 Jun  8 21:58 .
+drwx------ 6 bherm001 csmajs  4096 Jun  8 22:21 ..
+-rwx------ 1 bherm001 csmajs 26013 Jun  8 21:49 a.out
+-rw------- 1 bherm001 csmajs  1464 May 29 21:22 handle_signals.cpp
+-rw------- 1 bherm001 csmajs   112 Jun  8 17:40 ls.cpp
+-rw------- 1 bherm001 csmajs 19174 Jun  8 19:06 ls.h
+-rw------- 1 bherm001 csmajs  9990 Jun  8 21:42 main.cpp
+-rw------- 1 bherm001 csmajs  1185 May 29 21:22 mv.cpp
+-rw------- 1 bherm001 csmajs 21421 May 29 21:22 redirect.h
+-rw------- 1 bherm001 csmajs  2202 May 29 21:22 rm.cpp
+-rw------- 1 bherm001 csmajs  5063 Jun  8 21:58 rshell.cpp
+
+./tests:
+total 536
+drwx------ 2 bherm001 csmajs   4096 Jun  8 21:28 .
+drwx------ 6 bherm001 csmajs   4096 Jun  8 22:21 ..
+-rw------- 1 bherm001 csmajs      0 Jun  8 22:21 exec.script
+-rw------- 1 bherm001 csmajs 494534 May 29 21:22 ls.script
+-rw------- 1 bherm001 csmajs  11863 May 29 21:22 piping.script
+-rw------- 1 bherm001 csmajs  24836 May 29 21:22 signals.script
+bherm001@hammer.cs.ucr.edu $ echo simple example showing two commands connected with each operator
+simple example showing two commands connected with each operator
+bherm001@hammer.cs.ucr.edu $ ls -a ; pwd # ; 1st succeds  eds
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+/home/csmajs/bherm001/rshell
+bherm001@hammer.cs.ucr.edu $ ls  aa ; - a  a ; pwd # ; 1st fails
+Error CMD
+: No such file or directory
+/home/csmajs/bherm001/rshell
+bherm001@hammer.cs.ucr.edu $ lsaa -a ; pwd   pappaa    aa  b # ; both fails 
+Error CMD
+: No such file or directory
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ lsa    -a ; echo succeeds        1st            && echo true    good # 1st succeeds
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+good
+bherm001@hammer.cs.ucr.edu $ lsaaaa -a && echo bad # 1st fails
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ lsaaaaa -a && echo bad # both fails
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ lsa     echo above   was for com                      # above was for &&
+bherm001@hammer.cs.ucr.edu $ # beowl   low is for ||
+bherm001@hammer.cs.ucr.edu $ lsa    -a && echo         || wcho      econ  ho no print # 1st succeeds
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $ lssaaaaaa -a || echo pi rints # 1st faisl  ;s  sl  ls
+Error CMD
+: No such file or directory
+prints
+bherm001@hammer.cs.ucr.edu $ sa  lsa a a a a   aaaa -a      || echhhhooo bad # both fais l
+Error CMD
+: No such file or directory
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ echo luke ; echo leia ; echo han solo && echo obi wan && echo darth vader || echo aladdin && echo chewie || echo indiana jones ; echo boba fett || jon snow # example showing lots of commands chained together
+luke
+leia
+han solo
+obi wan
+darth vader
+chewie
+boba fett
+bherm001@hammer.cs.ucr.edu $ echo luke ; echo leia ; echo han solo && echo obi wan && echo darth vader || echo aladdin && echo chewie || echo indiana jones ; echo boba fett || jon snow # two examples mixing and matching different operators in one command
+luke
+leia
+han solo
+obi wan
+darth vader
+chewie
+boba fett
+bherm001@hammer.cs.ucr.edu $ echo hello ; echo world && echo everything && echo is || echo not ; echo great && echo life ; echo is || echo not && echo wonderful
+hello
+world
+everything
+is
+great
+life
+is
+wonderful
+bherm001@hammer.cs.ucr.edu $ # two examples mixing and matching different operators in one command
+bherm001@hammer.cs.ucr.edu $ ls -a ; pwd ; echo hello ; echo world && pwd ||             ; pwd     ls -l ; ls ; pwd
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+/home/csmajs/bherm001/rshell
+hello
+world
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:31 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/bherm001/rshell
+bherm001@hammer.cs.ucr.edu $ ls    ls -a || echo nopppe
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $ ls -a || ;s  ls -R
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+bherm001@hammer.cs.ucr.edu $ ls -a || ls -R || w echo this prints
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+this prints
+bherm001@hammer.cs.ucr.edu $ ; ls -a || ls -R || echo this prints || echo this doesn't # this         t
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+this prints
+bherm001@hammer.cs.ucr.edu $ ls -a || ls -R || echo this prints || echo this doesn'
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+this prints
+bherm001@hammer.cs.ucr.edu $ ls -a || ls -       ; ls -r R ;m    ls -a ; ls -l ; pwd ; wcho      echo this all tp  prints
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+.:
+bin  LICENSE  Makefile	README.md  src	tests
+
+./bin:
+rshell
+
+./src:
+a.out		    ls.cpp  main.cpp  redirect.h  rshell.cpp
+handle_signals.cpp  ls.h    mv.cpp    rm.cpp
+
+./tests:
+exec.script  ls.script	piping.script  signals.script
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:31 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+/home/csmajs/bherm001/rshell
+this all prints
+bherm001@hammer.cs.ucr.edu $ ls -a && ls -R && ls -l && ls -    pwd &&    && echo this all prints
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+.:
+bin  LICENSE  Makefile	README.md  src	tests
+
+./bin:
+rshell
+
+./src:
+a.out		    ls.cpp  main.cpp  redirect.h  rshell.cpp
+handle_signals.cpp  ls.h    mv.cpp    rm.cpp
+
+./tests:
+exec.script  ls.script	piping.script  signals.script
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:31 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+/home/csmajs/bherm001/rshell
+this all prints
+bherm001@hammer.cs.ucr.edu $ ls -a && ls -R && ls -l && pwd && echo this all prints                        NOT A COMMAND  
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+.:
+bin  LICENSE  Makefile	README.md  src	tests
+
+./bin:
+rshell
+
+./src:
+a.out		    ls.cpp  main.cpp  redirect.h  rshell.cpp
+handle_signals.cpp  ls.h    mv.cpp    rm.cpp
+
+./tests:
+exec.script  ls.script	piping.script  signals.script
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:31 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+/home/csmajs/bherm001/rshell
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ NOPEEEEEE && NONONONO
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ lol ; lol
+Error CMD
+: No such file or directory
+Error CMD
+: No such file or directory
+bherm001@hammer.cs.ucr.edu $ ls -l;   ||cat
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:31 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+bherm001@hammer.cs.ucr.edu $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+bherm001@hammer.cs.ucr.edu $ ls   -l; echo     echob  hello # parsing example showing that the operators can be right next to each
+command or they can have spaces separating themtotal 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:31 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+hello
+bherm001@hammer.cs.ucr.edu $ ls -l  ;  echo hello;echo world        ;      echo space
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:42 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+hello
+world
+space
+bherm001@hammer.cs.ucr.edu $ echo parsing example showing that the operators can be right next to each ...
+parsing example showing that the operators can be right next to each ...
+bherm001@hammer.cs.ucr.edu $ exit # xit     exit by itself
+~/rshell
+bherm001@hammer $ bin/rshell
+bherm001@hammer.cs.ucr.edu $ e ls -a ; exit                exit -a #exit w       exit with params
+~/rshell
+bherm001@hammer $ bin/rshell
+bherm001@hammer.cs.ucr.edu $ exit -l #    a -a # exit with parameters passed to it  
+~/rshell
+bherm001@hammer $ bin/rshellls[Kbin/rshell
+bherm001@hammer.cs.ucr.edu $ ls -l exit # exit as a parameter to something else shouldn't exit
+ls: cannot access exit: No such file or directory
+bherm001@hammer.cs.ucr.edu $ ls -l;  ; ec xit # exit in a chain of commands should exit
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:42 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+~/rshell
+bherm001@hammer $ bin/rshell
+bherm001@hammer.cs.ucr.edu $ ls -l #h thi    comment within a command
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:42 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+bherm001@hammer.cs.ucr.edu $ # comment on a line by itself
+bherm001@hammer.cs.ucr.edu $ ls -l# comment where `#` touches something else
+total 24
+drwx------ 2 bherm001 csmajs 4096 Jun  8 22:42 bin
+-rw------- 1 bherm001 csmajs 1477 May 29 21:22 LICENSE
+-rw------- 1 bherm001 csmajs  440 Jun  8 21:52 Makefile
+-rw------- 1 bherm001 csmajs 1243 May 29 21:22 README.md
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:58 src
+drwx------ 2 bherm001 csmajs 4096 Jun  8 21:28 tests
+bherm001@hammer.cs.ucr.edu $ # all of the prompt  s have bherm001@hammer.cs.ucr.edu (my in     user ino fo)
+bherm001@hammer.cs.ucr.edu $ # changes on exit
+bherm001@hammer.cs.ucr.edu $ exit
+~/rshell
+bherm001@hammer $ exit
+exit
+
+Script done on Mon 08 Jun 2015 10:59:32 PM PDT
