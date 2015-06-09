@@ -43,7 +43,7 @@ void colors(string item, struct stat perms)
 			//directory
 			//cout << "here" << endl;
 			//Everything in ls -a and ls -aR is going here
-			cout << "\x1b[1;34m" << item << "\033[0m";//"\x1b[0m";
+			cout << "\x1b[1;34m" << item << "\033[0m" << "/";//"\x1b[0m";
 		}
 		else
 		{
@@ -58,7 +58,7 @@ void colors(string item, struct stat perms)
 			if(item[0] != '.')
 			{
 				//executable
-				cout << "\x1b[0;32m" << item << "\033[0m";//"\x1b[0m";
+				cout << "\x1b[0;32m" << item << "\033[0m" << "/";//"\x1b[0m";
 			}
 			else
 			{
@@ -103,8 +103,8 @@ void printNoArguments(unsigned max, vector<string> &output, string &args)
 		for(unsigned j = i; j < no_hide.size(); j += row_count)
 		{
 			struct stat perms;
-			file = args + "/" + no_hide.at(i);
-			if(stat(no_hide.at(j).c_str(), &perms) == -1)//no_hide was file
+			file = args + "/" + no_hide.at(j);
+			if(stat(file.c_str(), &perms) == -1)//no_hide was file
 			{
 				if(stuf) perror("stat");
 			}
@@ -144,8 +144,8 @@ void printAll(unsigned max_length, vector<string> &output1, string &args)
 		{
 			//cout << output.at(i) << endl;
 			struct stat perms;
-			file = args + "/" + output.at(i);
-			if(stat(output.at(j).c_str(), &perms) == -1)//file was output.at(j)
+			file = args + "/" + output.at(j);
+			if(stat(file.c_str(), &perms) == -1)//file was output.at(j)
 			{
 				if(stuf) perror("stat");
 			}
