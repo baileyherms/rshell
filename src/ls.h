@@ -361,7 +361,7 @@ void printRecursive(unsigned max_length, vector<string> &output, string args)
 				exit(1);
 			}
 		}
-		if(dirp == NULL)
+		else//if(dirp == NULL)
 			free(dirp);
 	}
 }
@@ -582,7 +582,7 @@ void printAllRecursive(unsigned max_length, vector<string> &output, string args)
 				exit(1);
 			}
 		}
-		if(dirp == NULL)
+		else//if(dirp == NULL)
 			free(dirp);
 	}
 }
@@ -640,7 +640,7 @@ void printLongRecursive(unsigned max_length, vector<string> &output, string args
 				exit(1);
 			}
 		}
-		if(dirp == NULL)
+		else//if(dirp == NULL)
 			free(dirp);
 	}
 }
@@ -697,7 +697,7 @@ void printAllLongRecursive(unsigned max_length, vector<string> &output, string a
 				exit(1);
 			}
 		}
-		if(dirp == NULL)
+		else//if(dirp == NULL)
 			free(dirp);
 	}
 }
