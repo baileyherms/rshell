@@ -11,14 +11,8 @@ vector<char> connectors;
 vector<string> commands;
 struct output : public boost::static_visitor<>
 {
-	void operator()(char c) const
-	{
-		connectors.push_back(c);
-	}
-	void operator()(string s) const
-	{
-		commands.push_back(s);
-	}
+	void operator()(char c) const { connectors.push_back(c);}
+	void operator()(string s) const { commands.push_back(s);}
 };
 
 int main()

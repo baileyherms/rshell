@@ -12,7 +12,6 @@ int main()
 	var = false;
 	var = 3.25678;
 	var = string("hello world");
-	//cout << var << endl;
 	cout << any_cast<string>(var) << endl;
 	return 0;
 }

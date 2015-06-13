@@ -2,19 +2,15 @@
 #include <iostream>
 
 using namespace std;
-using boost::optional;
+using namespace boost;
 
 double deg;
 boost::optional<double> degrees()
 {
 	if(deg)
-	{
 		return deg;
-	}
 	else
-	{
 		return optional<double>{};
-	}
 }
 int main()
 {
