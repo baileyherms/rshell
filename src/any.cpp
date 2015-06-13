@@ -6,8 +6,8 @@
 #include <boost/tokenizer.hpp>
 
 using boost::any;
-using namespace std;
 using boost::any_cast;
+using namespace std;
 using namespace boost;
 int main()
 {
