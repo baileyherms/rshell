@@ -23,7 +23,7 @@ int main()
 		cout << "The temperature is " << deg << " degrees." << endl;
 	else
 		cout << "There is no temperature reported." << endl;
-	deg = 43;
+	deg = -1;
 	degrees();
 	if(deg)
 		cout << "The temperature is " << deg << " degrees." << endl;

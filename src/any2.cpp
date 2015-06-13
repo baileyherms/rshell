@@ -12,21 +12,18 @@ using namespace boost;
 int main()
 {
 	vector<any> vect;
-	for(unsigned i = 0; i < 2; i++)
-	{
-		int in;
-		double d;
-		char c;
-		cout << "Insert an integer: ";
-		cin >> in;
-		vect.push_back(in);
-		cout << "Insert a double: ";
-		cin >> d;
-		vect.push_back(d);
-		cout << "Insert a char: ";
-		cin >> c;
-		vect.push_back(c);
-	}
+	int in;
+	double d;
+	char c;
+	cout << "Insert an integer: ";
+	cin >> in;
+	vect.push_back(in);
+	cout << "Insert a double: ";
+	cin >> d;
+	vect.push_back(d);
+	cout << "Insert a char: ";
+	cin >> c;
+	vect.push_back(c);
 	for(unsigned i = 0; i < vect.size(); i++)
 	{
 		if(vect.at(i).type() == typeid(int))
